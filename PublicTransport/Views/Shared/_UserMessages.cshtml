@@ -1,0 +1,39 @@
+﻿@using PublicTransport.Core.Constants
+
+@if (ViewData[MessageConstants.ErrorMessage] != null)
+{
+    <script>
+        $(function() {
+            toastr.error('@ViewData[MessageConstants.ErrorMessage]?.ToString()')
+        })
+    </script>
+}
+
+@if (ViewData[MessageConstants.WarningMessage] != null)
+{
+    <script>
+        $(function() {
+            toastr.warning('@ViewData[MessageConstants.WarningMessage]?.ToString()')
+        })
+    </script>
+}
+
+@if (ViewData[MessageConstants.InformationMessage] != null)
+{
+    <script>
+        $(function() {
+            toastr.info('@ViewData[MessageConstants.InformationMessage]?.ToString()')
+        })
+    </script>
+}
+
+@if (ViewData[MessageConstants.SuccessMessage] != null)
+{
+    <script>
+        $(function() {
+            toastr.success('@ViewData[MessageConstants.SuccessMessage]?.ToString()')
+        })
+    </script>
+}
+
+toastr.options.timeOut = 3000;

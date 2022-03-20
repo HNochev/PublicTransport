@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PublicTransport.Core.Constants;
 using PublicTransport.Models;
 using System.Diagnostics;
 
@@ -15,6 +16,8 @@ namespace PublicTransport.Controllers
 
         public IActionResult Index()
         {
+            ViewData[MessageConstants.InformationMessage] = "Нещо се счупи";
+
             return View();
         }
 
