@@ -20,7 +20,7 @@
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="~/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/adminlte.css" asp-append-version="true">
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -77,7 +77,7 @@
                     <a id="forgot-password" asp-page="./ForgotPassword">Забравена парола</a>
                 </p>
                 <p class="mb-0">
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрирай се</a>
+                    <a asp-page="./Register">Регистрирай се</a>
                 </p>
             </div>
             <!-- /.card-body -->

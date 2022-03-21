@@ -34971,16 +34971,20 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .login-page,
 .register-page {
-  -ms-flex-align: center;
-  align-items: center;
-  background-color: #007bff;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  height: 100vh;
-  -ms-flex-pack: center;
-  justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-image: url("../img/1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100vh;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 .login-box,

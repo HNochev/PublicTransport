@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PublicTransport.Data;
+using PublicTransport.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
