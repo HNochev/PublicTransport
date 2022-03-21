@@ -30,7 +30,8 @@
     <div class="card-body">
       <p class="login-box-msg"><b>Регистрация в сайта</b></p>
 
-      <form action="../../index.html" method="post">
+       <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-floating">
           <b asp-for="Input.Email">Имейл</b>
           <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
