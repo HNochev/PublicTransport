@@ -33,8 +33,13 @@
        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-floating">
+          <b asp-for="Input.UserName">Потребителско име</b>
+          <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" />
+          <span asp-validation-for="Input.UserName" class="text-danger"></span>
+        </div>
+        <div class="form-floating">
           <b asp-for="Input.Email">Имейл</b>
-          <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+          <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" />
           <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
         <div class="form-floating">
