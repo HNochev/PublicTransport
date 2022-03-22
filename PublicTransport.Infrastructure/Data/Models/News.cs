@@ -8,7 +8,7 @@ namespace PublicTransport.Infrastructure.Data.Models
         public News()
         {
             this.Id = Guid.NewGuid();
-            this.NewsComments = new HashSet<NewsComments>();
+            this.NewsComments = new HashSet<NewsComment>();
         }
 
         [Key]
@@ -30,6 +30,6 @@ namespace PublicTransport.Infrastructure.Data.Models
         [ForeignKey(nameof(AuthorId))]
         public WebsiteUser Author { get; set; }
 
-        public ICollection<NewsComments> NewsComments { get; set; }
+        public ICollection<NewsComment> NewsComments { get; set; }
     }
 }

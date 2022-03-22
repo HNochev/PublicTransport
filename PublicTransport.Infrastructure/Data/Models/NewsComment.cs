@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace PublicTransport.Infrastructure.Data.Models
 {
-    public class NewsComments
+    public class NewsComment
     {
-        public NewsComments()
+        public NewsComment()
         {
             this.Id = Guid.NewGuid();
         }

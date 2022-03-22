@@ -12,6 +12,18 @@ namespace PublicTransport.Infrastructure.Data
         }
         public DbSet<News> News { get; set; }
 
-        public DbSet<NewsComments> NewsComments { get; set; }
+        public DbSet<NewsComment> NewsComments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder
+                .Entity<NewsComment>()
+                .HasOne(x => x.News)
+                .WithMany(x => x.NewsComments)
+                .HasForeignKey(x => x.NewsId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(builder);
+        }
     }
 }

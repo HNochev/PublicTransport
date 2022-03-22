@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PublicTransport.Infrastructure.Data.Models
 {
-    public class Vehicles
+    public class Photo
     {
     }
 }
