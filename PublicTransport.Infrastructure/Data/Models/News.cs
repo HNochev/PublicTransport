@@ -5,6 +5,12 @@ namespace PublicTransport.Infrastructure.Data.Models
 {
     public class News
     {
+        public News()
+        {
+            this.Id = Guid.NewGuid();
+            this.NewsComments = new HashSet<NewsComments>();
+        }
+
         [Key]
         [Required]
         public Guid Id { get; set; }
@@ -23,5 +29,7 @@ namespace PublicTransport.Infrastructure.Data.Models
 
         [ForeignKey(nameof(AuthorId))]
         public WebsiteUser Author { get; set; }
+
+        public ICollection<NewsComments> NewsComments { get; set; }
     }
 }

@@ -185,7 +185,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("News");
+                    b.ToTable("News", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.WebsiteUser", b =>

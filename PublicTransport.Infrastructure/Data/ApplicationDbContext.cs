@@ -11,5 +11,7 @@ namespace PublicTransport.Infrastructure.Data
         {
         }
         public DbSet<News> News { get; set; }
+
+        public DbSet<NewsComments> NewsComments { get; set; }
     }
 }
