@@ -28,7 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="container">
                 <a href="/" class="navbar-brand">
                     <img src="~/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                    <span class="brand-text font-weight-light">Тролейбусен транспорт - Хасково</span>
+                    <span class="brand-text font-weight-light">ТТ - Хасково</span>
                 </a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,10 +42,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="/" class="nav-link">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Новини</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Contact</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Подвижен състав</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Разписание</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Dropdown</a>
@@ -168,7 +171,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Anything you want
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; @DateTime.UtcNow.Year <a href="/">Тролейбусен транспорт - гр. Хасково</a> </strong>Всички права са запазени.
         </footer>
     </div>
     <!-- ./wrapper -->
