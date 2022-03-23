@@ -14,6 +14,12 @@ namespace PublicTransport.Infrastructure.Data
 
         public DbSet<NewsComment> NewsComments { get; set; }
 
+        public DbSet<Photo> Photos { get; set; }
+
+        public DbSet<PhotoComment> PhotoComments { get; set; }
+
+        public DbSet<Vehicle> Vehicles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -21,6 +27,13 @@ namespace PublicTransport.Infrastructure.Data
                 .HasOne(x => x.News)
                 .WithMany(x => x.NewsComments)
                 .HasForeignKey(x => x.NewsId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<PhotoComment>()
+                .HasOne(x => x.Photo)
+                .WithMany(x => x.PhotoComments)
+                .HasForeignKey(x => x.PhotoId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);

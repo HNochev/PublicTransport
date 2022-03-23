@@ -16,6 +16,7 @@ namespace PublicTransport.Infrastructure.Data.Models
         }
 
         [Key]
+        [Required]
         public Guid Id { get; set; }
 
         [Required]
