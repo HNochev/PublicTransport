@@ -20,6 +20,8 @@ namespace PublicTransport.Infrastructure.Data
 
         public DbSet<Vehicle> Vehicles { get; set; }
 
+        public DbSet<WebsiteUser> WebsiteUsers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder

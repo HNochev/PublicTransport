@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Services;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
 
@@ -14,7 +17,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<WebsiteUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+});
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -26,6 +32,9 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 6;
     options.User.RequireUniqueEmail = true;
 });
+
+builder.Services.AddTransient<INewsService, NewsService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
