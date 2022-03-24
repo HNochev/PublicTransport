@@ -18,7 +18,7 @@ namespace PublicTransport.Controllers
             this.users = users;
         }
 
-        public IActionResult Index()
+        public IActionResult All()
         {
             return View();
         }
@@ -44,12 +44,14 @@ namespace PublicTransport.Controllers
             var newsId = this.news.CreateNews(
                 news.Title,
                 news.Description,
-                DateTime.UtcNow,
-                dealerId);
+                DateTime.Now,
+                dealerId,
+                news.Title,
+                false);
 
-            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно добавена?";
+            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно добавена.";
 
-            return RedirectToAction("/");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

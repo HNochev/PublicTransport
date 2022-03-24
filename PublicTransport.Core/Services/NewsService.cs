@@ -18,14 +18,16 @@ namespace PublicTransport.Core.Services
             this.data = data;
         }
 
-        public Guid CreateNews(string title, string description, DateTime date, string authorId)
+        public Guid CreateNews(string title, string description, DateTime date, string authorId, string imgUrl, bool isDeleted)
         {
             var newNews = new News
             {
-                 Title = title,
-                 Description = description,
-                 Date = date,
-                 AuthorId = authorId
+                Title = title,
+                Description = description,
+                Date = date,
+                AuthorId = authorId,
+                ImgUrl = imgUrl,
+                IsDeleted = isDeleted,
             };
 
             this.data.News.Add(newNews);

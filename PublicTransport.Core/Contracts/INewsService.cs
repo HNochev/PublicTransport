@@ -12,6 +12,8 @@ namespace PublicTransport.Core.Contracts
             string title,
             string description,
             DateTime date,
-            string authorId);
+            string authorId,
+            string imgUrl,
+            bool isDeleted);
     }
 }

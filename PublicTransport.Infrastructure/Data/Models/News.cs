@@ -16,13 +16,18 @@ namespace PublicTransport.Infrastructure.Data.Models
         public Guid Id { get; set; }
         
         [Required]
-        [StringLength(100)]
+        [StringLength(50)]
         public string Title { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         public DateTime Date { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
+
+        public string ImgUrl { get; set; }
 
         [Required]
         public string AuthorId { get; set; }
