@@ -1,8 +1,11 @@
-﻿@{
+﻿@using PublicTransport.Models.News
+@model IEnumerable<NewsAllModel>
+
+@{
     ViewBag.Title = "Новини";
 }
 
-@if (!Model.Cars.Any())
+@if (!Model.Any())
 {
     <h2 class="text-center">В сайта все още няма новини!</h2>
 }
@@ -13,23 +16,22 @@
     <div class="col-md-10 offset-md-1">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="product-title"><a href="">Добави новина</a></h3>
+                <h3 class="product-title"><a asp-controller="News" asp-action="Details" asp-route-id="@news.Id">@news.Title</a></h3>
             </div>
             <div class="card-body">
                 <article>
                     <header class="entry-header">
                         <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
                         <div class="entry-thumbnail">
-                            <img class="full-width img-responsive" src="/images/blog/01.jpg" alt="Снимка">
-                            <span class="post-format post-format-video"><i class="fa fa-bus"></i></span>
+                            <img class="img-fluid" src="@news.ImgUrl" alt="Снимка">
                         </div>
-                        <div class="entry-date">25 November 2022</div>
+                        <div class="entry-date right">Публикувана на: @news.Date.ToString("D")</div>
                     </header>
                     <div class="entry-content">
                         <p class="short-content">
-                            Съдържание
+                            @news.Description
                         </p>
-                        <a class="btn btn-primary float-right" href="/news/view/?n_id=259">Прочети още</a>
+                        <a asp-controller="News" asp-action="Details" asp-route-id="@news.Id" class="btn btn-primary float-right">Прочети още</a>
                     </div>
                 </article>
             </div>

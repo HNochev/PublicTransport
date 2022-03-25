@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PublicTransport.Core.Constants;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Extensions;
+using PublicTransport.Infrastructure.Data;
 using PublicTransport.Models.News;
 
 namespace PublicTransport.Controllers
@@ -11,16 +12,32 @@ namespace PublicTransport.Controllers
     {
         private readonly INewsService news;
         private readonly IUserService users;
+        private readonly ApplicationDbContext data;
 
-        public NewsController(INewsService news, IUserService users)
+        public NewsController(INewsService news, IUserService users, ApplicationDbContext data)
         {
             this.news = news;
             this.users = users;
+            this.data = data;
         }
 
         public IActionResult All()
         {
-            return View();
+            var news = this.data
+                .News
+                .Select(x => new NewsAllModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    ImgUrl = x.ImgUrl,
+                    Date = x.Date,
+                    IsDeleted = x.IsDeleted,
+                    AuthorId = x.AuthorId,
+                })
+                .ToList();
+
+            return View(news);
         }
 
         [Authorize]
@@ -46,7 +63,7 @@ namespace PublicTransport.Controllers
                 news.Description,
                 DateTime.Now,
                 dealerId,
-                news.Title,
+                news.ImgUrl,
                 false);
 
             ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно добавена.";
