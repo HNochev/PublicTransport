@@ -1,4 +1,5 @@
-﻿using PublicTransport.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using PublicTransport.Core.Contracts;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
 using System;
@@ -34,6 +35,18 @@ namespace PublicTransport.Core.Services
             this.data.SaveChanges();
 
             return newNews.Id;
+        }
+
+        public async Task<News> GetNewsByIdAsync(Guid id) => await this.data.News
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+
+        public string Truncate(string source, int length)
+        {
+                if (source.Length > length)
+                {
+                    source = source.Substring(0, length) + "...";
+                }
+                return source;
         }
     }
 }

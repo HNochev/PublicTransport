@@ -1,6 +1,8 @@
-﻿namespace PublicTransport.Models.News
+﻿using PublicTransport.Infrastructure.Data.Models;
+
+namespace PublicTransport.Models.News
 {
-    public class NewsAllModel
+    public class NewsListingModel
     {
         public Guid Id { get; set; }
 
@@ -15,5 +17,7 @@
         public string ImgUrl { get; set; }
 
         public string AuthorId { get; set; }
+
+        public WebsiteUser Author { get; set; }
     }
 }

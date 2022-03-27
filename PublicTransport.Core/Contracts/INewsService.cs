@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PublicTransport.Infrastructure.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,10 @@ namespace PublicTransport.Core.Contracts
             string authorId,
             string imgUrl,
             bool isDeleted);
+
+        Task<News> GetNewsByIdAsync(Guid id);
+
+        string Truncate(string source, int length);
+
     }
 }

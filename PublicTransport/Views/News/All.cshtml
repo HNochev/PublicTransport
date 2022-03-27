@@ -1,5 +1,5 @@
 ﻿@using PublicTransport.Models.News
-@model IEnumerable<NewsAllModel>
+@model IEnumerable<NewsListingModel>
 
 @{
     ViewBag.Title = "Новини";
@@ -25,7 +25,7 @@
                         <div class="entry-thumbnail">
                             <img class="img-fluid" src="@news.ImgUrl" alt="Снимка">
                         </div>
-                        <div class="entry-date right">Публикувана на: @news.Date.ToString("D")</div>
+                        <b class="entry-date right">Публикувана на: @news.Date.ToString("D")</b>
                     </header>
                     <div class="entry-content">
                         <p class="short-content">
