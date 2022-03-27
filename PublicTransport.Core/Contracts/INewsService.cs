@@ -20,7 +20,7 @@ namespace PublicTransport.Core.Contracts
 
         Task<News> GetNewsByIdAsync(Guid id);
 
-        public NewsListingModel Details(Guid id);
+        public NewsCommentsModel Details(Guid id);
 
         public List<NewsListingModel> All();
 
@@ -31,5 +31,7 @@ namespace PublicTransport.Core.Contracts
            string imgUrl);
 
         public bool Delete(Guid id, bool isDeleted);
+
+        public Guid GetNewsId(Guid newsId);
     }
 }

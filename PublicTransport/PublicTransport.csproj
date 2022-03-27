@@ -25,4 +25,8 @@
     <ProjectReference Include="..\PublicTransport.Core\PublicTransport.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\NewsComments\" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,7 @@ using PublicTransport.Core.Extensions;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Core.Models.News;
 using AutoMapper;
+using PublicTransport.Core.Models.NewsComments;
 
 namespace PublicTransport.Controllers
 {
@@ -14,12 +15,14 @@ namespace PublicTransport.Controllers
     {
         private readonly INewsService news;
         private readonly IUserService users;
+        private readonly INewsCommentsService comments;
         private readonly ApplicationDbContext data;
 
-        public NewsController(INewsService news, IUserService users, ApplicationDbContext data)
+        public NewsController(INewsService news, IUserService users, INewsCommentsService comments, ApplicationDbContext data)
         {
             this.news = news;
             this.users = users;
+            this.comments = comments;
             this.data = data;
         }
 
@@ -166,5 +169,34 @@ namespace PublicTransport.Controllers
             ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно изтрита.";
             return RedirectToAction("All");
         }
+
+        [Authorize]
+        public IActionResult AddComment(Guid Id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult AddComment(Guid id, CommentAddFormModel comment)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var edited = this.comments.CreateNewsComment(
+                comment.Content,
+                DateTime.Now,
+                userId,
+                id);
+
+            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно редактирана.";
+            return RedirectToAction($"Details/{id}");
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Models.News;
+using PublicTransport.Core.Models.NewsComments;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
 using System;
@@ -58,12 +59,12 @@ namespace PublicTransport.Core.Services
             return newNews.Id;
         }
 
-        public NewsListingModel Details(Guid id)
+        public NewsCommentsModel Details(Guid id)
         {
             return this.data.News
                 .Include(x => x.Author)
                 .Where(x => x.Id == id)
-                .Select(x => new NewsListingModel
+                .Select(x => new NewsCommentsModel
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -73,6 +74,18 @@ namespace PublicTransport.Core.Services
                     ImgUrl = x.ImgUrl,
                     IsDeleted = x.IsDeleted,
                     Author = x.Author,
+                    NewsComments = x.NewsComments
+                    .Select(x => new CommentsListingModel
+                    {
+                        Id = x.Id,
+                        Content = x.Content,
+                        Date = x.Date,
+                        NewsId = x.NewsId,
+                        User = x.User,
+                        UserId = x.UserId,
+                    })
+                    .OrderByDescending(x => x.Date)
+                    .ToList(),
                 })
                 .First();
         }
@@ -91,20 +104,20 @@ namespace PublicTransport.Core.Services
 
         public bool Edit(Guid id, string title, string description, string imgUrl)
         {
-                var newsData = this.data.News.Find(id);
+            var newsData = this.data.News.Find(id);
 
-                if (newsData == null)
-                {
-                    return false;
-                }
+            if (newsData == null)
+            {
+                return false;
+            }
 
-                newsData.Title = title;
-                newsData.Description = description;
-                newsData.ImgUrl = imgUrl;
+            newsData.Title = title;
+            newsData.Description = description;
+            newsData.ImgUrl = imgUrl;
 
-                this.data.SaveChanges();
+            this.data.SaveChanges();
 
-                return true;
+            return true;
         }
 
         public bool Delete(Guid id, bool isDeleted)
@@ -121,6 +134,14 @@ namespace PublicTransport.Core.Services
             this.data.SaveChanges();
 
             return true;
+        }
+
+        public Guid GetNewsId(Guid newsId)
+        {
+            return this.data.News
+                .Where(x => x.Id == newsId)
+                .Select(x => x.Id)
+                .FirstOrDefault();
         }
     }
 }
