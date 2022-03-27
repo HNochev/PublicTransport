@@ -1,4 +1,5 @@
-﻿using PublicTransport.Infrastructure.Data.Models;
+﻿using PublicTransport.Core.Models.News;
+using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,16 @@ namespace PublicTransport.Core.Contracts
 
         Task<News> GetNewsByIdAsync(Guid id);
 
-        string Truncate(string source, int length);
+        public NewsListingModel Details(Guid id);
 
+        public List<NewsListingModel> All();
+
+        public bool Edit(
+           Guid id,
+           string title,
+           string description,
+           string imgUrl);
+
+        public bool Delete(Guid id, bool isDeleted);
     }
 }

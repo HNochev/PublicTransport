@@ -16,7 +16,7 @@ namespace PublicTransport.Controllers
 
         public IActionResult Index()
         {
-            ViewData[MessageConstants.InformationMessage] = "Нещо се счупи";
+            ViewData[MessageConstants.SuccessMessage] = "Добре дошли!";
 
             return View();
         }

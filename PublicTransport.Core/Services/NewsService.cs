@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Models.News;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
 using System;
@@ -17,6 +18,26 @@ namespace PublicTransport.Core.Services
         public NewsService(ApplicationDbContext data)
         {
             this.data = data;
+        }
+
+        public List<NewsListingModel> All()
+        {
+            return this.data
+                 .News
+                 .Where(x => !x.IsDeleted)
+                 .Select(x => new NewsListingModel
+                 {
+                     Id = x.Id,
+                     Title = x.Title,
+                     Description = Truncate(x.Description, 200),
+                     ImgUrl = x.ImgUrl,
+                     Date = x.Date,
+                     IsDeleted = x.IsDeleted,
+                     AuthorId = x.AuthorId,
+                     Author = x.Author,
+                 })
+                 .OrderByDescending(x => x.Date)
+                 .ToList();
         }
 
         public Guid CreateNews(string title, string description, DateTime date, string authorId, string imgUrl, bool isDeleted)
@@ -37,16 +58,69 @@ namespace PublicTransport.Core.Services
             return newNews.Id;
         }
 
+        public NewsListingModel Details(Guid id)
+        {
+            return this.data.News
+                .Include(x => x.Author)
+                .Where(x => x.Id == id)
+                .Select(x => new NewsListingModel
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Date = x.Date,
+                    AuthorId = x.AuthorId,
+                    ImgUrl = x.ImgUrl,
+                    IsDeleted = x.IsDeleted,
+                    Author = x.Author,
+                })
+                .First();
+        }
+
         public async Task<News> GetNewsByIdAsync(Guid id) => await this.data.News
                 .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
 
-        public string Truncate(string source, int length)
+        private static string Truncate(string source, int length)
         {
-                if (source.Length > length)
+            if (source.Length > length)
+            {
+                source = source.Substring(0, length) + "...";
+            }
+            return source;
+        }
+
+        public bool Edit(Guid id, string title, string description, string imgUrl)
+        {
+                var newsData = this.data.News.Find(id);
+
+                if (newsData == null)
                 {
-                    source = source.Substring(0, length) + "...";
+                    return false;
                 }
-                return source;
+
+                newsData.Title = title;
+                newsData.Description = description;
+                newsData.ImgUrl = imgUrl;
+
+                this.data.SaveChanges();
+
+                return true;
+        }
+
+        public bool Delete(Guid id, bool isDeleted)
+        {
+            var newsData = this.data.News.Find(id);
+
+            if (newsData == null)
+            {
+                return false;
+            }
+
+            newsData.IsDeleted = isDeleted;
+
+            this.data.SaveChanges();
+
+            return true;
         }
     }
 }

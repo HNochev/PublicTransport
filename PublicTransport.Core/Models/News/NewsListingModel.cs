@@ -1,6 +1,6 @@
 ﻿using PublicTransport.Infrastructure.Data.Models;
 
-namespace PublicTransport.Models.News
+namespace PublicTransport.Core.Models.News
 {
     public class NewsListingModel
     {

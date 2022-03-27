@@ -23,6 +23,7 @@ namespace PublicTransport.Controllers
             return View();
         }
 
+        [Authorize(Roles = UserConstants.Administrator)]
         public async Task<IActionResult> CreateRole()
         {
             /*await roleManager.CreateAsync(new IdentityRole()

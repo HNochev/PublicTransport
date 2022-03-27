@@ -5,7 +5,8 @@ using PublicTransport.Core.Constants;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Extensions;
 using PublicTransport.Infrastructure.Data;
-using PublicTransport.Models.News;
+using PublicTransport.Core.Models.News;
+using AutoMapper;
 
 namespace PublicTransport.Controllers
 {
@@ -24,55 +25,43 @@ namespace PublicTransport.Controllers
 
         public IActionResult All()
         {
-            var news = this.data
-                .News
-                .Where(x => !x.IsDeleted)
-                .Select(x => new NewsListingModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Description = this.news.Truncate(x.Description, 200),
-                    ImgUrl = x.ImgUrl,
-                    Date = x.Date,
-                    IsDeleted = x.IsDeleted,
-                    AuthorId = x.AuthorId,
-                    Author = x.Author,
-                })
-                .OrderByDescending(x => x.Date)
-                .ToList();
+            var news = this.news.All();
 
             return View(news);
         }
 
         public IActionResult Details(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            var news = this.data.News
-                .Include(x => x.Author)
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
+            var news = this.news.Details(id);
+
+            if (news == null)
+            {
+                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction("All");
+            }
 
             return View(news);
         }
 
-        [Authorize]
+        [Authorize(Roles = UserConstants.Administrator)]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = UserConstants.Administrator)]
         public IActionResult Add(NewsAddFormModel news)
         {
-            var dealerId = this.users.IdByUser(this.User.Id());
+            var userId = this.users.IdByUser(this.User.Id());
 
-            if (dealerId == null)
+            if (userId == null)
             {
                 ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
                 return RedirectToAction(nameof(HomeController.Index), "Home");
@@ -82,12 +71,99 @@ namespace PublicTransport.Controllers
                 news.Title,
                 news.Description,
                 DateTime.Now,
-                dealerId,
+                userId,
                 news.ImgUrl,
                 false);
 
             ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно добавена.";
+            return RedirectToAction("All");
+        }
 
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Edit(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var news = this.news.Details(id);
+
+            var newsForm = this.data.News
+                .Where(x => x.Id == id)
+                .Select(x => new NewsAddFormModel
+                {
+                    Title = x.Title,
+                    Description = x.Description,
+                    ImgUrl = x.ImgUrl,
+                })
+                .FirstOrDefault();
+
+            return View(newsForm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Edit(Guid id, NewsAddFormModel news)
+        {
+
+            var edited = this.news.Edit(
+                id,
+                news.Title,
+                news.Description,
+                news.ImgUrl);
+
+            if (!edited)
+            {
+                return BadRequest();
+            }
+
+            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно редактирана.";
+            return RedirectToAction("All");
+        }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Delete(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var news = this.news.Details(id);
+
+            var newsForm = this.data.News
+                .Where(x => x.Id == id)
+                .Select(x => new NewsDeleteModel
+                {
+                    Title = x.Title,
+                    Date = x.Date,
+                    ImgUrl = x.ImgUrl,
+                })
+                .FirstOrDefault();
+
+            return View(newsForm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Delete(Guid id, NewsDeleteModel news)
+        {
+
+            var deleted = this.news.Delete(id, true);
+
+            if (!deleted)
+            {
+                return BadRequest();
+            }
+
+            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно изтрита.";
             return RedirectToAction("All");
         }
     }

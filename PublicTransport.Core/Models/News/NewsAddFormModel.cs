@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PublicTransport.Models.News
+namespace PublicTransport.Core.Models.News
 {
     public class NewsAddFormModel
     {
