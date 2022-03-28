@@ -1,37 +1,37 @@
 ﻿@using PublicTransport.Core.Constants
 
-@if (ViewData[MessageConstants.ErrorMessage] != null)
+@if (TempData[MessageConstants.ErrorMessage] != null)
 {
     <script>
         $(function() {
-            toastr.error('@ViewData[MessageConstants.ErrorMessage]?.ToString()')
+            toastr.error('@TempData[MessageConstants.ErrorMessage]?.ToString()')
         })
     </script>
 }
 
-@if (ViewData[MessageConstants.WarningMessage] != null)
+@if (TempData[MessageConstants.WarningMessage] != null)
 {
     <script>
         $(function() {
-            toastr.warning('@ViewData[MessageConstants.WarningMessage]?.ToString()')
+            toastr.warning('@TempData[MessageConstants.WarningMessage]?.ToString()')
         })
     </script>
 }
 
-@if (ViewData[MessageConstants.InformationMessage] != null)
+@if (TempData[MessageConstants.InformationMessage] != null)
 {
     <script>
         $(function() {
-            toastr.info('@ViewData[MessageConstants.InformationMessage]?.ToString()')
+            toastr.info('@TempData[MessageConstants.InformationMessage]?.ToString()')
         })
     </script>
 }
 
-@if (ViewData[MessageConstants.SuccessMessage] != null)
+@if (TempData[MessageConstants.SuccessMessage] != null)
 {
     <script>
         $(function() {
-            toastr.success('@ViewData[MessageConstants.SuccessMessage]?.ToString()')
+            toastr.success('@TempData[MessageConstants.SuccessMessage]?.ToString()')
         })
     </script>
 }

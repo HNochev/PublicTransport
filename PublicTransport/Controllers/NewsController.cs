@@ -37,7 +37,7 @@ namespace PublicTransport.Controllers
         {
             if (id == Guid.Empty)
             {
-                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
@@ -45,7 +45,7 @@ namespace PublicTransport.Controllers
 
             if (news == null)
             {
-                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
                 return RedirectToAction("All");
             }
 
@@ -66,7 +66,7 @@ namespace PublicTransport.Controllers
 
             if (userId == null)
             {
-                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
@@ -78,7 +78,7 @@ namespace PublicTransport.Controllers
                 news.ImgUrl,
                 false);
 
-            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно добавена.";
+            TempData[MessageConstants.SuccessMessage] = "Новината беше успешно добавена.";
             return RedirectToAction("All");
         }
 
@@ -89,7 +89,7 @@ namespace PublicTransport.Controllers
 
             if (userId == null)
             {
-                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
@@ -124,7 +124,7 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно редактирана.";
+            TempData[MessageConstants.SuccessMessage] = "Новината беше успешно редактирана.";
             return RedirectToAction("All");
         }
 
@@ -135,7 +135,7 @@ namespace PublicTransport.Controllers
 
             if (userId == null)
             {
-                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
@@ -166,7 +166,7 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно изтрита.";
+            TempData[MessageConstants.SuccessMessage] = "Новината беше успешно изтрита.";
             return RedirectToAction("All");
         }
 
@@ -184,7 +184,7 @@ namespace PublicTransport.Controllers
 
             if (userId == null)
             {
-                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
@@ -194,7 +194,7 @@ namespace PublicTransport.Controllers
                 userId,
                 id);
 
-            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно редактирана.";
+            TempData[MessageConstants.SuccessMessage] = "Успешно публикувахте коментар.";
             return Redirect(Request.Path);
         }
     }

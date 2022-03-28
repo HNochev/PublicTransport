@@ -73,7 +73,7 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно редактирана.";
+            TempData[MessageConstants.SuccessMessage] = "Коментарът беше успешно редактиран.";
 
             return Redirect($"../../News/Details/{newsId}");
         }
@@ -96,7 +96,7 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно изтрита.";
+            TempData[MessageConstants.SuccessMessage] = "Коментарът беше успешно изтрит.";
             return Redirect($"../../News/Details/{newsId}");
         }
     }
