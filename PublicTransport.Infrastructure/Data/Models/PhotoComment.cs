@@ -25,6 +25,8 @@ namespace PublicTransport.Infrastructure.Data.Models
 
         public DateTime Date { get; set; }
 
+        public DateTime? LastEditedOn { get; set; }
+
         [Required]
         public Guid PhotoId { get; set; }
 

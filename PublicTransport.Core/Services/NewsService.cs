@@ -80,6 +80,7 @@ namespace PublicTransport.Core.Services
                         Id = x.Id,
                         Content = x.Content,
                         Date = x.Date,
+                        LastEditedOn = x.LastEditedOn,
                         NewsId = x.NewsId,
                         User = x.User,
                         UserId = x.UserId,

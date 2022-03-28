@@ -171,14 +171,14 @@ namespace PublicTransport.Controllers
         }
 
         [Authorize]
-        public IActionResult AddComment(Guid Id)
+        public IActionResult _PartialAddComment(Guid Id)
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
-        public IActionResult AddComment(Guid id, CommentAddFormModel comment)
+        [Authorize]
+        public IActionResult Details(Guid id, CommentAddFormModel comment)
         {
             var userId = this.users.IdByUser(this.User.Id());
 
@@ -195,8 +195,7 @@ namespace PublicTransport.Controllers
                 id);
 
             ViewData[MessageConstants.SuccessMessage] = "Новината беше успешно редактирана.";
-            return RedirectToAction($"Details/{id}");
+            return Redirect(Request.Path);
         }
-
     }
 }

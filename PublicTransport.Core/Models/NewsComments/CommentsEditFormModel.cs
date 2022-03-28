@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace PublicTransport.Core.Models.NewsComments
 {
-    public class CommentAddFormModel
+    public class CommentsEditFormModel
     {
         [Required]
         [StringLength(500)]
         [Display(Name = "Съдържание")]
 
         public string Content { get; set; }
+
+        public DateTime LastEditedOn { get; set; }
     }
 }

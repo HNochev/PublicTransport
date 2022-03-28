@@ -32,5 +32,50 @@ namespace PublicTransport.Core.Services
 
             return newComment.Id;
         }
+
+        public bool Edit(Guid id, string content, DateTime lastEditedOn)
+        {
+            var commentData = this.data.NewsComments.Find(id);
+
+            if (commentData == null)
+            {
+                return false;
+            }
+
+            commentData.Content = content;
+            commentData.LastEditedOn = lastEditedOn;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public bool IsByUser(Guid commentId, string userId)
+            => this.data
+                .NewsComments
+                .Any(c => c.Id == commentId && c.UserId == userId);
+
+        public Guid IdOfNews(Guid commentId)
+            => this.data
+                .NewsComments
+                .Where(x => x.Id == commentId)
+                .Select(x => x.NewsId)
+                .FirstOrDefault();
+
+        public bool Delete(Guid id)
+        {
+            var comment = this.data.NewsComments.Find(id);
+
+            if (comment == null)
+            {
+                return false;
+            }
+
+            this.data.Remove(comment);
+
+            this.data.SaveChanges();
+
+            return true;
+        }
     }
 }

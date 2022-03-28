@@ -19,5 +19,6 @@ namespace PublicTransport.Core.Models.News
         public string AuthorId { get; set; }
 
         public WebsiteUser Author { get; set; }
+
     }
 }

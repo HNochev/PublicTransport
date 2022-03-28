@@ -13,5 +13,17 @@ namespace PublicTransport.Core.Contracts
             DateTime date,
             string userId,
             Guid newsId);
+
+        public bool Edit(
+            Guid id,
+            string content,
+            DateTime lastEditedOn
+            );
+
+        public bool IsByUser(Guid commentId, string userId);
+
+        public Guid IdOfNews(Guid commentId);
+
+        public bool Delete(Guid id);
     }
 }

@@ -15,6 +15,8 @@ namespace PublicTransport.Core.Models.NewsComments
 
         public DateTime Date { get; set; }
 
+        public DateTime? LastEditedOn { get; set; }
+
         public Guid NewsId { get; set; }
 
         public string UserId { get; set; }

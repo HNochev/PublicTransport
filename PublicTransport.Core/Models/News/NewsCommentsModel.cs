@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PublicTransport.Core.Models.News
 {
-    public class NewsCommentsModel
+    public class NewsCommentsModel : CommentAddFormModel
     {
         public Guid Id { get; set; }
 
