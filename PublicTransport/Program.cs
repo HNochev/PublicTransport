@@ -36,6 +36,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddTransient<INewsService, NewsService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<INewsCommentsService, NewsCommentsService>();
+builder.Services.AddTransient<IVehicleService, VehicleService>();
 
 var app = builder.Build();
 

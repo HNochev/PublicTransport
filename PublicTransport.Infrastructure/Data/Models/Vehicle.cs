@@ -52,6 +52,10 @@ namespace PublicTransport.Infrastructure.Data.Models
         [StringLength(500)]
         public string Description { get; set; }
 
+        public bool IsScrapped { get; set; }
+
+        public DateTime? ScrappedOn { get; set; }
+
         public ICollection<Photo> Photos { get; set; }
     }
 }
