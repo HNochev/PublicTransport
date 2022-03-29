@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PublicTransport.Core.Models.NewsComments;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,5 +26,7 @@ namespace PublicTransport.Core.Contracts
         public Guid IdOfNews(Guid commentId);
 
         public bool Delete(Guid id);
+
+        public CommentsEditFormModel EditViewData(Guid id);
     }
 }

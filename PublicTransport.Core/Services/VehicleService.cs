@@ -150,5 +150,41 @@ namespace PublicTransport.Core.Services
 
             return true;
         }
+
+        public VehicleDeleteModel DeleteViewData(Guid id)
+        {
+            return this.data.Vehicles
+                .Where(x => x.Id == id)
+                .Select(x => new VehicleDeleteModel
+                {
+                    InventoryNumber = x.InventoryNumber,
+                    Make = x.Make,
+                    Model = x.Model,
+                    YearBuilt = x.YearBuilt,
+                    FactoryNumber = x.FactoryNumber,
+                })
+                .First();
+        }
+
+        public VehicleAddFormModel EditViewData(Guid id)
+        {
+            return this.data.Vehicles
+                .Where(x => x.Id == id)
+                .Select(x => new VehicleAddFormModel
+                {
+                    InventoryNumber = x.InventoryNumber,
+                    Make = x.Make,
+                    Model = x.Model,
+                    FactoryNumber = x.FactoryNumber,
+                    YearBuilt = x.YearBuilt,
+                    ArriveInTown = x.ArriveInTown,
+                    InUseSince = x.InUseSince,
+                    InUseTo = x.InUseTo,
+                    ScrappedOn = x.ScrappedOn,
+                    Description = x.Description,
+                    VehicleConditionId = x.VehicleConditionId,
+                })
+                .First();
+        }
     }
 }

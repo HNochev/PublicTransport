@@ -13,14 +13,12 @@ namespace PublicTransport.Controllers
         private readonly INewsCommentsService comments;
         private readonly INewsService news;
         private readonly IUserService users;
-        private readonly ApplicationDbContext data;
 
-        public NewsCommentsController(INewsCommentsService comments, INewsService news, IUserService users, ApplicationDbContext data)
+        public NewsCommentsController(INewsCommentsService comments, INewsService news, IUserService users)
         {
             this.comments = comments;
             this.news = news;
             this.users = users;
-            this.data = data;
         }
 
         [Authorize]
@@ -39,13 +37,7 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            var commentForm = this.data.NewsComments
-                .Where(x => x.Id == id)
-                .Select(x => new CommentsEditFormModel
-                {
-                    Content = x.Content
-                })
-                .FirstOrDefault();
+            var commentForm = this.comments.EditViewData(id);
 
             return View(commentForm);
         }

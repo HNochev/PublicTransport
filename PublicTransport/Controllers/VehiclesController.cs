@@ -12,13 +12,11 @@ namespace PublicTransport.Controllers
     {
         private readonly IVehicleService vehicles;
         private readonly IUserService users;
-        private readonly ApplicationDbContext data;
 
-        public VehiclesController(IVehicleService vehicles, IUserService users, ApplicationDbContext data)
+        public VehiclesController(IVehicleService vehicles, IUserService users)
         {
             this.vehicles = vehicles;
             this.users = users;
-            this.data = data;
         }
 
         public IActionResult All()
@@ -99,23 +97,7 @@ namespace PublicTransport.Controllers
 
             var vehicles = this.vehicles.Details(id);
 
-            var vehiclesForm = this.data.Vehicles
-                .Where(x => x.Id == id)
-                .Select(x => new VehicleAddFormModel
-                {
-                    InventoryNumber = x.InventoryNumber,
-                    Make = x.Make,
-                    Model = x.Model,
-                    FactoryNumber = x.FactoryNumber,
-                    YearBuilt = x.YearBuilt,
-                    ArriveInTown = x.ArriveInTown,
-                    InUseSince = x.InUseSince,
-                    InUseTo = x.InUseTo,
-                    ScrappedOn = x.ScrappedOn,
-                    Description = x.Description,
-                    VehicleConditionId = x.VehicleConditionId,
-                })
-                .First();
+            var vehiclesForm = this.vehicles.EditViewData(vehicles.Id);
 
             vehiclesForm.VehicleConditions = this.vehicles.AllVehicleConditions();
 
@@ -164,17 +146,7 @@ namespace PublicTransport.Controllers
 
             var vehicle = this.vehicles.Details(id);
 
-            var vehicleForm = this.data.Vehicles
-                .Where(x => x.Id == id)
-                .Select(x => new VehicleDeleteModel
-                {
-                    InventoryNumber = x.InventoryNumber,
-                    Make = x.Make,
-                    Model = x.Model,
-                    YearBuilt = x.YearBuilt,
-                    FactoryNumber = x.FactoryNumber,
-                })
-                .FirstOrDefault();
+            var vehicleForm = this.vehicles.DeleteViewData(vehicle.Id);
 
             return View(vehicleForm);
         }
@@ -191,7 +163,7 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            TempData[MessageConstants.SuccessMessage] = "Новината беше успешно изтрита.";
+            TempData[MessageConstants.SuccessMessage] = "Тролейбусът беше успешно изтрит.";
             return RedirectToAction("All");
         }
     }

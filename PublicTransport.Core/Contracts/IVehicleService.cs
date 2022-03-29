@@ -46,5 +46,9 @@ namespace PublicTransport.Core.Contracts
            );
 
         public bool Delete(Guid id, bool isDeleted);
+
+        public VehicleDeleteModel DeleteViewData(Guid id);
+
+        public VehicleAddFormModel EditViewData(Guid id);
     }
 }

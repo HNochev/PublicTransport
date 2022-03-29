@@ -144,5 +144,31 @@ namespace PublicTransport.Core.Services
                 .Select(x => x.Id)
                 .FirstOrDefault();
         }
+
+        public NewsAddFormModel EditViewData(Guid id)
+        {
+            return this.data.News
+                .Where(x => x.Id == id)
+                .Select(x => new NewsAddFormModel
+                {
+                    Title = x.Title,
+                    Description = x.Description,
+                    ImgUrl = x.ImgUrl,
+                })
+                .First();
+        }
+
+        public NewsDeleteModel DeleteViewData(Guid id)
+        {
+            return this.data.News
+                .Where(x => x.Id == id)
+                .Select(x => new NewsDeleteModel
+                {
+                    Title = x.Title,
+                    Date = x.Date,
+                    ImgUrl = x.ImgUrl,
+                })
+                .First();
+        }
     }
 }

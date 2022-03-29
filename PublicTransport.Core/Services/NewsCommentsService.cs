@@ -1,4 +1,5 @@
 ﻿using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Models.NewsComments;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
 using System;
@@ -76,6 +77,17 @@ namespace PublicTransport.Core.Services
             this.data.SaveChanges();
 
             return true;
+        }
+
+        public CommentsEditFormModel EditViewData(Guid id)
+        {
+            return this.data.NewsComments
+                    .Where(x => x.Id == id)
+                    .Select(x => new CommentsEditFormModel
+                    {
+                        Content = x.Content
+                    })
+                    .First();
         }
     }
 }

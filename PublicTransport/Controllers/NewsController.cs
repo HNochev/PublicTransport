@@ -16,14 +16,12 @@ namespace PublicTransport.Controllers
         private readonly INewsService news;
         private readonly IUserService users;
         private readonly INewsCommentsService comments;
-        private readonly ApplicationDbContext data;
 
-        public NewsController(INewsService news, IUserService users, INewsCommentsService comments, ApplicationDbContext data)
+        public NewsController(INewsService news, IUserService users, INewsCommentsService comments)
         {
             this.news = news;
             this.users = users;
             this.comments = comments;
-            this.data = data;
         }
 
         public IActionResult All()
@@ -95,15 +93,7 @@ namespace PublicTransport.Controllers
 
             var news = this.news.Details(id);
 
-            var newsForm = this.data.News
-                .Where(x => x.Id == id)
-                .Select(x => new NewsAddFormModel
-                {
-                    Title = x.Title,
-                    Description = x.Description,
-                    ImgUrl = x.ImgUrl,
-                })
-                .FirstOrDefault();
+            var newsForm = this.news.EditViewData(news.Id);
 
             return View(newsForm);
         }
@@ -141,15 +131,7 @@ namespace PublicTransport.Controllers
 
             var news = this.news.Details(id);
 
-            var newsForm = this.data.News
-                .Where(x => x.Id == id)
-                .Select(x => new NewsDeleteModel
-                {
-                    Title = x.Title,
-                    Date = x.Date,
-                    ImgUrl = x.ImgUrl,
-                })
-                .FirstOrDefault();
+            var newsForm = this.news.DeleteViewData(news.Id);
 
             return View(newsForm);
         }

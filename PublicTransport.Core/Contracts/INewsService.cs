@@ -33,5 +33,9 @@ namespace PublicTransport.Core.Contracts
         public bool Delete(Guid id, bool isDeleted);
 
         public Guid GetNewsId(Guid newsId);
+
+        public NewsAddFormModel EditViewData(Guid id);
+
+        public NewsDeleteModel DeleteViewData(Guid id);
     }
 }
