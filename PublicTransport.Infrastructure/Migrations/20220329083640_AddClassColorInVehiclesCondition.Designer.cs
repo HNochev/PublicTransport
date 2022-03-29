@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PublicTransport.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using PublicTransport.Infrastructure.Data;
 namespace PublicTransport.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220329083640_AddClassColorInVehiclesCondition")]
+    partial class AddClassColorInVehiclesCondition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,10 +314,8 @@ namespace PublicTransport.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("ArriveInTown")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -324,7 +324,7 @@ namespace PublicTransport.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("InUseSince")
+                    b.Property<DateTime>("InUseSince")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("InUseTo")
@@ -379,9 +379,6 @@ namespace PublicTransport.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Counter")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

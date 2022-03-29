@@ -20,7 +20,9 @@ namespace PublicTransport.Core.Models.Vehicles
 
         public int YearBuilt { get; set; }
 
-        public DateTime InUseSince { get; set; }
+        public DateTime? ArriveInTown { get; set; }
+
+        public DateTime? InUseSince { get; set; }
 
         public DateTime? InUseTo { get; set; }
 

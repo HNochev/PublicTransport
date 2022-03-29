@@ -5,6 +5,7 @@ using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Services;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
+using PublicTransport.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,8 @@ builder.Services.AddTransient<INewsCommentsService, NewsCommentsService>();
 builder.Services.AddTransient<IVehicleService, VehicleService>();
 
 var app = builder.Build();
+
+app.PrepareDatabase();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,64 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PublicTransport.Infrastructure.Data.Models
+namespace PublicTransport.Core.Models.Vehicles
 {
-    public class Vehicle
+    public class VehicleAddFormModel
     {
-        public Vehicle()
-        {
-            this.Id = Guid.NewGuid();
-            this.Photos = new HashSet<Photo>();
-        }
-
-        [Key]
-        [Required]
-        public Guid Id { get; set; }
-
         [Required]
         [StringLength(100)]
+        [Display(Name = "Инвентарен номер")]
         public string InventoryNumber { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Марка")]
         public string Make { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Модел")]
         public string Model { get; set; }
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Заводски номер")]
         public string FactoryNumber { get; set; }
 
         [Required]
         [Range(1900, 2100)]
+        [Display(Name = "Година на производство")]
         public int YearBuilt { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "Пристигнал в Хасково")]
         public DateTime? ArriveInTown { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "Начало на експлоатацията")]
         public DateTime? InUseSince { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "Край на експлоатацията")]
         public DateTime? InUseTo { get; set; }
 
         [StringLength(500)]
+        [Display(Name = "Информация")]
         public string? Description { get; set; }
 
-        public bool IsScrapped { get; set; }
-
-        public DateTime? ScrappedOn { get; set; }
-
-        [Required]
+        [Display(Name = "Състояние")]
         public Guid VehicleConditionId { get; set; }
 
-        [ForeignKey(nameof(VehicleConditionId))]
-        public VehicleCondition VehicleCondition { get; set; }
-
-        public ICollection<Photo> Photos { get; set; }
+        public IEnumerable<VehicleConditionModel> VehicleConditions { get; set; }
     }
 }

@@ -10,5 +10,19 @@ namespace PublicTransport.Core.Contracts
     public interface IVehicleService
     {
         public List<VehiclesListingModel> All();
+
+        public IEnumerable<VehicleConditionModel> AllVehicleConditions();
+
+        public Guid CreateVehicle(
+            string inventoryNumber,
+            string make, string model,
+            string factoryNumber,
+            DateTime? arriveInTown,
+            DateTime? inUseSince,
+            DateTime? inUseTo,
+            Guid vehicleConditionId,
+            int yearBuilt,
+            string? description,
+            bool isScrapped);
     }
 }

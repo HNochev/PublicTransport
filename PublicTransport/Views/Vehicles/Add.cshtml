@@ -1,33 +1,77 @@
-﻿@using PublicTransport.Core.Models.News
-@model NewsAddFormModel
+﻿@using PublicTransport.Core.Models.Vehicles
+@model VehicleAddFormModel
 
 @{
-    ViewData["Title"] = "Добави новина";
+    ViewData["Title"] = "Добави превозно средство";
 }
 
 <div class="row">
     <div class="col-md-10 offset-md-1">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Добави новина</h3>
+                <h3 class="card-title">Добави превозно средство</h3>
             </div>
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label asp-for="Title"></label>
-                        <input asp-for="Title" class="form-control" placeholder="Добавете заглавие">
-                        <span asp-validation-for="Title" class="text-danger"></span>
+                        <label asp-for="InventoryNumber"></label>
+                        <input asp-for="InventoryNumber" class="form-control" placeholder="Добавете инвентарен номер">
+                        <span asp-validation-for="InventoryNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Make"></label>
+                        <input asp-for="Make" class="form-control" placeholder="Добавете име на производител">
+                        <span asp-validation-for="Make" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Model"></label>
+                        <input asp-for="Model" class="form-control" placeholder="Добавете модел">
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FactoryNumber"></label>
+                        <input asp-for="FactoryNumber" class="form-control" placeholder="Добавете заводски номер">
+                        <span asp-validation-for="FactoryNumber" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="ArriveInTown" class="control-label"></label>
+                            <input asp-for="ArriveInTown" class="form-control">
+                            <span asp-validation-for="ArriveInTown" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="InUseSince" class="control-label"></label>
+                            <input asp-for="InUseSince" class="form-control">
+                            <span asp-validation-for="InUseSince" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="InUseTo" class="control-label"></label>
+                            <input asp-for="InUseTo" class="form-control">
+                            <span asp-validation-for="InUseTo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group col-md-9">
+                        <label asp-for="VehicleConditionId" class="control-label"></label>
+                        <select asp-for="VehicleConditionId" class="form-control">
+                        @foreach (var vehicleCondition in Model.VehicleConditions)
+                        {
+                            <option class="@vehicleCondition.ClassColor" value="@vehicleCondition.Id">@vehicleCondition.ConditionDescription</option>
+                        }
+                        </select>
+                        <span asp-validation-for="VehicleConditionId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label asp-for="YearBuilt" class="control-label"></label>
+                            <input asp-for="YearBuilt" class="form-control">
+                            <span asp-validation-for="YearBuilt" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label asp-for="Description"></label>
-                        <textarea asp-for="Description" class="form-control" rows="8" placeholder="Добавете съдържанието тук"></textarea>
+                        <textarea asp-for="Description" class="form-control" rows="6" placeholder="Добавете информация за тролейбуса тук"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ImgUrl"></label>
-                        <input asp-for="ImgUrl" class="form-control" placeholder="Добавете линк на изображение">
-                        <span asp-validation-for="ImgUrl" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="card-body">
@@ -42,138 +86,3 @@
 @section Scripts {
 <partial name="_ValidationScriptsPartial" />
 }
-
-<div class="row">
-    <div class="col-md-10 offset-md-1">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">General Elements</h3>
-            </div>
-            <form method="post">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label>Text</label>
-                        <input type="text" class="form-control" placeholder="Enter ...">
-                    </div>
-                    <div class="form-group">
-                        <label>Textarea</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label" for="inputSuccess">
-                            <i class="fas fa-check"></i> Input with
-                            success
-                        </label>
-                        <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="Enter ...">
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label" for="inputWarning">
-                            <i class="far fa-bell"></i> Input with
-                            warning
-                        </label>
-                        <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ...">
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label" for="inputError">
-                            <i class="far fa-times-circle"></i> Input with
-                            error
-                        </label>
-                        <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ...">
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox">
-                                    <label class="form-check-label">Checkbox</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked="">
-                                    <label class="form-check-label">Checkbox checked</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" disabled="">
-                                    <label class="form-check-label">Checkbox disabled</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radio1">
-                                    <label class="form-check-label">Radio</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radio1" checked="">
-                                    <label class="form-check-label">Radio checked</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" disabled="">
-                                    <label class="form-check-label">Radio disabled</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <label>Select</label>
-                                <select class="form-control">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                    <option>option 5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Select Disabled</label>
-                                <select class="form-control" disabled="">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                    <option>option 5</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <label>Select Multiple</label>
-                                <select multiple="" class="form-control">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                    <option>option 5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Select Multiple Disabled</label>
-                                <select multiple="" class="form-control" disabled="">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
-                                    <option>option 5</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
