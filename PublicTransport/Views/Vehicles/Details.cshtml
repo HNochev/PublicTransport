@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PublicTransport.Core.Constants
+@using PublicTransport.Core.Models.Vehicles
+@using PublicTransport.Infrastructure.Data.Models
+
+@model VehicleDetailsModel
+@inject SignInManager<WebsiteUser> SignInManager
+@inject UserManager<WebsiteUser> UserManager
+
+@{
+    ViewBag.Title = $"{@Model.InventoryNumber} {@Model.Make} {@Model.Model}";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-text-width"></i>
+                    Основна информация
+                </h3>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-6">Инвентарен номер:</dt>
+                    <dd class="col-sm-6">@Model.InventoryNumber</dd>
+                    <dt class="col-sm-6">Марка:</dt>
+                    <dd class="col-sm-6">@Model.Make</dd>
+                    <dt class="col-sm-6">Модел:</dt>
+                    <dd class="col-sm-6">@Model.Model</dd>
+                    <dt class="col-sm-6">Заводски номер:</dt>
+                    <dd class="col-sm-6">@Model.FactoryNumber
+                    <dt class="col-sm-6">Година на производство:</dt>
+                    <dd class="col-sm-6">@Model.YearBuilt
+                    <dt class="col-sm-6">Пристигнал в депото:</dt>
+                    <dd class="col-sm-6">@Model.ArriveInTown.ToString("D")</dd>
+                    <dt class="col-sm-6">Начало експлоатация в града:</dt>
+                    <dd class="col-sm-6">@(Model.InUseSince.HasValue ? @Model.InUseSince.Value.ToString("D") : "Все още няма")</dd>
+                    <dt class="col-sm-6">Край експлоатация в града:</dt>
+                    <dd class="col-sm-6">@(Model.InUseTo.HasValue ? @Model.InUseTo.Value.ToString("D") : "Все още няма")</dd>
+                    <dt class="col-sm-6">Бракуван(Нарязан):</dt>
+                    <dd class="col-sm-6">@(Model.ScrappedOn.HasValue ? @Model.ScrappedOn.Value.ToString("D") : "Все още няма")</dd>
+                    <dt class="col-sm-3">Състояние:</dt>
+                    <dd class="col-sm-9 text-center @Model.VehicleCondition.ClassColor">@Model.VehicleCondition.ConditionDescription</dd>
+                    <dt class="col-md-6 offset-md-4">Допълнителна информация:</dt>
+                    <dd class="col-sm-12">@Model.Description</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    @if (this.User.IsInRole(UserConstants.Administrator))
+    {
+        <div class="col-md-4">
+            <div class="card card-warning">
+                <div class="card-header">
+                    <h5 class="text-center">
+                        Опции за редакция и изтриване
+                    </h5>
+                </div>
+                <div class="card-body">
+                        <a asp-controller="Vehicles" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning float-left">Редактирай</a>
+                        <a asp-controller="Vehicles" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right">Изтрий</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

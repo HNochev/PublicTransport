@@ -15,7 +15,7 @@ namespace PublicTransport.Core.Contracts
 
         public Guid CreateVehicle(
             string inventoryNumber,
-            string make, 
+            string make,
             string model,
             string factoryNumber,
             DateTime arriveInTown,
@@ -27,5 +27,24 @@ namespace PublicTransport.Core.Contracts
             string? description,
             bool isDeleted
             );
+
+        public VehicleDetailsModel Details(Guid id);
+
+        public bool Edit(
+           Guid id,
+           string inventoryNumber,
+           string make,
+           string model,
+           string factoryNumber,
+           DateTime arriveInTown,
+           DateTime? inUseSince,
+           DateTime? inUseTo,
+           DateTime? scrappedOn,
+           Guid vehicleConditionId,
+           int yearBuilt,
+           string? description
+           );
+
+        public bool Delete(Guid id, bool isDeleted);
     }
 }

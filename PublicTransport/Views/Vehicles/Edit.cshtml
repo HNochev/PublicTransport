@@ -1,0 +1,93 @@
+﻿@using PublicTransport.Core.Models.Vehicles
+@model VehicleAddFormModel
+
+@{
+    ViewData["Title"] = "Добави превозно средство";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Редактирай превозно средство с инвентарен номер @Model.InventoryNumber</h3>
+            </div>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="InventoryNumber"></label>
+                        <input asp-for="InventoryNumber" class="form-control" placeholder="Добавете инвентарен номер">
+                        <span asp-validation-for="InventoryNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Make"></label>
+                        <input asp-for="Make" class="form-control" placeholder="Добавете име на производител">
+                        <span asp-validation-for="Make" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Model"></label>
+                        <input asp-for="Model" class="form-control" placeholder="Добавете модел">
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FactoryNumber"></label>
+                        <input asp-for="FactoryNumber" class="form-control" placeholder="Добавете заводски номер">
+                        <span asp-validation-for="FactoryNumber" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label asp-for="ArriveInTown" class="control-label"></label>
+                            <input asp-for="ArriveInTown" class="form-control">
+                            <span asp-validation-for="ArriveInTown" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="InUseSince" class="control-label"></label>
+                            <input asp-for="InUseSince" class="form-control">
+                            <span asp-validation-for="InUseSince" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="InUseTo" class="control-label"></label>
+                            <input asp-for="InUseTo" class="form-control">
+                            <span asp-validation-for="InUseTo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="ScrappedOn" class="control-label"></label>
+                            <input asp-for="ScrappedOn" class="form-control">
+                            <span asp-validation-for="ScrappedOn" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group col-md-9">
+                        <label asp-for="VehicleConditionId" class="control-label"></label>
+                        <select asp-for="VehicleConditionId" class="form-control">
+                        @foreach (var vehicleCondition in Model.VehicleConditions)
+                        {
+                            <option class="@vehicleCondition.ClassColor" value="@vehicleCondition.Id">@vehicleCondition.ConditionDescription</option>
+                        }
+                        </select>
+                        <span asp-validation-for="VehicleConditionId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label asp-for="YearBuilt" class="control-label"></label>
+                            <input asp-for="YearBuilt" class="form-control">
+                            <span asp-validation-for="YearBuilt" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" rows="6" placeholder="Добавете информация за тролейбуса тук"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a href="/" class="btn btn-secondary">Отказ</a>
+                    <button type="submit" class="btn btn-primary float-right">Публикувай</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

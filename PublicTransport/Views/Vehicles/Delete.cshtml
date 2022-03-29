@@ -1,0 +1,34 @@
+﻿@using PublicTransport.Core.Models.Vehicles
+@model VehicleDeleteModel
+
+@{
+    ViewData["Title"] = "Изтриване на тролейбус";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Сигурен ли сте, че искате да изтриете превозното средство с:</h3>
+            </div>
+            <form method="post">
+                <div class="card-body">
+                    <div class="form-group text-center">
+                        <h3 class="text-center" asp-for="Title">Инвентарен номер: @Model.InventoryNumber</h3><br>
+                        <b class="text-center" asp-for="Date">Модел: @Model.Make @Model.Model</b><br>
+                        <b class="text-center" asp-for="Date">Произведен: @Model.YearBuilt г.</b><br>
+                        <b class="text-center" asp-for="Date">Заводски номер: @Model.FactoryNumber</b>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a href="/" class="btn btn-secondary">Отказ</a>
+                    <button type="submit" class="btn btn-danger float-right">Изтрий</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

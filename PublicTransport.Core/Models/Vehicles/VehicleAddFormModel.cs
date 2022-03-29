@@ -10,22 +10,22 @@ namespace PublicTransport.Core.Models.Vehicles
     public class VehicleAddFormModel
     {
         [Required]
-        [StringLength(100)]
+        [StringLength(10)]
         [Display(Name = "Инвентарен номер")]
         public string InventoryNumber { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(25)]
         [Display(Name = "Марка")]
         public string Make { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(25)]
         [Display(Name = "Модел")]
         public string Model { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(15)]
         [Display(Name = "Заводски номер")]
         public string FactoryNumber { get; set; }
 

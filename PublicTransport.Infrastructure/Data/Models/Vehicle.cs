@@ -21,19 +21,19 @@ namespace PublicTransport.Infrastructure.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(10)]
         public string InventoryNumber { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(25)]
         public string Make { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(25)]
         public string Model { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(15)]
         public string FactoryNumber { get; set; }
 
         [Required]

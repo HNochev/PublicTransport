@@ -85,5 +85,70 @@ namespace PublicTransport.Core.Services
 
             return newVehicle.Id;
         }
+
+        public VehicleDetailsModel Details(Guid id)
+        {
+            return this.data.Vehicles
+                .Where(x => x.Id == id)
+                .Select(x => new VehicleDetailsModel
+                {
+                    Id = x.Id,
+                    Make = x.Make,
+                    Model = x.Model,
+                    InventoryNumber = x.InventoryNumber,
+                    FactoryNumber = x.FactoryNumber,
+                    ArriveInTown = x.ArriveInTown,
+                    InUseSince = x.InUseSince,
+                    InUseTo = x.InUseTo,
+                    ScrappedOn = x.ScrappedOn,
+                    Description = x.Description,
+                    VehicleCondition = x.VehicleCondition,
+                    VehicleConditionId = x.VehicleConditionId,
+                    YearBuilt = x.YearBuilt,
+                })
+                .First();
+        }
+
+        public bool Edit(Guid id, string inventoryNumber, string make, string model, string factoryNumber, DateTime arriveInTown, DateTime? inUseSince, DateTime? inUseTo, DateTime? scrappedOn, Guid vehicleConditionId, int yearBuilt, string? description)
+        {
+            var newsData = this.data.Vehicles.Find(id);
+
+            if (newsData == null)
+            {
+                return false;
+            }
+
+            newsData.InventoryNumber = inventoryNumber;
+            newsData.Make = make;
+            newsData.Model = model;
+            newsData.FactoryNumber = factoryNumber;
+            newsData.ArriveInTown = arriveInTown;
+            newsData.InUseSince = inUseSince;
+            newsData.InUseTo = inUseTo;
+            newsData.ScrappedOn = scrappedOn;
+            newsData.VehicleConditionId = vehicleConditionId;
+            newsData.YearBuilt = yearBuilt;
+            newsData.Description = description;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public bool Delete(Guid id, bool isDeleted)
+        {
+            var vehicleData = this.data.Vehicles.Find(id);
+
+            if (vehicleData == null)
+            {
+                return false;
+            }
+
+            vehicleData.IsDeleted = isDeleted;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
     }
 }
