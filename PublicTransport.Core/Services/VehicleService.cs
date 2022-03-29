@@ -1,4 +1,5 @@
-﻿using PublicTransport.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Models.Vehicles;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
@@ -23,6 +24,7 @@ namespace PublicTransport.Core.Services
         {
             return this.data
                  .Vehicles
+                 .Where(x => !x.IsDeleted)
                  .Select(x => new VehiclesListingModel
                  {
                      Id = x.Id,
@@ -31,12 +33,17 @@ namespace PublicTransport.Core.Services
                      Model = x.Model,
                      FactoryNumber = x.FactoryNumber,
                      YearBuilt = x.YearBuilt,
+                     ArriveInTown = x.ArriveInTown,
                      InUseSince = x.InUseSince,
                      InUseTo = x.InUseTo,
-                     IsScrapped = x.IsScrapped,
                      ScrappedOn = x.ScrappedOn,
+                     VehicleConditionId = x.VehicleConditionId,
+                     ClassColor = this.data.VehicleConditions
+                                .Where(y => y.Id == x.VehicleConditionId)
+                                .Select(y => y.ClassColor)
+                                .First()
                  })
-                 .OrderByDescending(x => x.InventoryNumber)
+                 .OrderBy(x => x.InventoryNumber)
                  .ToList();
         }
 
@@ -55,7 +62,7 @@ namespace PublicTransport.Core.Services
                 .ToList();
         }
 
-        public Guid CreateVehicle(string inventoryNumber, string make, string model, string factoryNumber, DateTime? arriveInTown, DateTime? inUseSince, DateTime? inUseTo, Guid vehicleConditionId, int yearBuilt, string? description, bool isScrapped)
+        public Guid CreateVehicle(string inventoryNumber, string make, string model, string factoryNumber, DateTime arriveInTown, DateTime? inUseSince, DateTime? inUseTo, DateTime? scrappedOn, Guid vehicleConditionId, int yearBuilt, string? description, bool isDeleted)
         {
             var newVehicle = new Vehicle
             {
@@ -66,10 +73,11 @@ namespace PublicTransport.Core.Services
                 ArriveInTown = arriveInTown,
                 InUseSince = inUseSince,
                 InUseTo = inUseTo,
+                ScrappedOn = scrappedOn,
                 VehicleConditionId = vehicleConditionId,
                 YearBuilt = yearBuilt,
                 Description = description,
-                IsScrapped = isScrapped,
+                IsDeleted = isDeleted,
             };
 
             this.data.Vehicles.Add(newVehicle);

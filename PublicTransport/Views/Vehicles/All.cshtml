@@ -11,75 +11,125 @@
 }
 else
 {
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-success">
-                <div class="card-header">
-                    <h5 class="text-center">Активен подвижен състав на Тролейбусен транспорт - гр. Хасково</h5>
-                </div>
-                <div>
-                    <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table id="example" class="table table-bordered table-hover dataTable dtr-inline">
-                                    <thead>
-                                        <tr class="table-primary">
-                                            <th tabindex="0" rowspan="1" colspan="1">Инв. №</th>
-                                            <th tabindex="0" rowspan="1" colspan="1">Модел</th>
-                                            <th tabindex="0" rowspan="1" colspan="1">Заводски №</th>
-                                            <th tabindex="0" rowspan="1" colspan="1">Построен</th>
-                                            <th tabindex="0" rowspan="1" colspan="1">От...</th>
-                                            <th tabindex="0" rowspan="1" colspan="1">До...</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var vehicle in Model)
-                                        {
-                                            <tr class="">
-                                                <td>@vehicle.InventoryNumber</td>
-                                                <td>@vehicle.Make @vehicle.Model</td>
-                                                <td>@vehicle.FactoryNumber</td>
-                                                <td>@vehicle.YearBuilt</td>
-                                                <td>@vehicle.InUseSince</td>
-                                                <td>@vehicle.InUseTo</td>
+    @if (Model.Any(x => x.ScrappedOn == null && x.ClassColor != "table-info"))
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h5 class="text-center">Активен подвижен състав на Тролейбусен транспорт - гр. Хасково</h5>
+                    </div>
+                    <div>
+                        <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example" class="table table-bordered table-hover dataTable dtr-inline">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th tabindex="0" rowspan="1" colspan="1">Инв. №</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">Модел</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">Заводски №</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">Построен</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">В експлоатация от...</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">В експлоатация до....</th>
                                             </tr>
-                                        }
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var vehicle in Model.Where(x => x.ScrappedOn == null && x.ClassColor != "table-info"))
+                                            {
+                                                <tr class="@vehicle.ClassColor">
+                                                    <td><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.Id">@vehicle.InventoryNumber</a></td>
+                                                    <td>@vehicle.Make @vehicle.Model</td>
+                                                    <td>@vehicle.FactoryNumber</td>
+                                                    <td>@vehicle.YearBuilt</td>
+                                                    <td>@(vehicle.InUseSince.HasValue ? vehicle.InUseSince.Value.ToString("D") : "")</td>
+                                                    <td>@(vehicle.InUseTo.HasValue ? vehicle.InUseTo.Value.ToString("D") : "")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                @*<div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                                    </div>*@
+                                @*<div class="col-sm-12 col-md-8">
+                                    <div class="dataTables_paginate paging_simple_numbers float-right" id="example2_paginate">
+                                    <ul class="pagination">
+                                    <li class="paginate_button page-item previous disabled" id="example2_previous">
+                                    <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                    </li>
+                                    <li class="paginate_button page-item active">
+                                    <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                    </li>
+                                    <li class="paginate_button page-item ">
+                                    <a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                                    </li>
+                                    <li class="paginate_button page-item ">
+                                    <a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a>
+                                    </li>
+                                    <li class="paginate_button page-item ">
+                                    <a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a>
+                                    </li>
+                                    <li class="paginate_button page-item ">
+                                    <a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a>
+                                    </li>
+                                    <li class="paginate_button page-item ">
+                                    <a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a>
+                                    </li>
+                                    <li class="paginate_button page-item next" id="example2_next">
+                                    <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+                                    </li>
+                                    </ul>
+                                    </div>
+                                    </div>*@
                             </div>
                         </div>
-                        <div class="row">
-                            @*<div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                </div>*@
-                            <div class="col-sm-12 col-md-8">
-                                <div class="dataTables_paginate paging_simple_numbers float-right" id="example2_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled" id="example2_previous">
-                                            <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                                        </li>
-                                        <li class="paginate_button page-item active">
-                                            <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                        </li>
-                                        <li class="paginate_button page-item ">
-                                            <a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                        </li>
-                                        <li class="paginate_button page-item ">
-                                            <a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                                        </li>
-                                        <li class="paginate_button page-item ">
-                                            <a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-                                        </li>
-                                        <li class="paginate_button page-item ">
-                                            <a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-                                        </li>
-                                        <li class="paginate_button page-item ">
-                                            <a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-                                        </li>
-                                        <li class="paginate_button page-item next" id="example2_next">
-                                            <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-                                        </li>
-                                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (Model.Any(x => x.ScrappedOn != null || x.ClassColor == "table-info"))
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h5 class="text-center">Бравуван или предаден в друг град подвижен състав на Тролейбусен транспорт - гр. Хасково</h5>
+                    </div>
+                    <div>
+                        <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example" class="table table-bordered table-hover dataTable dtr-inline">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th tabindex="0" rowspan="1" colspan="1">Инв. №</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">Модел</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">Заводски №</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">Построен</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">В експлоатация от...</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">В експлоатация до....</th>
+                                                <th tabindex="0" rowspan="1" colspan="1">Бракуван на....</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var vehicle in Model.Where(x => x.ScrappedOn != null || x.ClassColor == "table-info"))
+                                            {
+                                                <tr class="@vehicle.ClassColor">
+                                                    <td><a asp-controller="Vehicles" asp-action="Details" asp-route-id="@vehicle.Id">@vehicle.InventoryNumber</a></td>
+                                                    <td>@vehicle.Make @vehicle.Model</td>
+                                                    <td>@vehicle.FactoryNumber</td>
+                                                    <td>@vehicle.YearBuilt</td>
+                                                    <td>@(vehicle.InUseSince.HasValue ? vehicle.InUseSince.Value.ToString("D") : "")</td>
+                                                    <td>@(vehicle.InUseTo.HasValue ? vehicle.InUseTo.Value.ToString("D") : "")</td>
+                                                    <td>@(vehicle.ScrappedOn.HasValue ? vehicle.ScrappedOn.Value.ToString("D") : "")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -87,5 +137,34 @@ else
                 </div>
             </div>
         </div>
-    </div>
+    }
+
+    <h5 class="text-center">Показани записи: @Model.Count()</h5>
+    <table class="table text-center col-md-6 offset-md-3">
+    <thead>
+      <tr>
+        <th scope="col">Цветово кодиране</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr class="table-light">
+          <th scope="row">В движение/ Действащ</th>
+        </tr>
+        <tr class="table-success">
+          <th scope="row">Нов/ Не е работил с пътници</th>
+        </tr>
+        <tr class="table-warning">
+          <th scope="row">Повреден</th>
+        </tr>
+        <tr class="table-info">
+          <th scope="row">Предаден в друг град</th>
+        </tr>
+        <tr class="table-secondary">
+          <th scope="row">Снет от експлоатация/ Очаква се бракуване</th>
+        </tr>
+        <tr class="table-danger">
+          <th scope="row">Бракуван</th>
+        </tr>
+    </tbody>
+  </table>
 }

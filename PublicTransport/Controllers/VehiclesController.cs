@@ -54,6 +54,7 @@ namespace PublicTransport.Controllers
                 vehicle.ArriveInTown,
                 vehicle.InUseSince,
                 vehicle.InUseTo,
+                vehicle.ScrappedOn,
                 vehicle.VehicleConditionId,
                 vehicle.YearBuilt,
                 vehicle.Description,

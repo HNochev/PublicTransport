@@ -20,15 +20,15 @@ namespace PublicTransport.Core.Models.Vehicles
 
         public int YearBuilt { get; set; }
 
-        public DateTime? ArriveInTown { get; set; }
+        public DateTime ArriveInTown { get; set; }
 
         public DateTime? InUseSince { get; set; }
 
         public DateTime? InUseTo { get; set; }
 
-        public string Condition { get; set; }
+        public Guid VehicleConditionId { get; set; }
 
-        public bool IsScrapped { get; set; }
+        public string ClassColor { get; set; }
 
         public DateTime? ScrappedOn { get; set; }
     }

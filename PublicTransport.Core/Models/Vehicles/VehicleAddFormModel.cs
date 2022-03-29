@@ -36,7 +36,7 @@ namespace PublicTransport.Core.Models.Vehicles
 
         [DataType(DataType.Date)]
         [Display(Name = "Пристигнал в Хасково")]
-        public DateTime? ArriveInTown { get; set; }
+        public DateTime ArriveInTown { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Начало на експлоатацията")]
@@ -45,6 +45,10 @@ namespace PublicTransport.Core.Models.Vehicles
         [DataType(DataType.Date)]
         [Display(Name = "Край на експлоатацията")]
         public DateTime? InUseTo { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Бракуван/Нарязан на")]
+        public DateTime? ScrappedOn { get; set; }
 
         [StringLength(500)]
         [Display(Name = "Информация")]

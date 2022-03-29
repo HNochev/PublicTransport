@@ -15,14 +15,17 @@ namespace PublicTransport.Core.Contracts
 
         public Guid CreateVehicle(
             string inventoryNumber,
-            string make, string model,
+            string make, 
+            string model,
             string factoryNumber,
-            DateTime? arriveInTown,
+            DateTime arriveInTown,
             DateTime? inUseSince,
             DateTime? inUseTo,
+            DateTime? scrappedOn,
             Guid vehicleConditionId,
             int yearBuilt,
             string? description,
-            bool isScrapped);
+            bool isDeleted
+            );
     }
 }

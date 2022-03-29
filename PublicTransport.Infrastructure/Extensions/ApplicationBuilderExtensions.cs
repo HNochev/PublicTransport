@@ -39,6 +39,7 @@ namespace PublicTransport.Infrastructure.Extensions
                 new VehicleCondition { ConditionDescription = "Повреден", ClassColor = "table-warning" , Counter = 3},
                 new VehicleCondition { ConditionDescription = "Предаден в друг град", ClassColor = "table-info" , Counter = 4 },
                 new VehicleCondition { ConditionDescription = "Снет от експлоатация/ Очаква се бракуване", ClassColor = "table-secondary", Counter = 5 },
+                new VehicleCondition { ConditionDescription = "Бракуван", ClassColor = "table-danger", Counter = 6 },
             });
 
             data.SaveChanges();
