@@ -31,7 +31,7 @@
                         <p class="short-content">
                             @Model.Description
                         </p>
-                        <h4>Автор: @Model.Author.UserName</h4>
+                        <h4> Автор: <a asp-controller="User" asp-action="UserProfile" asp-route-id="@UserManager.Users.Where(x => x.UserName == Model.Author.UserName).Select(x => x.Id).First()" >@Model.Author.UserName</a></h4>
                     </div>
                     @if (this.User.IsInRole(UserConstants.Administrator))
                     {
@@ -62,7 +62,7 @@
                 {
                     <div>
                         <blockquote>
-                            <small>Автор: <cite title="Source Title">@comment.User.UserName</cite></small>
+                            <small>Автор: <cite title="Source Title"><a asp-controller="User" asp-action="UserProfile" asp-route-id="@UserManager.Users.Where(x => x.UserName == comment.User.UserName).Select(x => x.Id).First()" >@comment.User.UserName</a></cite></small>
                             <p>@comment.Content</p>
                             <small>Публикуван на: <cite title="Source Title">@comment.Date.ToString("f")</cite></small>
                             @if (this.User.IsInRole(UserConstants.Administrator) || this.UserManager.GetUserId(User) == comment.User.Id)

@@ -26,10 +26,10 @@ namespace PublicTransport.Controllers
         [Authorize(Roles = UserConstants.Administrator)]
         public async Task<IActionResult> CreateRole()
         {
-            /*await roleManager.CreateAsync(new IdentityRole()
-            {
-                Name = "Administrator"
-            });     */
+            //await roleManager.CreateAsync(new IdentityRole()
+            //{
+            //    Name = "Администратор"
+            //});
 
             return Ok();
         }

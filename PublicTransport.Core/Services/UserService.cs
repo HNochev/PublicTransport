@@ -1,4 +1,5 @@
 ﻿using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Models.Users;
 using PublicTransport.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,24 @@ namespace PublicTransport.Core.Services
             return this.data.WebsiteUsers
                 .Where(x => x.Id == userId)
                 .Select(x => x.Id)
-                .FirstOrDefault();
+                .First();
+        }
+
+        public UserDetailsModel UserDetails(string id)
+        {
+            return this.data.WebsiteUsers
+                .Where(x => x.Id == id)
+                .Select(x => new UserDetailsModel
+                {
+                    Id = id,
+                    Email = x.Email,
+                    Username = x.UserName,
+                    Role = this.data.Roles.First(x => x.Id == this.data.UserRoles.First(x => x.UserId == id).RoleId).Name,
+                    Photos = x.Photos,
+                    PhotoComments = x.PhotoComments,
+                    NewsComments = x.NewsComments,
+                })
+                .First();
         }
     }
 }
