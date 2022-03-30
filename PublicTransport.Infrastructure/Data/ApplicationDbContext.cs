@@ -24,6 +24,8 @@ namespace PublicTransport.Infrastructure.Data
 
         public DbSet<VehicleCondition> VehicleConditions { get; set; }
 
+        public DbSet<PhotoStatus> PhotoStatuses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -46,6 +48,13 @@ namespace PublicTransport.Infrastructure.Data
                .WithMany(x => x.Vehicles)
                .HasForeignKey(x => x.VehicleConditionId)
                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+              .Entity<Photo>()
+              .HasOne(x => x.PhotoStatus)
+              .WithMany(x => x.Photos)
+              .HasForeignKey(x => x.PhotoStatusId)
+              .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

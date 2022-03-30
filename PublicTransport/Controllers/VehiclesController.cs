@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PublicTransport.Core.Constants;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Extensions;
+using PublicTransport.Core.Models.Photos;
 using PublicTransport.Core.Models.Vehicles;
 using PublicTransport.Infrastructure.Data;
 
@@ -12,11 +13,13 @@ namespace PublicTransport.Controllers
     {
         private readonly IVehicleService vehicles;
         private readonly IUserService users;
+        private readonly IPhotoService photos;
 
-        public VehiclesController(IVehicleService vehicles, IUserService users)
+        public VehiclesController(IVehicleService vehicles, IUserService users, IPhotoService photos)
         {
             this.vehicles = vehicles;
             this.users = users;
+            this.photos = photos;
         }
 
         public IActionResult All()
@@ -165,6 +168,62 @@ namespace PublicTransport.Controllers
 
             TempData[MessageConstants.SuccessMessage] = "Тролейбусът беше успешно изтрит.";
             return RedirectToAction("All");
+        }
+
+        [Authorize]
+        public IActionResult AddPhoto(Guid id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddPhotoAsync(Guid id, PhotoAddFormModel photo)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var pendingStatusId = this.photos.GetPendingStatusId();
+
+            byte[] fileArray = null;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                await photo.FileUpload.PhotoFile.CopyToAsync(memoryStream);
+
+                // Upload the file if less than 2 MB
+                if (memoryStream.Length < 2097152)
+                {
+                    fileArray = memoryStream.ToArray();
+                }
+                else
+                {
+                    TempData[MessageConstants.ErrorMessage] = "Размерът на снимката е твърде голям! Моля качете снимка до 2MB!";
+                    return Redirect(Request.Path);
+                }
+            }
+
+            var photoId = this.photos.CreatePhoto(
+                photo.Description,
+                photo.DateOfPicture,
+                DateTime.Now,
+                photo.Location,
+                photo.IsAuthor,
+                photo.UserMessage,
+                fileArray,
+                pendingStatusId,
+                userId,
+                id,
+                false
+                );
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно добавихте снимка. Сега тя трябва да бъде одобрена, за да я видите в сайта.";
+            return Redirect(Request.Path);
         }
     }
 }

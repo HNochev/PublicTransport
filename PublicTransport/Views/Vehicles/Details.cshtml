@@ -16,7 +16,7 @@
         <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">
-                    <i class="fas fa-text-width"></i>
+                    <i class="fas fa-bus-alt"></i>
                     Основна информация
                 </h3>
             </div>
@@ -59,10 +59,68 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                        <a asp-controller="Vehicles" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning float-left">Редактирай</a>
-                        <a asp-controller="Vehicles" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right">Изтрий</a>
+                    <a asp-controller="Vehicles" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning float-left">Редактирай</a>
+                    <a asp-controller="Vehicles" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right">Изтрий</a>
                 </div>
             </div>
         </div>
     }
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h5 class="text-center">
+                    Добавяне на снимка
+                </h5>
+            </div>
+            @if (this.SignInManager.IsSignedIn(User))
+            {
+                <div class="card-body text-center">
+                    <a asp-controller="Vehicles" asp-action="AddPhoto" asp-route-id="@Model.Id" class="btn btn-primary">Добави снимка</a>
+                </div>
+            }
+            else
+            {
+                <div class="card-body text-center">
+                    <h3 class="text-center">За да можете да качвате фотографии, <a asp-area="Identity" asp-page="/Account/Login">влезте</a> в профила си или се <a asp-area="Identity" asp-page="/Account/Register">регистрирайте</a>.</h3>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="timeline">
+            <div class="time-label">
+                <span class="bg-red">10 Feb. 2014</span>
+            </div>
+            <div>
+                <i class="fa fa-image"></i></i>
+                <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock"></i> 12:05</span>
+                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                    <div class="row timeline-body">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="col-4 align-middle"><img class="img-fluid" src="https://transphoto.org/photo/15/35/55/1535557.jpg" alt="Снимка"></td>
+                                    <td class="col-7 align-middle">
+                                        <div class=""><b>Местоположение:</b> @Model.InventoryNumber</div><br />
+                                        <div class=""><b>Дата на заснемане:</b> @Model.InventoryNumber</div><br />
+                                        <div class=""><b>Автор:</b> @Model.InventoryNumber</div>
+                                    </td>
+                                    <td class="col-1 align-middle">
+                                        <a class="btn btn-primary float-right">Разгледай</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
