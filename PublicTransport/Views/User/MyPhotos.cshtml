@@ -49,9 +49,20 @@ else
                                                 }
                                             </td>
                                             <td class="col-1 align-middle text-center">
-                                                <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id" class="btn btn-primary">Разгледай</a><br/><br/>
-                                                <a asp-controller="Photos" asp-action="Edit" asp-route-id="@photo.Id" class="btn btn-warning">Редактирай информацията</a><br/><br/>
-                                                <a asp-controller="Photos" asp-action="Delete" asp-route-id="@photo.Id" class="btn btn-danger">Изтрий</a>
+                                                <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id" class="btn btn-primary">Разгледай</a><br /><br />
+                                                @if (!photo.IsApproved)
+                                                {
+                                                    <a asp-controller="Photos" asp-action="Edit" asp-route-id="@photo.Id" class="btn btn-warning">Редактирай информацията</a>
+
+                                                    <br />
+
+                                                    <br />
+                                                    <a asp-controller="Photos" asp-action="Delete" asp-route-id="@photo.Id" class="btn btn-danger">Изтрий</a>
+                                                }
+                                                else
+                                                {
+                                                    <b>Снмката Ви е одобрена и вече не може да бъде променяна/изтривана</b>
+                                                }
                                             </td>
                                         </tr>
                                     </tbody>

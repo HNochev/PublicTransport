@@ -46,11 +46,16 @@
                             Автор: <b><a asp-controller="User" asp-action="UserProfile" asp-route-id="@Model.UserId">@Model.User.UserName</a></b>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="text-center" colspan="2">
+                            <b class="text-lightblue">@(Model.IsAuthor ? "Тази снимка е заснета и е публикувана от автора на тази публикация." : "Тази снимка не е заснета от автора на публикацията, тя е публикувана със зананието на човекът който я е заснел.")</b>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="card-body">
                 <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@Model.VehicleId" class="btn btn-secondary">Назад</a>
-                <input asp-page-handler="Upload" class="btn btn-warning float-right" type="submit" value="Редактирай информацията за снимката">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-warning float-right"> Върни се на началната страница</a>
             </div>
         </div>
     </div>

@@ -64,6 +64,7 @@ namespace PublicTransport.Core.Services
                     UserMessage = x.UserMessage,
                     UserId = id,
                     User = x.User,
+                    IsApproved = x.IsApproved,
                     DateOfPicture = x.DateOfPicture,
                     DateUploaded = x.DateUploaded,
                     Location = x.Location,
@@ -93,6 +94,7 @@ namespace PublicTransport.Core.Services
                         Location = x.Location,
                         UserMessage = x.UserMessage,
                         Id = id,
+                        IsApproved = x.IsApproved,
                         ImgUrlFormDatabase = "data:image/jpg;base64," + Convert.ToBase64String(x.PhotoFile),
                     })
                     .First();
@@ -103,6 +105,11 @@ namespace PublicTransport.Core.Services
             var photoData = this.data.Photos.Find(id);
 
             if (photoData == null)
+            {
+                return false;
+            }
+
+            if (photoData.IsApproved == true)
             {
                 return false;
             }
@@ -127,7 +134,6 @@ namespace PublicTransport.Core.Services
                 {
                     Id = x.Id,
                     Description = x.Description,
-                    AdminMessage = x.AdminMessage,
                     DateOfPicture = x.DateOfPicture,
                     DateUploaded = x.DateUploaded,
                     IsApproved = x.IsApproved,
@@ -138,7 +144,6 @@ namespace PublicTransport.Core.Services
                     PhotoStatusId = x.PhotoStatusId,
                     User = x.User,
                     UserId = x.UserId,
-                    UserMessage = x.UserMessage,
                     Vehicle = x.Vehicle,
                     VehicleId = x.VehicleId,
                 })

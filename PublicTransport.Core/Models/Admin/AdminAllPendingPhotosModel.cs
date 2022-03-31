@@ -5,13 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PublicTransport.Core.Models.Photos
+namespace PublicTransport.Core.Models.Admin
 {
-    public class PhotoDetailsModel
+    public class AdminAllPendingPhotosModel
     {
         public Guid Id { get; set; }
-
-        public string? Description { get; set; }
 
         public DateTime DateUploaded { get; set; }
 
@@ -19,22 +17,16 @@ namespace PublicTransport.Core.Models.Photos
 
         public string? Location { get; set; }
 
-        public bool IsAuthor { get; set; }
-
-        public Guid PhotoStatusId { get; set; }
-
-        public PhotoStatus PhotoStatus { get; set; }
-
         public string UserId { get; set; }
-
+        
         public WebsiteUser User { get; set; }
 
-        public Guid VehicleId { get; set; }
+        public string ImgUrlFormDatabase { get; set; }
 
-        public Vehicle Vehicle { get; set; }
+        public string? UserMessage { get; set; }
 
-        public bool IsApproved { get; set; }
+        public string? Description { get; set; }
 
-        public string ImgUrlFromDatabase { get; set; }
+        public bool IsAuthor { get; set; }
     }
 }

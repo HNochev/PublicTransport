@@ -36,9 +36,15 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            var commentForm = this.photos.EditViewData(id);
+            var photoForm = this.photos.EditViewData(id);
 
-            return View(commentForm);
+            if (photoForm.IsApproved)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Снимката няма как да бъде променяна, понеже е одобрена!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View(photoForm);
         }
 
         [HttpPost]

@@ -31,5 +31,7 @@ namespace PublicTransport.Core.Models.Photos
         public Guid Id { get; set; }
 
         public string ImgUrlFormDatabase { get; set; }
+
+        public bool IsApproved { get; set; }
     }
 }

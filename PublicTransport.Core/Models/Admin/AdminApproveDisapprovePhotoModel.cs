@@ -1,22 +1,15 @@
 ﻿using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PublicTransport.Core.Models.Users
+namespace PublicTransport.Core.Models.Admin
 {
-    public class UserMyPhotosModel
+    public class AdminApproveDisapprovePhotoModel
     {
-        public Guid Id { get; set; }
-
-        public DateTime DateUploaded { get; set; }
-
-        public DateTime DateOfPicture { get; set; }
-
-        public string? Location { get; set; }
-
         public string UserId { get; set; }
 
         public WebsiteUser User { get; set; }
@@ -25,12 +18,10 @@ namespace PublicTransport.Core.Models.Users
 
         public string? UserMessage { get; set; }
 
+        [StringLength(500)]
+        [Display(Name = "Съобщение към потребителя публикувал снимката")]
         public string? AdminMessage { get; set; }
 
-        public Guid PhotoStatusId { get; set; }
-
-        public PhotoStatus PhotoStatus { get; set; }
-
-        public bool IsApproved { get; set; }
+        public DateTime UploadedOn { get; set; }
     }
 }

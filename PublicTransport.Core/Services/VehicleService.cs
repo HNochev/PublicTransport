@@ -106,7 +106,9 @@ namespace PublicTransport.Core.Services
                     VehicleCondition = x.VehicleCondition,
                     VehicleConditionId = x.VehicleConditionId,
                     YearBuilt = x.YearBuilt,
-                    PhotosForYear = x.Photos.Select(y => new PhotosForOneYearModel
+                    PhotosForYear = x.Photos
+                    .Where(y => y.IsApproved == true)
+                    .Select(y => new PhotosForOneYearModel
                     {
                         Year = y.DateOfPicture.Year,
                         Photos = x.Photos.Select(z => new PhotosListingModel
