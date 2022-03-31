@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Models.Photos;
 using PublicTransport.Core.Models.Users;
@@ -121,6 +122,7 @@ namespace PublicTransport.Core.Services
         {
             return this.data.Photos
                 .Where(x => x.Id == id)
+                .Include(x => x.Vehicle.VehicleCondition)
                 .Select(x => new PhotoDetailsModel
                 {
                     Id = x.Id,

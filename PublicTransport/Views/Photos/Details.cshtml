@@ -6,10 +6,11 @@
 }
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Информация за снимка на @Model.Vehicle.InventoryNumber @Model.Vehicle.Make @Model.Vehicle.Model</h3>
+                <h3 class="card-title">Информация за снимка на @Model.Vehicle.Make @Model.Vehicle.Model <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@Model.VehicleId">№ @Model.Vehicle.InventoryNumber</a></h3>
+                <span class="float-right"><i class="fa fa-clock"></i> Публикувана на: @Model.DateUploaded.ToString("f")</span>
             </div>
             <div class="card-body">
                 <div class="text-center">
@@ -18,8 +19,37 @@
                     </a>
                 </div>
             </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="text-center" colspan="2">
+                            <div>
+                                Модел: <b class="@Model.Vehicle.VehicleCondition.ClassColor">@Model.Vehicle.Make @Model.Vehicle.Model <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@Model.VehicleId">№ @Model.Vehicle.InventoryNumber</a></b>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" colspan="2">
+                            Местоположение: <b>@(Model.Location == null ? "Няма зададено местоположение" : @Model.Location)</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" colspan="2">
+                            Описание на снимката: <b>@(Model.Description == null ? "Няма описание" : @Model.Description)</b>
+                        </td>
+                    </tr>
+                    <tr class="col-12">
+                        <td class="col-6 text-center" colspan="1">
+                            Дата на заснемане: <b>@Model.DateOfPicture.ToString("D")</b>
+                        </td>
+                        <td class="col-6 text-center" colspan="1">
+                            Автор: <b><a asp-controller="User" asp-action="UserProfile" asp-route-id="@Model.UserId">@Model.User.UserName</a></b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <div class="card-body">
-                <a href="/" class="btn btn-secondary">Отказ</a>
+                <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@Model.VehicleId" class="btn btn-secondary">Назад</a>
                 <input asp-page-handler="Upload" class="btn btn-warning float-right" type="submit" value="Редактирай информацията за снимката">
             </div>
         </div>
