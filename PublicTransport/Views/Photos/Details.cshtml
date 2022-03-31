@@ -1,0 +1,32 @@
+﻿@using PublicTransport.Core.Models.Photos
+@model PhotoDetailsModel
+
+@{
+    ViewData["Title"] = "Информация за снимка";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Информация за снимка на @Model.Vehicle.InventoryNumber @Model.Vehicle.Make @Model.Vehicle.Model</h3>
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <a asp-controller="Photos" asp-action="Details" asp-route-id="@Model.Id">
+                        <img class="img-fluid" src="@Model.ImgUrlFromDatabase" alt="Снимка">
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <a href="/" class="btn btn-secondary">Отказ</a>
+                <input asp-page-handler="Upload" class="btn btn-warning float-right" type="submit" value="Редактирай информацията за снимката">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

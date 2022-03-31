@@ -39,6 +39,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<INewsCommentsService, NewsCommentsService>();
 builder.Services.AddTransient<IVehicleService, VehicleService>();
 builder.Services.AddTransient<IPhotoService, PhotoService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
 
 var app = builder.Build();
 

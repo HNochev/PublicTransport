@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Models.Photos;
 using PublicTransport.Core.Models.Users;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
@@ -71,6 +72,75 @@ namespace PublicTransport.Core.Services
                 })
                 .OrderByDescending(x => x.DateUploaded)
                 .ToList();
+        }
+
+        public bool IsByUser(Guid photoId, string userId)
+            => this.data
+                .Photos
+                .Any(c => c.Id == photoId && c.UserId == userId);
+
+
+        public PhotoEditFormModel EditViewData(Guid id)
+        {
+            return this.data.Photos
+                    .Where(x => x.Id == id)
+                    .Select(x => new PhotoEditFormModel
+                    {
+                        DateOfPicture = x.DateOfPicture,
+                        Description = x.Description,
+                        IsAuthor = x.IsAuthor,
+                        Location = x.Location,
+                        UserMessage = x.UserMessage,
+                        Id = id,
+                        ImgUrlFormDatabase = "data:image/jpg;base64," + Convert.ToBase64String(x.PhotoFile),
+                    })
+                    .First();
+        }
+
+        public bool Edit(Guid id, string? Description, DateTime DateOfPicture, bool IsAuthor, string? Location, string? UserMessage)
+        {
+            var photoData = this.data.Photos.Find(id);
+
+            if (photoData == null)
+            {
+                return false;
+            }
+
+            photoData.DateOfPicture = DateOfPicture;
+            photoData.Location = Location;
+            photoData.UserMessage = UserMessage;
+            photoData.Description = Description;
+            photoData.IsAuthor = IsAuthor;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public PhotoDetailsModel Details(Guid id)
+        {
+            return this.data.Photos
+                .Where(x => x.Id == id)
+                .Select(x => new PhotoDetailsModel
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    AdminMessage = x.AdminMessage,
+                    DateOfPicture = x.DateOfPicture,
+                    DateUploaded = x.DateUploaded,
+                    IsApproved = x.IsApproved,
+                    IsAuthor = x.IsAuthor,
+                    Location = x.Location,
+                    ImgUrlFromDatabase = "data:image/jpg;base64," + Convert.ToBase64String(x.PhotoFile),
+                    PhotoStatus = x.PhotoStatus,
+                    PhotoStatusId = x.PhotoStatusId,
+                    User = x.User,
+                    UserId = x.UserId,
+                    UserMessage = x.UserMessage,
+                    Vehicle = x.Vehicle,
+                    VehicleId = x.VehicleId,
+                })
+                .First();
         }
     }
 }

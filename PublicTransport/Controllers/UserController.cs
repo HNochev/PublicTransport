@@ -23,6 +23,7 @@ namespace PublicTransport.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult UserProfile(string id)
         {
             var loggedUserId = this.users.IdByUser(this.User.Id());

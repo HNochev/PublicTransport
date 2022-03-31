@@ -1,4 +1,5 @@
-﻿using PublicTransport.Core.Models.Users;
+﻿using PublicTransport.Core.Models.Photos;
+using PublicTransport.Core.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +26,20 @@ namespace PublicTransport.Core.Contracts
         public Guid GetPendingStatusId();
 
         public IEnumerable<UserMyPhotosModel> AllPhotosByUser(string id);
+
+        public bool IsByUser(Guid photoId, string userId);
+
+
+        public PhotoEditFormModel EditViewData(Guid id);
+
+        public bool Edit(
+            Guid id,
+            string? Description,
+            DateTime DateOfPicture,
+            bool IsAuthor,
+            string? Location,
+            string? UserMessage);
+
+        public PhotoDetailsModel Details(Guid id);
     }
 }
