@@ -1,4 +1,5 @@
-﻿using PublicTransport.Infrastructure.Data.Models;
+﻿using PublicTransport.Core.Models.Photos;
+using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,5 +35,9 @@ namespace PublicTransport.Core.Models.Vehicles
         public Guid VehicleConditionId { get; set; }
 
         public VehicleCondition VehicleCondition { get; set; }
+
+        public ICollection<PhotosForOneYearModel> PhotosForYear { get; set; }
+
+
     }
 }

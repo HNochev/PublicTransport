@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PublicTransport.Core.Models.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +23,7 @@ namespace PublicTransport.Core.Contracts
             bool isApproved);
 
         public Guid GetPendingStatusId();
+
+        public IEnumerable<UserMyPhotosModel> AllPhotosByUser(string id);
     }
 }

@@ -1,0 +1,66 @@
+﻿@using PublicTransport.Core.Models.Users
+@model IEnumerable<UserMyPhotosModel>
+
+@{
+    ViewBag.Title = $"Моите снимки";
+}
+
+@if (!Model.Any())
+{
+    <div class="card-body text-center">
+        <h3 class="text-center">Вие все още няма снимки. За да качите влезте в подвижен състав и изберете превозното средство за което искате да качите снимка.</h3>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="timeline">
+                @foreach (var photo in Model)
+                {
+                    <div>
+                        <i class="fa fa-image"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock"></i> @photo.DateUploaded.ToString("f")</span>
+                            <h3 class="timeline-header">Статус на снимката: @photo.PhotoStatus.StatusDescription</h3>
+                            <div class="row timeline-body">
+                                <table class="@photo.PhotoStatus.ClassColor">
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-4 align-middle">
+                                                <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id">
+                                                    <img class="img-fluid" src="@photo.ImgUrlFormDatabase" alt="Снимка">
+                                                </a>
+                                            </td>
+                                            <td class="col-7 align-middle">
+                                                <div class=""><b>Местоположение:</b> @photo.Location</div><br />
+                                                <div class=""><b>Дата на заснемане:</b> @photo.DateOfPicture.ToString("D")</div><br />
+                                                @if (photo.UserMessage != null)
+                                                {
+                                                    <div class="text-green"><b>Съобщение от мен:</b> @photo.UserMessage</div>
+
+                                                    <br />
+                                                }
+                                                @if (photo.AdminMessage != null)
+                                                {
+                                                    <div class="text-red"><b>Съобщение от администратор:</b> @photo.AdminMessage</div>
+
+                                                    <br />
+                                                }
+                                            </td>
+                                            <td class="col-1 align-middle text-center">
+                                                <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id" class="btn btn-primary">Разгледай</a><br/><br/>
+                                                <a asp-controller="Photos" asp-action="Edit" asp-route-id="@photo.Id" class="btn btn-warning">Редактирай</a><br/><br/>
+                                                <a asp-controller="Photos" asp-action="Delete" asp-route-id="@photo.Id" class="btn btn-danger">Изтрий</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

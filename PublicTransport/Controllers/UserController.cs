@@ -9,10 +9,12 @@ namespace PublicTransport.Controllers
     public class UserController : Controller
     {
         private readonly IUserService users;
+        private readonly IPhotoService photos;
 
-        public UserController(IUserService users)
+        public UserController(IUserService users, IPhotoService photos)
         {
             this.users = users;
+            this.photos = photos;
         }
 
         [Authorize]
@@ -21,7 +23,6 @@ namespace PublicTransport.Controllers
             return View();
         }
 
-        [Authorize]
         public IActionResult UserProfile(string id)
         {
             var loggedUserId = this.users.IdByUser(this.User.Id());
@@ -35,6 +36,22 @@ namespace PublicTransport.Controllers
             var detailsForm = this.users.UserDetails(id);
 
             return View(detailsForm);
+        }
+
+        [Authorize]
+        public IActionResult MyPhotos()
+        {
+            var loggedUserId = this.users.IdByUser(this.User.Id());
+
+            if (loggedUserId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var allMyPhotosForm = this.photos.AllPhotosByUser(loggedUserId);
+
+            return View(allMyPhotosForm);
         }
     }
 }

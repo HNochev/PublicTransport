@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Models.Users;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
 using System;
@@ -48,6 +49,28 @@ namespace PublicTransport.Core.Services
                 .Where(x => x.ClassColor == "table-warning")
                 .Select(x => x.Id)
                 .First();
+        }
+
+        public IEnumerable<UserMyPhotosModel> AllPhotosByUser(string id)
+        {
+            return this.data.Photos
+                .Where(x => x.UserId == id)
+                .Select(x => new UserMyPhotosModel
+                {
+                    Id = x.Id,
+                    AdminMessage = x.AdminMessage,
+                    UserMessage = x.UserMessage,
+                    UserId = id,
+                    User = x.User,
+                    DateOfPicture = x.DateOfPicture,
+                    DateUploaded = x.DateUploaded,
+                    Location = x.Location,
+                    PhotoStatusId = x.PhotoStatusId,
+                    PhotoStatus = x.PhotoStatus,
+                    ImgUrlFormDatabase = "data:image/jpg;base64," + Convert.ToBase64String(x.PhotoFile),
+                })
+                .OrderByDescending(x => x.DateUploaded)
+                .ToList();
         }
     }
 }

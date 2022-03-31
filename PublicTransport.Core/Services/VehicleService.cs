@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Models.Photos;
 using PublicTransport.Core.Models.Vehicles;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
@@ -105,6 +106,25 @@ namespace PublicTransport.Core.Services
                     VehicleCondition = x.VehicleCondition,
                     VehicleConditionId = x.VehicleConditionId,
                     YearBuilt = x.YearBuilt,
+                    PhotosForYear = x.Photos.Select(y => new PhotosForOneYearModel
+                    {
+                        Year = y.DateOfPicture.Year,
+                        Photos = x.Photos.Select(z => new PhotosListingModel
+                        {
+                            Id = z.Id,
+                            DateOfPicture = z.DateOfPicture,
+                            DateUploaded = z.DateUploaded,
+                            Location = z.Location,
+                            UserId = z.UserId,
+                            User = z.User,
+                            ImgUrlFormDatabase = "data:image/jpg;base64," + Convert.ToBase64String(z.PhotoFile),
+                        })
+                        .Where(z => z.DateOfPicture.Year == y.DateOfPicture.Year)
+                        .OrderByDescending(z => z.DateOfPicture)
+                        .ToList()
+                    })
+                    .OrderByDescending(y => y.Year)
+                    .ToList()
                 })
                 .First();
         }

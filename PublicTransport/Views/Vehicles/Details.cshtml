@@ -89,38 +89,58 @@
         </div>
     </div>
 </div>
-
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="timeline">
-            <div class="time-label">
-                <span class="bg-red">10 Feb. 2014</span>
-            </div>
-            <div>
-                <i class="fa fa-image"></i></i>
-                <div class="timeline-item">
-                    <span class="time"><i class="fa fa-clock"></i> 12:05</span>
-                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                    <div class="row timeline-body">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="col-4 align-middle"><img class="img-fluid" src="https://transphoto.org/photo/15/35/55/1535557.jpg" alt="Снимка"></td>
-                                    <td class="col-7 align-middle">
-                                        <div class=""><b>Местоположение:</b> @Model.InventoryNumber</div><br />
-                                        <div class=""><b>Дата на заснемане:</b> @Model.InventoryNumber</div><br />
-                                        <div class=""><b>Автор:</b> @Model.InventoryNumber</div>
-                                    </td>
-                                    <td class="col-1 align-middle">
-                                        <a class="btn btn-primary float-right">Разгледай</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+@if (!Model.PhotosForYear.Any())
+{
+    <div class="card-body text-center">
+        <h3 class="text-center">За това превозно средство все още няма снимки.</h3>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="timeline">
+                @foreach (var photoYear in Model.PhotosForYear.DistinctBy(x => x.Year))
+                {
+                    <div class="time-label">
+                        <span class="bg-blue">@photoYear.Year <i class="fas fa-arrow-down"></i></span>
                     </div>
-                </div>
+                    @foreach (var photo in photoYear.Photos)
+                    {
+                        <div>
+                            <i class="fa fa-image"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock"></i> @photo.DateUploaded.ToString("f")</span>
+                                <h3 class="timeline-header">Публикувана от <a asp-controller="User" asp-action="UserProfile" asp-route-id="@photo.UserId">@photo.User.UserName</a></h3>
+                                <div class="row timeline-body">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-4 align-middle">
+                                                    <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id">
+                                                        <img class="img-fluid" src="@photo.ImgUrlFormDatabase" alt="Снимка">
+                                                    </a>
+                                                </td>
+                                                <td class="col-7 align-middle">
+                                                    <div class=""><b>Местоположение:</b> @photo.Location</div><br />
+                                                    <div class=""><b>Дата на заснемане:</b> @photo.DateOfPicture.ToString("D")</div><br />
+                                                    <div class=""><b>Автор:</b> <a asp-controller="User" asp-action="UserProfile" asp-route-id="@photo.UserId">@photo.User.UserName</a></div>
+                                                </td>
+                                                <td class="col-1 align-middle">
+                                                    <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id" class="btn btn-primary float-right">Разгледай</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="time-label">
+                        <span class="bg-blue">@photoYear.Year <i class="fas fa-arrow-up"></i></span>
+                    </div>
+                }
             </div>
         </div>
     </div>
-</div>
+}

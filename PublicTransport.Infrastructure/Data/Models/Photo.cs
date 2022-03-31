@@ -35,6 +35,9 @@ namespace PublicTransport.Infrastructure.Data.Models
         [StringLength(500)]
         public string? UserMessage { get; set; }
 
+        [StringLength(500)]
+        public string? AdminMessage { get; set; }
+
         [Required]
         public Guid PhotoStatusId { get; set; }
 
