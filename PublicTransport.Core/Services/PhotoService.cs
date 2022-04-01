@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Models.Admin;
 using PublicTransport.Core.Models.Photos;
+using PublicTransport.Core.Models.PhotosComments;
 using PublicTransport.Core.Models.Users;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
@@ -147,6 +148,19 @@ namespace PublicTransport.Core.Services
                     UserId = x.UserId,
                     Vehicle = x.Vehicle,
                     VehicleId = x.VehicleId,
+                    PhotoComments = x.PhotoComments
+                    .Select(y => new PhotoCommentsListingModel
+                    {
+                        Id = y.Id,
+                        Content = y.Content,
+                        Date = y.Date,
+                        LastEditedOn = y.LastEditedOn,
+                        PhotoId = y.PhotoId,
+                        UserId = y.UserId,
+                        User = y.User,
+                    })
+                    .OrderByDescending(x => x.Date)
+                    .ToList(),
                 })
                 .First();
         }

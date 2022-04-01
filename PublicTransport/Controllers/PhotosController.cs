@@ -4,6 +4,7 @@ using PublicTransport.Core.Constants;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Extensions;
 using PublicTransport.Core.Models.Photos;
+using PublicTransport.Core.Models.PhotosComments;
 
 namespace PublicTransport.Controllers
 {
@@ -12,12 +13,14 @@ namespace PublicTransport.Controllers
         private readonly IPhotoService photos;
         private readonly IUserService users;
         private readonly IVehicleService vehicles;
+        private readonly IPhotoCommentsService comments;
 
-        public PhotosController(IPhotoService photos, IUserService users, IVehicleService vehicles)
+        public PhotosController(IPhotoService photos, IUserService users, IVehicleService vehicles, IPhotoCommentsService comments)
         {
             this.photos = photos;
             this.users = users;
             this.vehicles = vehicles;
+            this.comments = comments;
         }
 
         [Authorize]
@@ -145,6 +148,28 @@ namespace PublicTransport.Controllers
 
             TempData[MessageConstants.SuccessMessage] = "Снимката беше успешно изтрита.";
             return Redirect($"../../Vehicles/Details/{vehicleId}");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(Guid id, PhotoCommentAddFormModel comment)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var edited = this.comments.CreatePhotoComment(
+                comment.Content,
+                DateTime.Now,
+                userId,
+                id);
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно публикувахте коментар.";
+            return Redirect(Request.Path);
         }
     }
 }

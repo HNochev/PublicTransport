@@ -1,4 +1,5 @@
-﻿using PublicTransport.Infrastructure.Data.Models;
+﻿using PublicTransport.Core.Models.PhotosComments;
+using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PublicTransport.Core.Models.Photos
 {
-    public class PhotoDetailsModel
+    public class PhotoDetailsModel : PhotoCommentAddFormModel
     {
         public Guid Id { get; set; }
 
@@ -36,5 +37,7 @@ namespace PublicTransport.Core.Models.Photos
         public bool IsApproved { get; set; }
 
         public string ImgUrlFromDatabase { get; set; }
+
+        public ICollection<PhotoCommentsListingModel> PhotoComments { get; set; }
     }
 }
