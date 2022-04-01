@@ -173,6 +173,17 @@ namespace PublicTransport.Controllers
         [Authorize]
         public IActionResult AddPhoto(Guid id)
         {
+            var pendingPhotosCount = this.users.UserPendingPhotosCount(this.User.Id());
+
+            if (!User.IsInRole(UserConstants.Administrator))
+            {
+                if (pendingPhotosCount >= 3)
+                {
+                    TempData[MessageConstants.ErrorMessage] = "Вие имате поне 3 снимки изчакващи одобрение.";
+                    return Redirect($"../../Vehicles/Details/{id}");
+                }
+            }
+
             return View();
         }
 
@@ -196,14 +207,24 @@ namespace PublicTransport.Controllers
             {
                 await photo.FileUpload.PhotoFile.CopyToAsync(memoryStream);
 
-                // Upload the file if less than 2 MB
-                if (memoryStream.Length < 2097152)
+                string fileExt = Path.GetExtension(photo.FileUpload.PhotoFile.FileName);
+
+                if (fileExt == ".jpeg" || fileExt == ".jpg")
                 {
-                    fileArray = memoryStream.ToArray();
+                    // Upload the file if less than 2 MB
+                    if (memoryStream.Length < 2097152)
+                    {
+                        fileArray = memoryStream.ToArray();
+                    }
+                    else
+                    {
+                        TempData[MessageConstants.ErrorMessage] = "Размерът на снимката е твърде голям! Моля качете снимка до 2MB!";
+                        return Redirect(Request.Path);
+                    }
                 }
                 else
                 {
-                    TempData[MessageConstants.ErrorMessage] = "Размерът на снимката е твърде голям! Моля качете снимка до 2MB!";
+                    TempData[MessageConstants.ErrorMessage] = "Само .jpeg/.jpg файлове са разрешени!";
                     return Redirect(Request.Path);
                 }
             }

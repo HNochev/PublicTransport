@@ -1,10 +1,5 @@
 ﻿using PublicTransport.Core.Models.Photos;
 using PublicTransport.Core.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PublicTransport.Core.Contracts
 {
@@ -41,5 +36,11 @@ namespace PublicTransport.Core.Contracts
             string? UserMessage);
 
         public PhotoDetailsModel Details(Guid id);
+
+        public PhotoDeleteModel DeleteViewData(Guid id);
+
+        public bool Delete(Guid id);
+
+        public Guid IdOfVehicle(Guid photoId);
     }
 }

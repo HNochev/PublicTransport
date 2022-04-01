@@ -95,5 +95,56 @@ namespace PublicTransport.Controllers
 
             return View(vehicles);
         }
+
+        [Authorize]
+        public IActionResult Delete(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator))
+            {
+                return BadRequest();
+            }
+
+            var photoForm = this.photos.DeleteViewData(id);
+
+            if (photoForm.IsApproved)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Снимката няма как да бъде изтрита, понеже е одобрена!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View(photoForm);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Delete(Guid id, PhotoDeleteModel photo)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator))
+            {
+                return BadRequest();
+            }
+
+            var deleted = this.photos.Delete(id);
+
+            if (!deleted)
+            {
+                return BadRequest();
+            }
+
+            var vehicleId = this.photos.IdOfVehicle(id);
+
+            TempData[MessageConstants.SuccessMessage] = "Снимката беше успешно изтрита.";
+            return Redirect($"../../Vehicles/Details/{vehicleId}");
+        }
     }
 }

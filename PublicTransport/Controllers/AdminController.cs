@@ -90,6 +90,36 @@ namespace PublicTransport.Controllers
             return RedirectToAction("ApprovePhotos");
         }
 
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult DisApprove(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
 
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var disApproveForm = this.admins.ApproveDisapproveViewData(id);
+
+            return View(disApproveForm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult DisApprove(Guid id, AdminApproveDisapprovePhotoModel photo)
+        {
+
+            var disApproved = this.admins.DisApprove(id, photo.AdminMessage);
+
+            if (!disApproved)
+            {
+                return BadRequest();
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно отхвърлихте публикуването на тази снимка.";
+            return RedirectToAction("ApprovePhotos");
+        }
     }
 }

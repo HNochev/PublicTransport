@@ -42,5 +42,12 @@ namespace PublicTransport.Core.Services
                 })
                 .First();
         }
+
+        public int UserPendingPhotosCount(string id)
+        {
+            return this.data.Photos
+                .Where(x => x.PhotoStatus.ClassColor == "table-warning" && x.UserId == id)
+                .Count();
+        }
     }
 }

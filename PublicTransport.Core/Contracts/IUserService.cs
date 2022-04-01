@@ -12,5 +12,7 @@ namespace PublicTransport.Core.Contracts
         public string IdByUser(string userId);
 
         public UserDetailsModel UserDetails(string id);
+
+        public int UserPendingPhotosCount(string id);
     }
 }

@@ -47,7 +47,7 @@ else
                                                 <a asp-controller="Photos" asp-action="Details" asp-route-id="@photo.Id" class="btn btn-primary">Прегледай снимката</a><br /><br />
                                                 <a asp-controller="Admin" asp-action="Approve" asp-route-id="@photo.Id" class="btn btn-success">Одобри</a><br /><br />
                                                 <a asp-controller="Admin" asp-action="DisApprove" asp-route-id="@photo.Id" class="btn btn-danger">Отхвърли</a><br /><br />
-                                                <a asp-controller="Admin" asp-action="Delete" asp-route-id="@photo.Id" class="btn btn-dark">Изтриване</a>
+                                                <a asp-controller="Photos" asp-action="Delete" asp-route-id="@photo.Id" class="btn btn-dark">Изтриване</a>
                                             </td>
                                         </tr>
                                     </tbody>

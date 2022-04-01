@@ -16,5 +16,8 @@ namespace PublicTransport.Core.Contracts
         public AdminApproveDisapprovePhotoModel ApproveDisapproveViewData(Guid id);
 
         public bool Approve(Guid id, string? adminMessage);
+
+        public bool DisApprove(Guid id, string? adminMessage);
+
     }
 }

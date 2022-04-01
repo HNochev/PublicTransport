@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Models.Admin;
 using PublicTransport.Core.Models.Photos;
 using PublicTransport.Core.Models.Users;
 using PublicTransport.Infrastructure.Data;
@@ -147,6 +148,49 @@ namespace PublicTransport.Core.Services
                     Vehicle = x.Vehicle,
                     VehicleId = x.VehicleId,
                 })
+                .First();
+        }
+
+        public PhotoDeleteModel DeleteViewData(Guid id)
+        {
+            return this.data.Photos
+                .Where(x => x.Id == id)
+                .Select(x => new PhotoDeleteModel
+                {
+                    InventoryNumber = x.Vehicle.InventoryNumber,
+                    Make = x.Vehicle.Make,
+                    Model = x.Vehicle.Model,
+                    UploadedOn = x.DateUploaded,
+                    IsApproved = x.IsApproved,
+                    UserId = x.UserId,
+                    User = x.User,
+                    UserMessage = x.UserMessage,
+                    ImgUrlFormDatabase = "data:image/jpg;base64," + Convert.ToBase64String(x.PhotoFile),
+                })
+                .First();
+        }
+
+        public bool Delete(Guid id)
+        {
+            var photo = this.data.Photos.Find(id);
+
+            if (photo == null)
+            {
+                return false;
+            }
+
+            this.data.Remove(photo);
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public Guid IdOfVehicle(Guid photoId)
+        {
+            return this.data.Photos
+                .Where(x => x.Id == photoId)
+                .Select(x => x.VehicleId)
                 .First();
         }
     }

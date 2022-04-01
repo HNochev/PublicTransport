@@ -78,5 +78,24 @@ namespace PublicTransport.Core.Services
 
             return true;
         }
+
+        public bool DisApprove(Guid id, string? adminMessage)
+        {
+            var photoData = this.data.Photos.Find(id);
+
+            if (photoData == null)
+            {
+                return false;
+            }
+
+            photoData.AdminMessage = adminMessage;
+            photoData.IsApproved = false;
+            photoData.PhotoStatusId = this.data.PhotoStatuses.First(x => x.ClassColor == "table-danger").Id;
+            photoData.PhotoStatus = this.data.PhotoStatuses.First(x => x.ClassColor == "table-danger");
+
+            this.data.SaveChanges();
+
+            return true;
+        }
     }
 }
