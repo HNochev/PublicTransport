@@ -152,12 +152,6 @@ namespace PublicTransport.Controllers
             return RedirectToAction("All");
         }
 
-        [Authorize]
-        public IActionResult _PartialAddComment(Guid Id)
-        {
-            return View();
-        }
-
         [HttpPost]
         [Authorize]
         public IActionResult Details(Guid id, CommentAddFormModel comment)

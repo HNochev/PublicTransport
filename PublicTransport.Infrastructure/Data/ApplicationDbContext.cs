@@ -26,6 +26,8 @@ namespace PublicTransport.Infrastructure.Data
 
         public DbSet<PhotoStatus> PhotoStatuses { get; set; }
 
+        public DbSet<Contact> Contacts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
