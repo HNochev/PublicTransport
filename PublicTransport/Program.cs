@@ -42,6 +42,7 @@ builder.Services.AddTransient<IPhotoService, PhotoService>();
 builder.Services.AddTransient<IAdminService, AdminService>();
 builder.Services.AddTransient<IPhotoCommentsService, PhotoCommentsService>();
 builder.Services.AddTransient<IContactService, ContactService>();
+builder.Services.AddTransient<IUserRoleService, UserRoleService>();
 
 var app = builder.Build();
 
@@ -78,6 +79,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute(
+    name: "Area",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

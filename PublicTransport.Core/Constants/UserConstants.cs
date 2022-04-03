@@ -9,5 +9,7 @@ namespace PublicTransport.Core.Constants
     public class UserConstants
     {
         public const string Administrator = "Администратор";
+
+        public const string Moderator = "Модератор";
     }
 }

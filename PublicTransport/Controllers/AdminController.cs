@@ -36,7 +36,7 @@ namespace PublicTransport.Controllers
         {
             //await roleManager.CreateAsync(new IdentityRole()
             //{
-            //    Name = "Администратор"
+            //    Name = "Модератор"
             //});
 
             return Ok();
