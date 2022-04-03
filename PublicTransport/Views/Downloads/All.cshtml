@@ -1,0 +1,50 @@
+﻿@using PublicTransport.Core.Models.Downloads
+@model IEnumerable<DownloadsListingModel>
+
+@{
+    ViewBag.Title = "За изтегляне";
+}
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">Все още няма добавени файлове за изтегляне!</h2>
+}
+else
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Модели на тролейбуси за нашите малки почитатели</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="col-1">#</th>
+                                        <th class="col-3">Име</th>
+                                        <th class="col-9">Описание</th>
+                                        <th class="col-1">Изтегли</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var download in Model)
+                                    {
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>@download.FileName</td>
+                                            <td>@download.Description</td>
+                                            <td><a asp-controller="Downloads" asp-action="Download" asp-route-id="@download.Id" class="btn btn-primary float-right">Изтегли</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

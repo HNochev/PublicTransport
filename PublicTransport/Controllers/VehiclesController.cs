@@ -207,7 +207,7 @@ namespace PublicTransport.Controllers
             {
                 await photo.FileUpload.PhotoFile.CopyToAsync(memoryStream);
 
-                string fileExt = Path.GetExtension(photo.FileUpload.PhotoFile.FileName);
+                string fileExt = Path.GetExtension(photo.FileUpload.PhotoFile.FileName.ToLower());
 
                 if (fileExt == ".jpeg" || fileExt == ".jpg")
                 {

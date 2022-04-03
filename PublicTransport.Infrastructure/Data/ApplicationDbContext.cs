@@ -28,6 +28,8 @@ namespace PublicTransport.Infrastructure.Data
 
         public DbSet<Contact> Contacts { get; set; }
 
+        public DbSet<Download> Downloads { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder

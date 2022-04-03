@@ -137,6 +137,8 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
+            var vehicleId = this.photos.IdOfVehicle(id);
+
             var deleted = this.photos.Delete(id);
 
             if (!deleted)
@@ -144,7 +146,6 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            var vehicleId = this.photos.IdOfVehicle(id);
 
             TempData[MessageConstants.SuccessMessage] = "Снимката беше успешно изтрита.";
             return Redirect($"../../Vehicles/Details/{vehicleId}");
