@@ -1,8 +1,12 @@
-﻿@using PublicTransport.Core.Models.Users
+﻿@using Microsoft.AspNetCore.Identity
+@using PublicTransport.Core.Models.Users
+@using PublicTransport.Infrastructure.Data.Models
+
 @model IEnumerable<UserListingModel>
+@inject UserManager<WebsiteUser> UserManager
+
 @{
     ViewData["Title"] = "Всички потребители";
-    Layout = null;
 }
 
 <div class="row">
@@ -35,11 +39,11 @@
                         @foreach (var user in Model)
                         {
                             <tr>
-                                <td>@user.Username</td>
+                                <td><a asp-area="" asp-controller="User" asp-action="UserProfile" asp-route-id="@UserManager.Users.Where(x => x.UserName == user.Username).Select(x => x.Id).First()" >@user.Username</a></td>
                                 <td>@user.Email</td>
                                 <td>
-                                    <a asp-area="RoleManage" asp-action="Edit" asp-controller="UserRole" asp-route-id="@user.Id" class="btn btn-block btn-outline-info btn-xs">Edit</a>
-                                    <a asp-area="RoleManage" asp-action="Roles" asp-controller="UserRole" asp-route-id="@user.Id" class="btn btn-block btn-outline-warning btn-xs">Roles</a>
+                                    <a asp-area="RoleManage" asp-action="Edit" asp-controller="UserRole" asp-route-id="@user.Id" class="btn btn-block btn-outline-info btn-xs">Редактирай</a>
+                                    <a asp-area="RoleManage" asp-action="Roles" asp-controller="UserRole" asp-route-id="@user.Id" class="btn btn-block btn-outline-warning btn-xs">Управлявай роли</a>
                                 </td>
                             </tr>
                         }
