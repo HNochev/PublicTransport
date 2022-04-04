@@ -33,7 +33,7 @@ else
                                     @foreach (var download in Model)
                                     {
                                         <tr>
-                                            <td class="col-3 align-middle">@download.FileName</td>
+                                            <td class="col-3 align-middle"><i class="nav-icon fas fa-file-pdf"></i> @download.FileName</td>
                                             @if (this.User.IsInRole(UserConstants.Administrator))
                                             {
                                                 <td class="text-center align-middle col-4">

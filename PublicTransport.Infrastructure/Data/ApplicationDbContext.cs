@@ -30,6 +30,12 @@ namespace PublicTransport.Infrastructure.Data
 
         public DbSet<Download> Downloads { get; set; }
 
+        public DbSet<Line> Lines { get; set; }
+
+        public DbSet<Stop> Stops { get; set; }
+
+        public DbSet<LineStop> LineStops { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -59,6 +65,10 @@ namespace PublicTransport.Infrastructure.Data
               .WithMany(x => x.Photos)
               .HasForeignKey(x => x.PhotoStatusId)
               .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<LineStop>()
+                .HasKey(x => new { x.LineId, x.StopId });
 
             base.OnModelCreating(builder);
         }
