@@ -88,5 +88,73 @@ namespace PublicTransport.Controllers
             var file = await downloads.GetFile(id);
             return File(file.FilePDF, "application/pdf");
         }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Edit(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var newsForm = this.downloads.EditViewData(id);
+
+            return View(newsForm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Edit(Guid id, DownloadEditFormModel download)
+        {
+
+            var edited = this.downloads.Edit(
+                id,
+                download.FileName,
+                download.Description
+                );
+
+            if (!edited)
+            {
+                return BadRequest();
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Информацията за файла беше успешно редактирана.";
+            return RedirectToAction("All");
+        }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Delete(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var downloadForm = this.downloads.DeleteViewData(id);
+
+            return View(downloadForm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Delete(Guid id, DownloadDeleteModel download)
+        {
+
+            var deleted = this.downloads.Delete(id);
+
+            if (!deleted)
+            {
+                return BadRequest();
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Файлът беше успешно изтрит.";
+            return RedirectToAction("All");
+        }
     }
 }

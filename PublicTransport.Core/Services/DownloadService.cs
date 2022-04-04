@@ -59,5 +59,61 @@ namespace PublicTransport.Core.Services
                           .Select(x => x)
                           .FirstAsync();
         }
+
+        public bool Edit(Guid id, string fileName, string? description)
+        {
+            var downloadData = this.data.Downloads.Find(id);
+
+            if (downloadData == null)
+            {
+                return false;
+            }
+
+            downloadData.FileName = fileName;
+            downloadData.Description = description;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public bool Delete(Guid id)
+        {
+            var download = this.data.Downloads.Find(id);
+
+            if (download == null)
+            {
+                return false;
+            }
+
+            this.data.Remove(download);
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public DownloadEditFormModel EditViewData(Guid id)
+        {
+            return this.data.Downloads
+                .Where(x => x.Id == id)
+                .Select(x => new DownloadEditFormModel
+                {
+                    FileName = x.FileName,
+                    Description = x.Description,
+                })
+                .First();
+        }
+
+        public DownloadDeleteModel DeleteViewData(Guid id)
+        {
+            return this.data.Downloads
+                .Where(x => x.Id == id)
+                .Select(x => new DownloadDeleteModel
+                {
+                    FileName = x.FileName,
+                })
+                .First();
+        }
     }
 }
