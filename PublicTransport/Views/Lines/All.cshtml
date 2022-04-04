@@ -1,0 +1,60 @@
+﻿@using PublicTransport.Core.Constants
+@using PublicTransport.Core.Models.Lines
+@model IEnumerable<LinesListingModel>
+
+@{
+    ViewBag.Title = "Линии";
+}
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">Все още няма добавени линии!</h2>
+}
+else
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h2 class="text-center">
+                                <i class="fas fa-calendar-alt float-left"></i>
+                                Разписания
+                                <i class="fas fa-calendar-alt float-right"></i>
+                            </h2>
+                        </div>
+
+                        <div class="card-body row">
+                            @foreach (var line in Model)
+                            {
+                                <blockquote class="@(line.IsActive ? "quote-info" : "quote-secondary") col-6 row" style="padding-right:20px">
+                                    <div class="col-10">
+                                        <h5>Линия № @line.Name @(line.IsActive ? "" : " (неактивна)")</h5>
+                                        <p>@line.Description</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <a asp-controller="Lines" asp-action="AddStop" asp-route-id="@line.Id" class="btn btn-info float-right">Разписание</a>
+                                    </div>
+                                    @if (this.User.IsInRole(UserConstants.Administrator))
+                                    {
+                                        <a asp-controller="Lines" asp-action="AddStop" asp-route-id="@line.Id" class="btn btn-primary">Добави спирки</a>
+                                        <a asp-controller="Lines" asp-action="EditLine" asp-route-id="@line.Id" class="btn btn-warning">Редакция информацията</a>
+                                        @if (line.IsActive)
+                                        {
+                                            <a asp-controller="Lines" asp-action="ActivateDisactivateLine" asp-route-id="@line.Id" class="btn btn-danger">Направи неактивна</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Lines" asp-action="ActivateDisactivateLine" asp-route-id="@line.Id" class="btn btn-success">Активирай линията</a>
+                                        }
+                                    }
+                                </blockquote>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

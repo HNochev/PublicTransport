@@ -1,0 +1,39 @@
+﻿@using PublicTransport.Core.Models.Lines
+@model StopAddFormModel
+
+@{
+    ViewData["Title"] = "Добави спирка";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Добавяне на спирка</h3>
+            </div>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Въведете името на спирката">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MinutesFromPreviousStop"></label>
+                        <input asp-for="MinutesFromPreviousStop" class="form-control" placeholder="Въведете минутите за които се стига до спирката (ако спирката е начална 0)" value="">
+                        <span asp-validation-for="MinutesFromPreviousStop" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Lines" asp-action="All" class="btn btn-secondary">Отказ</a>
+                    <button type="submit" class="btn btn-primary float-right">Добави</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

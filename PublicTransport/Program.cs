@@ -44,6 +44,7 @@ builder.Services.AddTransient<IPhotoCommentsService, PhotoCommentsService>();
 builder.Services.AddTransient<IContactService, ContactService>();
 builder.Services.AddTransient<IUserRoleService, UserRoleService>();
 builder.Services.AddTransient<IDownloadService, DownloadService>();
+builder.Services.AddTransient<ILineService, LineService>();
 
 var app = builder.Build();
 

@@ -1,0 +1,46 @@
+﻿@using PublicTransport.Core.Models.Lines
+@model LineAddFormModel
+
+@{
+    ViewData["Title"] = "Добави линия";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Добавяне на линия</h3>
+            </div>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control" placeholder="Въведете номера на линията">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-4 text-center">
+                            <label asp-for="IsActive"></label>
+                            <input asp-for="IsActive" class="form-control" checked>
+                            <span asp-validation-for="IsActive" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control" placeholder="Въведете Начална спирка - Средна спирка - Крайна спирка">
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Lines" asp-action="All" class="btn btn-secondary">Отказ</a>
+                    <button type="submit" class="btn btn-primary float-right">Добави</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
