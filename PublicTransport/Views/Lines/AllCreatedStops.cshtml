@@ -1,0 +1,44 @@
+﻿@using PublicTransport.Core.Models.Lines
+@model IEnumerable<StopsListingModel>
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">Все още няма добавени спирки!</h2>
+}
+else
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Всички добавени спирки в сайта. Можете да премахвате сгрешените такива.</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th class="col-3">Име на спирката</th>
+                                        <th class="col-6">Интервал между сегашната спирка и предишната</th>
+                                        <th class="col-3">Премахване</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var stop in Model)
+                                    {
+                                        <tr>
+                                            <td class="align-middle">@stop.Name</td>
+                                            <td class="text-center align-middle">@stop.MinutesFromPreviousStop минути</td>
+                                            <td class="text-center align-middle"><a asp-controller="Lines" asp-action="RemoveStop" asp-route-id="@stop.Id" class="btn btn-danger">Премахни</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

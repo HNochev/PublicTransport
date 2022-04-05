@@ -14,6 +14,7 @@ namespace PublicTransport.Infrastructure.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.LineStops = new HashSet<LineStop>();
+            this.StartingHours = new HashSet<StartingHour>();
         }
 
         [Key]
@@ -37,5 +38,7 @@ namespace PublicTransport.Infrastructure.Data.Models
         public WebsiteUser User { get; set; }
 
         public ICollection<LineStop> LineStops { get; set; }
+
+        public ICollection<StartingHour> StartingHours { get; set; }
     }
 }

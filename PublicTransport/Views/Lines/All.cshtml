@@ -38,7 +38,7 @@ else
                                     </div>
                                     @if (this.User.IsInRole(UserConstants.Administrator))
                                     {
-                                        <a asp-controller="Lines" asp-action="AddStop" asp-route-id="@line.Id" class="btn btn-primary">Добави спирки</a>
+                                        <a asp-controller="Lines" asp-action="AddStopToLine" asp-route-id="@line.Id" class="btn btn-primary">Добави спирки</a>
                                         <a asp-controller="Lines" asp-action="EditLine" asp-route-id="@line.Id" class="btn btn-warning">Редакция информацията</a>
                                         @if (line.IsActive)
                                         {

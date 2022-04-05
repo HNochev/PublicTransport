@@ -36,6 +36,8 @@ namespace PublicTransport.Infrastructure.Data
 
         public DbSet<LineStop> LineStops { get; set; }
 
+        public DbSet<StartingHour> StartingHours { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder

@@ -1,0 +1,88 @@
+﻿@using PublicTransport.Core.Models.Lines
+@model LineAddStopToLineFormModel
+
+@{
+    ViewData["Title"] = $"Добави спирка към линия № {@Model.Line.Name}";
+}
+
+<h3 class="text-center">Ориентировъчен маршрут, който линията трябва да покрива:<br /><b>@Model.Line.Description</b></h3>
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Добавяне на спирка към линия № @Model.Line.Name</h3>
+            </div>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group col-10 offset-1 text-center">
+                        <label asp-for="StopId" class="control-label"></label>
+                        <select asp-for="StopId" class="form-control">
+                            <option value="" selected></option>
+                            @foreach (var stop in Model.LineStops)
+                            {
+                                <option value="@stop.Id">@stop.Name --- @stop.MinutesFromPreviousStop минути</option>
+                            }
+                        </select>
+                        <span asp-validation-for="StopId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Lines" asp-action="All" class="btn btn-success">Готово</a>
+                    <button type="submit" class="btn btn-primary float-right">Добави</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="text-center"><a asp-controller="Lines" asp-action="RemoveStopFromLine" asp-route-id="@Model.Line.Id" class="btn btn-lg btn-danger">Премахвай спирки от линията</a></div>
+<br />
+<br />
+@if (!Model.AddedStopsForThisLine.Any())
+{
+    <h2 class="text-center">Все още няма добавени спирки!</h2>
+}
+else
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Ред на добавените спирки за линия № @Model.Line.Name</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th class="col-3">Име на спирката</th>
+                                        <th class="col-6">Интервал между сегашната спирка и предишната</th>
+                                        <th class="col-3">Премахване</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var stop in Model.AddedStopsForThisLine)
+                                    {
+                                        <tr>
+                                            <td class="align-middle">@stop.Name</td>
+                                            <td class="text-center align-middle">@stop.MinutesFromPreviousStop минути</td>
+                                            <td class="text-center align-middle"><a asp-controller="Lines" asp-action="RemoveStopFromLine" asp-route-id="@Model.Line.Id" class="btn btn-danger">Премахни от линията</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<h3 class="text-center">Карта</h3>
+<img src="~/img/2.png" alt="Flowers in Chania" width="100%">
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

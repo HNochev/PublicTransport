@@ -8,20 +8,25 @@ using System.Threading.Tasks;
 
 namespace PublicTransport.Infrastructure.Data.Models
 {
-    public class LineStop
+    public class StartingHour
     {
+        public StartingHour()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
+        [Key]
+        [Required]
+        public Guid Id { get; set; }
+
+        public DateTime StartHour { get; set; }
+
         [Required]
         public Guid LineId { get; set; }
 
         [ForeignKey(nameof(LineId))]
         public Line Line { get; set; }
 
-        [Required]
-        public Guid StopId { get; set; }
 
-        [ForeignKey(nameof(StopId))]
-        public Stop Stop { get; set; }
-
-        public int Orderer { get; set; }
     }
 }

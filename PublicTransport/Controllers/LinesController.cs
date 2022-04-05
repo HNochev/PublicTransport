@@ -56,7 +56,7 @@ namespace PublicTransport.Controllers
                 stop.MinutesFromPreviousStop);
 
             TempData[MessageConstants.SuccessMessage] = "Успешно добавихте спирка в базата.";
-            return RedirectToAction("All");
+            return RedirectToAction("AddStop");
         }
 
         [Authorize(Roles = UserConstants.Administrator)]
@@ -150,6 +150,122 @@ namespace PublicTransport.Controllers
 
             TempData[MessageConstants.SuccessMessage] = "Линията беше успешно редактирана.";
             return RedirectToAction("All");
+        }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult AddStopToLine(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View(new LineAddStopToLineFormModel
+            {
+                LineStops = this.lines.AllStops(),
+                AddedStopsForThisLine = this.lines.AllAddedStops(id),
+                Line = this.lines.GetLineInfo(id),
+            });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult AddStopToLine(Guid id, LineStopAddFormModel lineStop)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var added = this.lines.AddLineStop(id, lineStop.StopId);
+
+            if (!added)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Тази спирка е вече добавена за линията";
+                return Redirect(Request.Path);
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно добавитхе спирката.";
+            return Redirect(Request.Path);
+        }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult RemoveStopFromLine(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View(new LineRemoveStopToLineFormModel
+            {
+                LineStops = this.lines.AllAddedStops(id),
+                Line = this.lines.GetLineInfo(id),
+            });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult RemoveStopFromLine(Guid id, LineStopAddFormModel lineStop)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var removed = this.lines.RemoveLineStop(id, lineStop.StopId);
+
+            if (!removed)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Тази спирка е вече премахната за линията";
+                return Redirect(Request.Path);
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Спирката беше успешно премахната";
+            return Redirect(Request.Path);
+        }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult AllCreatedStops()
+        {
+            var stops = this.lines.AllCreatedStops();
+
+            return View(stops);
+        }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult RemoveStop(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var deleted = this.lines.DeleteStop(id);
+
+            if (!deleted)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Тази спирка не може да бъде изтрита понеже е свързана с линия. Моля първо отидете и изтрийте спирката от там.";
+                return Redirect("../../Lines/AllCreatedStops");
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно изтрхте спирката.";
+            return Redirect("../../Lines/AllCreatedStops");
         }
     }
 }

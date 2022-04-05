@@ -1,4 +1,5 @@
-﻿using PublicTransport.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Models.Lines;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
@@ -137,6 +138,130 @@ namespace PublicTransport.Core.Services
                     Description = x.Description,
                 })
                 .First();
+        }
+
+        public IEnumerable<LineStopModel> AllStops()
+        {
+            return this.data
+                .Stops
+                .Select(x => new LineStopModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    MinutesFromPreviousStop = x.MinutesFromPreviousStop,
+                })
+                .ToList();
+        }
+
+        public IEnumerable<LineStopModel> AllAddedStops(Guid id)
+        {
+            return this.data
+                .LineStops
+                .Include(x => x.Stop)
+                .Where(x => x.LineId == id)
+                .Select(x => new LineStopModel
+                {
+                    Id = x.StopId,
+                    Name = x.Stop.Name,
+                    MinutesFromPreviousStop = x.Stop.MinutesFromPreviousStop,
+                    Orderer = x.Orderer,
+                })
+                .OrderBy(x => x.Orderer)
+                .ToList();
+        }
+
+        public bool AddLineStop(Guid lineId, Guid stopId)
+        {
+            var newLineStop = new LineStop
+            {
+                LineId = lineId,
+                StopId = stopId,
+                Orderer = this.data.LineStops.Where(x => x.LineId == lineId).Count(),
+            };
+
+            if (this.data.LineStops.Any(x => x.LineId == lineId && x.StopId == stopId))
+            {
+                return false;
+            }
+
+            this.data.LineStops.Add(newLineStop);
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public LinesListingModel GetLineInfo(Guid id)
+        {
+            return this.data.Lines
+                .Where(x => x.Id == id)
+                .Select(x => new LinesListingModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    IsActive = x.IsActive,
+                })
+                .First();
+        }
+
+        public bool RemoveLineStop(Guid lineId, Guid stopId)
+        {
+            var newLineStop = new LineStop
+            {
+                LineId = lineId,
+                StopId = stopId,
+            };
+
+            if (!this.data.LineStops.Contains(newLineStop))
+            {
+                return false;
+            }
+
+            this.data.LineStops.Remove(newLineStop);
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public Guid GetLineId(Guid id)
+        {
+            return this.data.LineStops
+                .Where(x => x.StopId == id)
+                .Select(x => x.LineId)
+                .FirstOrDefault();
+        }
+
+        public IEnumerable<StopsListingModel> AllCreatedStops()
+        {
+            return this.data
+                .Stops
+                .Select(x => new StopsListingModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    MinutesFromPreviousStop = x.MinutesFromPreviousStop,
+                })
+                .ToList();
+        }
+
+        public bool DeleteStop(Guid id)
+        {
+            var stop = this.data.Stops.Find(id);
+
+            if (stop == null)
+            {
+                return false;
+            }
+
+            if (this.data.LineStops.Any(x => x.StopId == id))
+            {
+                return false;
+            }
+
+            this.data.Remove(stop);
+            this.data.SaveChanges();
+
+            return true;
         }
     }
 }

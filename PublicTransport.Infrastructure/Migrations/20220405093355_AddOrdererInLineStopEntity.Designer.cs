@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PublicTransport.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using PublicTransport.Infrastructure.Data;
 namespace PublicTransport.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220405093355_AddOrdererInLineStopEntity")]
+    partial class AddOrdererInLineStopEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -465,25 +467,6 @@ namespace PublicTransport.Infrastructure.Migrations
                     b.ToTable("PhotoStatuses");
                 });
 
-            modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.StartingHour", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("LineId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("StartHour")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LineId");
-
-                    b.ToTable("StartingHours");
-                });
-
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.Stop", b =>
                 {
                     b.Property<Guid>("Id")
@@ -832,17 +815,6 @@ namespace PublicTransport.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.StartingHour", b =>
-                {
-                    b.HasOne("PublicTransport.Infrastructure.Data.Models.Line", "Line")
-                        .WithMany("StartingHours")
-                        .HasForeignKey("LineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Line");
-                });
-
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.Vehicle", b =>
                 {
                     b.HasOne("PublicTransport.Infrastructure.Data.Models.VehicleCondition", "VehicleCondition")
@@ -857,8 +829,6 @@ namespace PublicTransport.Infrastructure.Migrations
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.Line", b =>
                 {
                     b.Navigation("LineStops");
-
-                    b.Navigation("StartingHours");
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.News", b =>

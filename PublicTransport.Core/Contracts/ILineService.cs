@@ -24,5 +24,21 @@ namespace PublicTransport.Core.Contracts
         public bool Edit(Guid id, string name, string description);
 
         public LineEditFormModel EditViewData(Guid id);
+
+        public IEnumerable<LineStopModel> AllStops();
+
+        public IEnumerable<LineStopModel> AllAddedStops(Guid id);
+
+        public bool AddLineStop(Guid lineId, Guid stopId);
+
+        public LinesListingModel GetLineInfo(Guid id);
+
+        public bool RemoveLineStop(Guid stopId, Guid lineId);
+
+        public Guid GetLineId(Guid id);
+
+        public IEnumerable<StopsListingModel> AllCreatedStops();
+
+        public bool DeleteStop(Guid id);
     }
 }
