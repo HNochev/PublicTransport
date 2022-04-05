@@ -1,0 +1,35 @@
+﻿@using PublicTransport.Core.Models.Lines
+@model HourAddFormModel
+
+@{
+    ViewData["Title"] = $"Добави час на потегляне от началната спирка на линия № {Model.Name}";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Добавяне на час на потегляне на линия № @Model.Name</h3>
+            </div>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group text-center">
+                        <label asp-for="StartHour"></label>
+                        <input asp-for="StartHour" class="form-control col-4 offset-4" value="">
+                        <span asp-validation-for="StartHour" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Lines" asp-action="Schedule" asp-route-id="@Model.Id" class="btn btn-secondary">Отказ</a>
+                    <button type="submit" class="btn btn-primary float-right">Добави</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_MapPartial" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -267,5 +267,65 @@ namespace PublicTransport.Controllers
             TempData[MessageConstants.SuccessMessage] = "Успешно изтрхте спирката.";
             return Redirect("../../Lines/AllCreatedStops");
         }
+
+        public IActionResult Schedule(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View(new LineScheduleModel
+            {
+                AllStopsForThisLine = this.lines.AllAddedStops(id),
+                Line = this.lines.GetLineInfo(id),
+                AllStartingHoursForThisLine = this.lines.GetAllHoursForLine(id),
+            });
+        }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult AddStartingHourToLine(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View(new HourAddFormModel
+            {
+                Name = this.lines.GetLineInfo(id).Name,
+                Id = id,
+            });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult AddStartingHourToLine(Guid id, HourAddFormModel hour)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var added = this.lines.AddStartingHourToLine(id, hour.StartHour);
+
+            if (!added)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Този час е вече добавен за тази линия";
+                return Redirect(Request.Path);
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно добавитхе спирката.";
+            return Redirect($"../../Lines/Schedule/{id}");
+        }
     }
 }

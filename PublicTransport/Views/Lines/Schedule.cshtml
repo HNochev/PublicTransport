@@ -1,0 +1,65 @@
+﻿@using PublicTransport.Core.Constants
+@using PublicTransport.Core.Models.Lines
+@model LineScheduleModel
+
+@{
+    ViewBag.Title = $"Разписание линия № {Model.Line.Name}";
+}
+
+@if (this.User.IsInRole(UserConstants.Administrator))
+{
+    <div class="text-center"><a asp-controller="Lines" asp-action="AddStartingHourToLine" asp-route-id="@Model.Line.Id" class="btn btn-lg btn-success">Добави час на тръгване от началната спирка за линията</a></div>
+    <br />
+}
+
+@if (!Model.AllStopsForThisLine.Any())
+{
+    <h2 class="text-center">Все още няма добавени спирки за линия № @Model.Line.Name</h2>
+}
+else
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h2 class="text-center">Разписание за линия № @Model.Line.Name</h2>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th class="">№</th>
+                                        <th class="col-3">Име на спирката</th>
+                                        <th class="col-9">Точен час на преминаване през спирката</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var stop in Model.AllStopsForThisLine)
+                                    {
+                                        <tr>
+                                            <td class="text-center align-middle"><h5>@(stop.Orderer + 1)</h5></td>
+                                            <td class="align-middle"><h5>@stop.Name</h5></td>
+                                            <td class="text-center align-middle">
+                                                @if (!Model.AllStartingHoursForThisLine.Any())
+                                                {
+                                                    <h5 class="text-center">Няма резултат</h5>
+                                                }
+                                                else
+                                                {
+                                                    @String.Join(", ", Model.AllStartingHoursForThisLine.Select(x => (x.StartHour.AddMinutes(@Model.AllStopsForThisLine.Where(y => y.Orderer <= stop.Orderer).Sum(y => y.MinutesFromPreviousStop))).ToString("t")))
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <partial name="_MapPartial" />
+}

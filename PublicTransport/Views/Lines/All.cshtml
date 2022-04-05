@@ -34,7 +34,7 @@ else
                                         <p>@line.Description</p>
                                     </div>
                                     <div class="col-2">
-                                        <a asp-controller="Lines" asp-action="AddStop" asp-route-id="@line.Id" class="btn btn-info float-right">Разписание</a>
+                                        <a asp-controller="Lines" asp-action="Schedule" asp-route-id="@line.Id" class="btn btn-info float-right">Разписание</a>
                                     </div>
                                     @if (this.User.IsInRole(UserConstants.Administrator))
                                     {

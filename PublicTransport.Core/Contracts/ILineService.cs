@@ -40,5 +40,9 @@ namespace PublicTransport.Core.Contracts
         public IEnumerable<StopsListingModel> AllCreatedStops();
 
         public bool DeleteStop(Guid id);
+
+        public IEnumerable<LineHoursModel> GetAllHoursForLine(Guid id);
+
+        public bool AddStartingHourToLine(Guid id, DateTime hour);
     }
 }

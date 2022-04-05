@@ -263,5 +263,44 @@ namespace PublicTransport.Core.Services
 
             return true;
         }
+
+        public IEnumerable<LineHoursModel> GetAllHoursForLine(Guid id)
+        {
+            return this.data.StartingHours
+                .Where(x => x.LineId == id)
+                .Select(x => new LineHoursModel
+                {
+                    Id = x.Id,
+                    StartHour = x.StartHour,
+                })
+                .ToList();
+        }
+
+        public bool AddStartingHourToLine(Guid id, DateTime hour)
+        {
+            var line = this.data.Lines.Find(id);
+
+            if (line == null)
+            {
+                return false;
+            }
+
+            if (line.StartingHours.Any(x => x.StartHour == hour))
+            {
+                return false;
+            }
+
+            var newStartingHour = new StartingHour
+            {
+                StartHour = hour,
+                LineId = id,
+                Line = line,
+            };
+
+            this.data.StartingHours.Add(newStartingHour);
+            this.data.SaveChanges();
+
+            return true;
+        }
     }
 }
