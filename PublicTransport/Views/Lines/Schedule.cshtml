@@ -10,6 +10,8 @@
 {
     <div class="text-center"><a asp-controller="Lines" asp-action="AddStartingHourToLine" asp-route-id="@Model.Line.Id" class="btn btn-lg btn-success">Добави час на тръгване от началната спирка за линията</a></div>
     <br />
+    <div class="text-center"><a asp-controller="Lines" asp-action="RemoveStartingHourFromLine" asp-route-id="@Model.Line.Id" class="btn btn-lg btn-danger">Премахни час на тръгване от началната спирка за линията</a></div>
+    <br />
 }
 
 @if (!Model.AllStopsForThisLine.Any())
@@ -18,6 +20,17 @@
 }
 else
 {
+    <table class="table table-bordered">
+        <thead>
+            <tr class="bg-primary">
+                <th colspan="2"><h4 class="text-center">Цветово кодиране/Легенда</h4></th>
+            </tr>
+            <tr class="text-center">
+                <th class="col-6 bg-green"><h5>Тролейбусът ще бъде на спирката до 2 минути</h5></th>
+                <th class="col-6 bg-yellow"><h5>Тролейбусът е на спирката</h5></th>
+            </tr>
+        </thead>
+    </table>
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -48,7 +61,17 @@ else
                                                 }
                                                 else
                                                 {
-                                                    @String.Join(", ", Model.AllStartingHoursForThisLine.Select(x => (x.StartHour.AddMinutes(@Model.AllStopsForThisLine.Where(y => y.Orderer <= stop.Orderer).Sum(y => y.MinutesFromPreviousStop))).ToString("t")))
+                                                    <h5>
+                                                        @Html.Raw(String.Join(", ", Model.AllStartingHoursForThisLine
+                                            .OrderBy(x => x.StartHour)
+                                            .Select(x =>(x.StartHour.AddMinutes(@Model.AllStopsForThisLine
+                                            .Where(y => y.Orderer <= stop.Orderer)
+                                            .Sum(y => y.MinutesFromPreviousStop)))
+                                            .ToString("t")))
+                                            .Replace(DateTime.Now.ToString("t"), $"<span class=\"bg-yellow\">{DateTime.Now.ToString("t")}</span>")
+                                            .Replace(DateTime.Now.AddMinutes(1).ToString("t"), $"<span class=\"bg-green\">{DateTime.Now.AddMinutes(1).ToString("t")}</span>")
+                                            .Replace(DateTime.Now.AddMinutes(2).ToString("t"), $"<span class=\"bg-green\">{DateTime.Now.AddMinutes(2).ToString("t")}</span>"))
+                                                    </h5>
                                                 }
                                             </td>
                                         </tr>

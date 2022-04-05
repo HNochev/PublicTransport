@@ -150,6 +150,7 @@ namespace PublicTransport.Core.Services
                     Name = x.Name,
                     MinutesFromPreviousStop = x.MinutesFromPreviousStop,
                 })
+                .OrderBy(x => x.Name)
                 .ToList();
         }
 
@@ -298,6 +299,37 @@ namespace PublicTransport.Core.Services
             };
 
             this.data.StartingHours.Add(newStartingHour);
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public IEnumerable<LineHoursModel> AllStartingHours(Guid id)
+        {
+            return this.data
+                .StartingHours
+                .Where(x => x.LineId == id)
+                .Select(x => new LineHoursModel
+                {
+                    Id = x.Id,
+                    StartHour = x.StartHour,
+                })
+                .OrderBy(x => x.StartHour)
+                .ToList();
+        }
+
+        public bool RemoveHourFromLine(Guid id)
+        {
+            var hour = this.data.StartingHours
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
+            if (hour == null)
+            {
+                return false;
+            }
+
+            this.data.StartingHours.Remove(hour);
             this.data.SaveChanges();
 
             return true;

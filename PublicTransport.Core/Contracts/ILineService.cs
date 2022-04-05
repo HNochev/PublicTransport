@@ -44,5 +44,9 @@ namespace PublicTransport.Core.Contracts
         public IEnumerable<LineHoursModel> GetAllHoursForLine(Guid id);
 
         public bool AddStartingHourToLine(Guid id, DateTime hour);
+
+        public IEnumerable<LineHoursModel> AllStartingHours(Guid id);
+
+        public bool RemoveHourFromLine(Guid id);
     }
 }

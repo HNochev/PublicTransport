@@ -1,0 +1,84 @@
+﻿@using PublicTransport.Core.Models.Lines
+@model LineRemoveStartingHourFromLineFormModel
+
+@{
+    ViewData["Title"] = $"Премахни час на потегляне от линия № {@Model.Line.Name}";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Премахване на час на потегляне от линия № @Model.Line.Name</h3>
+            </div>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group col-10 offset-1 text-center">
+                        <label asp-for="StartingHourId" class="control-label"></label>
+                        <select asp-for="StartingHourId" class="form-control">
+                            <option value="" selected></option>
+                            @foreach (var startingHour in Model.StartingHours)
+                            {
+                                <option value="@startingHour.Id">@startingHour.StartHour.ToString("t")</option>
+                            }
+                        </select>
+                        <span asp-validation-for="StartingHourId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Lines" asp-action="Schedule" asp-route-id="@Model.Line.Id" class="btn btn-success">Готово</a>
+                    <button type="submit" class="btn btn-danger float-right">Премахни</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="text-center"><a asp-controller="Lines" asp-action="Schedule" asp-route-id="@Model.Line.Id" class="btn btn-lg btn-primary">Върни се към разписанието на линията</a></div>
+<br />
+<br />
+@*@if (!Model.LineStops.Any())
+{
+    <h2 class="text-center">Все още няма добавени спирки!</h2>
+}
+else
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Ред на добавените спирки за линия № @Model.Line.Name</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th class="col-3">Име на спирката</th>
+                                        <th class="col-6">Интервал между сегашната спирка и предишната</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var stop in Model.LineStops)
+                                    {
+                                        <tr>
+                                            <td class="align-middle">@stop.Name</td>
+                                            <td class="text-center align-middle">@stop.MinutesFromPreviousStop минути</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}*@
+<partial name="_MapPartial" />
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

@@ -327,5 +327,47 @@ namespace PublicTransport.Controllers
             TempData[MessageConstants.SuccessMessage] = "Успешно добавитхе спирката.";
             return Redirect($"../../Lines/Schedule/{id}");
         }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult RemoveStartingHourFromLine(Guid id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View(new LineRemoveStartingHourFromLineFormModel
+            {
+                StartingHours = this.lines.AllStartingHours(id),
+                Line = this.lines.GetLineInfo(id),
+            });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult RemoveStartingHourFromLine(Guid id, LineRemoveStartingHourFromLineFormModel hour)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var removed = this.lines.RemoveHourFromLine(hour.StartingHourId);
+
+            if (!removed)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Този час е вече премахнат за линията";
+                return Redirect(Request.Path);
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Часът на потегляне успешно премахнат";
+            return Redirect(Request.Path);
+        }
     }
 }
