@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PublicTransport.Core.Constants;
+using PublicTransport.Core.Contracts;
+using PublicTransport.Core.Models.Home;
 using PublicTransport.Models;
 using System.Diagnostics;
 
@@ -8,17 +10,22 @@ namespace PublicTransport.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INewsService news;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INewsService news)
         {
             _logger = logger;
+            this.news = news;
         }
 
         public IActionResult Index()
         {
             ViewData[MessageConstants.SuccessMessage] = "Добре дошли!";
 
-            return View();
+            return View(new HomePageModel
+            {
+                 News = this.news.GetTopThreeNews()
+            });
         }
 
         public IActionResult Privacy()

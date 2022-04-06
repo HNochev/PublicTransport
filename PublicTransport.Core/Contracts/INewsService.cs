@@ -37,5 +37,7 @@ namespace PublicTransport.Core.Contracts
         public NewsAddFormModel EditViewData(Guid id);
 
         public NewsDeleteModel DeleteViewData(Guid id);
+
+        public List<NewsListingModel> GetTopThreeNews();
     }
 }

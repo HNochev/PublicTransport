@@ -170,5 +170,26 @@ namespace PublicTransport.Core.Services
                 })
                 .First();
         }
+
+        public List<NewsListingModel> GetTopThreeNews()
+        {
+            return this.data
+                 .News
+                 .Where(x => !x.IsDeleted)
+                 .Select(x => new NewsListingModel
+                 {
+                     Id = x.Id,
+                     Title = x.Title,
+                     Description = Truncate(x.Description, 150),
+                     ImgUrl = x.ImgUrl,
+                     Date = x.Date,
+                     IsDeleted = x.IsDeleted,
+                     AuthorId = x.AuthorId,
+                     Author = x.Author,
+                 })
+                 .OrderByDescending(x => x.Date)
+                 .Take(3)
+                 .ToList();
+        }
     }
 }
