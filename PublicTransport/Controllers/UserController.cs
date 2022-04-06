@@ -23,16 +23,8 @@ namespace PublicTransport.Controllers
             return View();
         }
 
-        [Authorize]
         public IActionResult UserProfile(string id)
         {
-            var loggedUserId = this.users.IdByUser(this.User.Id());
-
-            if (loggedUserId == null)
-            {
-                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
 
             var detailsForm = this.users.UserDetails(id);
 

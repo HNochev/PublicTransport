@@ -28,9 +28,9 @@
                         <b class="entry-date right">Публикувана на: @Model.Date.ToString("D")</b>
                     </header>
                     <div class="entry-content">
-                        <p class="short-content">
-                            @Model.Description
-                        </p>
+                        <span class="short-content" style="white-space: pre-line;">
+                            @Model.Description.Trim()
+                        </span>
                         <h4> Автор: <a asp-controller="User" asp-action="UserProfile" asp-route-id="@UserManager.Users.Where(x => x.UserName == Model.Author.UserName).Select(x => x.Id).First()" >@Model.Author.UserName</a></h4>
                     </div>
                     @if (this.User.IsInRole(UserConstants.Administrator))

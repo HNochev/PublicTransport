@@ -270,14 +270,6 @@ namespace PublicTransport.Controllers
 
         public IActionResult Schedule(Guid id)
         {
-            var userId = this.users.IdByUser(this.User.Id());
-
-            if (userId == null)
-            {
-                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
-
             return View(new LineScheduleModel
             {
                 AllStopsForThisLine = this.lines.AllAddedStops(id),
