@@ -18,7 +18,7 @@ namespace PublicTransport.Core.Models.Admin
 
         public string? UserMessage { get; set; }
 
-        [StringLength(500)]
+        [StringLength(500, ErrorMessage = "{0} трябва да бъде по-късo от {1} символа")]
         [Display(Name = "Съобщение към потребителя публикувал снимката")]
         public string? AdminMessage { get; set; }
 

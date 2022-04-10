@@ -9,31 +9,32 @@ namespace PublicTransport.Core.Models.Vehicles
 {
     public class VehicleAddFormModel
     {
-        [Required]
-        [StringLength(10)]
+        [Required(ErrorMessage = "{0} е задължително поле")]
+        [StringLength(10, ErrorMessage = "{0} трябва да бъде по-къс от {1} символа")]
         [Display(Name = "Инвентарен номер")]
         public string InventoryNumber { get; set; }
 
-        [Required]
-        [StringLength(25)]
+        [Required(ErrorMessage = "{0} е задължително поле")]
+        [StringLength(25, ErrorMessage = "{0} трябва да бъде по-късa от {1} символа")]
         [Display(Name = "Марка")]
         public string Make { get; set; }
 
-        [Required]
-        [StringLength(25)]
+        [Required(ErrorMessage = "{0} е задължително поле")]
+        [StringLength(25, ErrorMessage = "{0} трябва да бъде по-къс от {1} символа")]
         [Display(Name = "Модел")]
         public string Model { get; set; }
 
-        [Required]
-        [StringLength(15)]
+        [Required(ErrorMessage = "{0} е задължително поле")]
+        [StringLength(15, ErrorMessage = "{0} трябва да бъде по-къс от {1} символа")]
         [Display(Name = "Заводски номер")]
         public string FactoryNumber { get; set; }
 
-        [Required]
-        [Range(1900, 2100)]
+        [Required(ErrorMessage = "{0} е задължително поле")]
+        [Range(1900, 2100, ErrorMessage = "{0} може да бъде между {1} и {2}")]
         [Display(Name = "Година на производство")]
         public int YearBuilt { get; set; }
 
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [DataType(DataType.Date)]
         [Display(Name = "Пристигнал в Хасково")]
         public DateTime ArriveInTown { get; set; }
@@ -50,7 +51,7 @@ namespace PublicTransport.Core.Models.Vehicles
         [Display(Name = "Бракуван/Нарязан на")]
         public DateTime? ScrappedOn { get; set; }
 
-        [StringLength(500)]
+        [StringLength(500, ErrorMessage = "{0} трябва да бъде по-късa от {1} символа")]
         [Display(Name = "Информация")]
         public string? Description { get; set; }
 

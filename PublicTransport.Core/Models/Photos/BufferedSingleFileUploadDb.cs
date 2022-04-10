@@ -10,7 +10,7 @@ namespace PublicTransport.Core.Models.Photos
 {
     public class BufferedSingleFileUploadDb
     {
-        [Required]
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [Display(Name = "Качете снимка")]
         public IFormFile PhotoFile { get; set; }
     }

@@ -10,7 +10,7 @@ namespace PublicTransport.Core.Models.Downloads
 {
     public class BufferedSinglePDFFileUploadDb
     {
-        [Required]
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [Display(Name = "Качете PDF файл")]
         public IFormFile FilePDF { get; set; }
     }

@@ -4,12 +4,12 @@ namespace PublicTransport.Core.Models.News
 {
     public class NewsAddFormModel
     {
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "{0} е задължително поле")]
+        [StringLength(50, ErrorMessage = "{0} трябва да бъде по-късo от {1} символа")]
         [Display(Name = "Заглавие")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [Display(Name = "Съдържание")]
         public string Description { get; set; }
 

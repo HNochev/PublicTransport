@@ -11,11 +11,11 @@ namespace PublicTransport.Core.Models.Users
     {
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [Display(Name = "Потребителско име")]
         public string? Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [EmailAddress]
         [Display(Name = "Имейл")]
         public string? Email { get; set; }

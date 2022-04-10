@@ -9,7 +9,7 @@ namespace PublicTransport.Core.Models.Lines
 {
     public class LineRemoveStartingHourFromLineFormModel
     {
-        [Required]
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [Display(Name = "Изберете час на потегляне, който искате да премахнете и натиснете премахни")]
         public Guid StartingHourId { get; set; }
 

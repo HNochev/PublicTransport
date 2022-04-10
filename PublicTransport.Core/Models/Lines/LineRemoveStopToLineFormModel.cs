@@ -9,7 +9,7 @@ namespace PublicTransport.Core.Models.Lines
 {
     public class LineRemoveStopToLineFormModel
     {
-        [Required]
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [Display(Name = "Изберете спирка, която искате да премахнете и натиснете премахни")]
         public Guid StopId { get; set; }
 

@@ -9,8 +9,8 @@ namespace PublicTransport.Core.Models.NewsComments
 {
     public class CommentAddFormModel
     {
-        [Required]
-        [StringLength(500)]
+        [Required(ErrorMessage = "{0} е задължително поле")]
+        [StringLength(500, ErrorMessage = "{0} трябва да бъде по-късo от {1} символа")]
         [Display(Name = "Съдържание")]
 
         public string Content { get; set; }

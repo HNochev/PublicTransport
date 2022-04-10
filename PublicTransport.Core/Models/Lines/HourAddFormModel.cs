@@ -9,11 +9,12 @@ namespace PublicTransport.Core.Models.Lines
 {
     public class HourAddFormModel
     {
-        [Required]
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [DataType(DataType.Time)]
         [Display(Name = "Час на тръгване от началната спирка")]
         public DateTime StartHour { get; set; }
 
+        [Required(ErrorMessage = "{0} е задължително поле")]
         public string Name { get; set; }
 
         public Guid Id { get; set; }
