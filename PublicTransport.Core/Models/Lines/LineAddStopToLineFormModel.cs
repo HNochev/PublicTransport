@@ -10,6 +10,7 @@ namespace PublicTransport.Core.Models.Lines
 {
     public class LineAddStopToLineFormModel
     {
+        [Required(ErrorMessage = "{0} е задължително поле")]
         [Display(Name = "Избери спирка която да добавиш като следваща с списъка за линията")]
         public Guid StopId { get; set; }
 
