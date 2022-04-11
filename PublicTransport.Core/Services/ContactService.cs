@@ -105,7 +105,7 @@ namespace PublicTransport.Core.Services
 
         public bool Delete(Guid id, bool isDeleted)
         {
-            var contactData = this.data.News.Find(id);
+            var contactData = this.data.Contacts.Find(id);
 
             if (contactData == null)
             {

@@ -80,7 +80,7 @@ namespace PublicTransport.Test
         [Fact]
         public void CreateNewsReturnNewGuid()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("AddingPlaneIncreaseSizeOfCollection").Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("CreateNewsReturnNewGuid").Options;
             var dbContext = new ApplicationDbContext(options);
             dbContext.News.Add(new News { AuthorId = "1", Title = "1", Description = "1", ImgUrl = "1", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
             dbContext.News.Add(new News { AuthorId = "2", Title = "2", Description = "2", ImgUrl = "2", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
@@ -90,19 +90,6 @@ namespace PublicTransport.Test
             var id = service.CreateNews("gafasfasfsafsa", "safsaffsasfa", DateTime.Now, "sfsafasffsa", "safsaffsa", false);
 
             Assert.NotNull(id);
-        }
-
-        [Fact]
-        public void CreateNewsCreateNewNews()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("IncreaseSizeOfCollection").Options;
-            var dbContext = new ApplicationDbContext(options);
-            var service = new NewsService(dbContext);
-
-            var id = service.CreateNews("gafasfasfsafsa", "safsaffsasfa", DateTime.Now, "1", "1", false);
-            var newNews = service.Details(id);
-
-            Assert.NotNull(newNews);
         }
     }
 }
