@@ -15,8 +15,10 @@ namespace PublicTransport.Test
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("AllNewsReturnCorrectNumber").Options;
             var dbContext = new ApplicationDbContext(options);
+
             dbContext.News.Add(new News { AuthorId = "1", Title = "1", Description = "1", ImgUrl = "1", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
             dbContext.News.Add(new News { AuthorId = "2", Title = "2", Description = "2", ImgUrl = "2", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
+
             dbContext.SaveChanges();
             var service = new NewsService(dbContext);
 
@@ -33,6 +35,7 @@ namespace PublicTransport.Test
 
             dbContext.News.Add(new News { AuthorId = "1", Title = "1", Description = "1", ImgUrl = "1", IsDeleted = false, Date = DateTime.Now, Id = firstAddGuid, Author = new WebsiteUser { } });
             dbContext.News.Add(new News { AuthorId = "2", Title = "2", Description = "2", ImgUrl = "2", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
+
             dbContext.SaveChanges();
             var service = new NewsService(dbContext);
 
@@ -50,6 +53,7 @@ namespace PublicTransport.Test
 
             dbContext.News.Add(new News { AuthorId = "1", Title = "1", Description = "1", ImgUrl = "1", IsDeleted = false, Date = DateTime.Now, Id = firstAddGuid, Author = new WebsiteUser { } });
             dbContext.News.Add(new News { AuthorId = "2", Title = "2", Description = "2", ImgUrl = "2", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
+
             dbContext.SaveChanges();
             var service = new NewsService(dbContext);
 
@@ -67,6 +71,7 @@ namespace PublicTransport.Test
 
             dbContext.News.Add(new News { AuthorId = "1", Title = "1", Description = "1", ImgUrl = "1", IsDeleted = false, Date = DateTime.Now, Id = firstAddGuid, Author = new WebsiteUser { } });
             dbContext.News.Add(new News { AuthorId = "2", Title = "2", Description = "2", ImgUrl = "2", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
+
             dbContext.SaveChanges();
             var service = new NewsService(dbContext);
 
@@ -84,6 +89,7 @@ namespace PublicTransport.Test
             var dbContext = new ApplicationDbContext(options);
             dbContext.News.Add(new News { AuthorId = "1", Title = "1", Description = "1", ImgUrl = "1", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
             dbContext.News.Add(new News { AuthorId = "2", Title = "2", Description = "2", ImgUrl = "2", IsDeleted = false, Date = DateTime.Now, Id = Guid.NewGuid(), Author = new WebsiteUser { } });
+
             dbContext.SaveChanges();
             var service = new NewsService(dbContext);
 
