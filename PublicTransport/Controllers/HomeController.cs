@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using PublicTransport.Core.Constants;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Models.Home;
@@ -11,11 +12,13 @@ namespace PublicTransport.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly INewsService news;
+        private readonly IMemoryCache cache;
 
-        public HomeController(ILogger<HomeController> logger, INewsService news)
+        public HomeController(ILogger<HomeController> logger, INewsService news, IMemoryCache cache)
         {
             _logger = logger;
             this.news = news;
+            this.cache = cache;
         }
 
         public IActionResult Index()

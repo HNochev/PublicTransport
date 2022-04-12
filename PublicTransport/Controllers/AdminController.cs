@@ -43,7 +43,7 @@ namespace PublicTransport.Controllers
         }
 
         [Authorize(Roles = UserConstants.Administrator)]
-        public IActionResult ApprovePhotos()
+        public IActionResult ApprovePhotos(int p = 1, int s = 10)
         {
             var loggedUserId = this.users.IdByUser(this.User.Id());
 
@@ -53,7 +53,7 @@ namespace PublicTransport.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            var allMyPhotosForm = this.admins.AllPendingPhotos();
+            var allMyPhotosForm = this.admins.AllPendingPhotos(p, s);
 
             return View(allMyPhotosForm);
         }

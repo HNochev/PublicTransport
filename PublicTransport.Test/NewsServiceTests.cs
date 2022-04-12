@@ -22,7 +22,7 @@ namespace PublicTransport.Test
             dbContext.SaveChanges();
             var service = new NewsService(dbContext);
 
-            Assert.Equal(2, service.All().Count);
+            Assert.Equal(2, service.All(1,25).News.Count);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace PublicTransport.Test
             var service = new NewsService(dbContext);
 
             service.Delete(firstAddGuid, true);
-            Assert.Single(service.All());
+            Assert.Single(service.All(1,25).News);
         }
 
         [Fact]

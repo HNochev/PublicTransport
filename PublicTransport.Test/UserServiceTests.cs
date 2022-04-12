@@ -16,7 +16,7 @@ namespace PublicTransport.Test
         [Fact]
         public void IdByUserShouldReturnUser()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("IdByUserShouldReturnUser").Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("IdByUserShouldReturnTheUser").Options;
             var dbContext = new ApplicationDbContext(options);
 
             var user = new WebsiteUser { Id = "1" };

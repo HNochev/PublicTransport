@@ -32,7 +32,7 @@ namespace PublicTransport.Controllers
         }
 
         [Authorize]
-        public IActionResult MyPhotos()
+        public IActionResult MyPhotos(int p = 1, int s = 10)
         {
             var loggedUserId = this.users.IdByUser(this.User.Id());
 
@@ -42,7 +42,7 @@ namespace PublicTransport.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            var allMyPhotosForm = this.photos.AllPhotosByUser(loggedUserId);
+            var allMyPhotosForm = this.photos.AllPhotosByUser(loggedUserId, p, s);
 
             return View(allMyPhotosForm);
         }

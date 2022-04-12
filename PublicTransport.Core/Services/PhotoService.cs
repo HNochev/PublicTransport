@@ -55,9 +55,16 @@ namespace PublicTransport.Core.Services
                 .First();
         }
 
-        public IEnumerable<UserMyPhotosModel> AllPhotosByUser(string id)
+        public UserMyPhotosPaginationModel AllPhotosByUser(string id, int pageNo, int pageSize)
         {
-            return this.data.Photos
+            UserMyPhotosPaginationModel result = new UserMyPhotosPaginationModel()
+            {
+                PageNo = pageNo,
+                PageSize = pageSize
+            };
+
+            result.TotalRecords = this.data.Photos.Where(x => x.UserId == id).Count();
+            result.AllMyPhotos = this.data.Photos
                 .Where(x => x.UserId == id)
                 .Select(x => new UserMyPhotosModel
                 {
@@ -74,8 +81,12 @@ namespace PublicTransport.Core.Services
                     PhotoStatus = x.PhotoStatus,
                     ImgUrlFormDatabase = "data:image/jpg;base64," + Convert.ToBase64String(x.PhotoFile),
                 })
-                .OrderByDescending(x => x.DateUploaded)
-                .ToList();
+                 .OrderByDescending(x => x.DateUploaded)
+                 .Skip(pageNo * pageSize - pageSize)
+                 .Take(pageSize)
+                 .ToList();
+
+            return result;
         }
 
         public bool IsByUser(Guid photoId, string userId)

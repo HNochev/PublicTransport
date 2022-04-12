@@ -22,7 +22,7 @@ namespace PublicTransport.Core.Contracts
 
         public NewsCommentsModel Details(Guid id);
 
-        public List<NewsListingModel> All();
+        public NewsPaginationModel All(int pageNo, int pageSize);
 
         public bool Edit(
            Guid id,

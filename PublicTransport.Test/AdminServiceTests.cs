@@ -57,7 +57,7 @@ namespace PublicTransport.Test
 
             var service = new AdminService(dbContext);
 
-            Assert.Equal(service.PendingPhotosCount(), service.AllPendingPhotos().Count());
+            Assert.Equal(service.PendingPhotosCount(), service.AllPendingPhotos(1,25).AllPendingPhotos.Count());
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace PublicTransport.Test
 
             var service = new AdminService(dbContext);
 
-            Assert.Equal(2, service.AllPendingPhotos().Count());
+            Assert.Equal(2, service.AllPendingPhotos(1,25).AllPendingPhotos.Count());
         }
 
         [Fact]

@@ -23,9 +23,16 @@ namespace PublicTransport.Core.Services
             return this.data.Photos.Where(x => x.PhotoStatus.ClassColor == "table-warning").Count();
         }
 
-        public IEnumerable<AdminAllPendingPhotosModel> AllPendingPhotos()
+        public AdminPendingPhotosPaginationModel AllPendingPhotos(int pageNo, int pageSize)
         {
-            return this.data.Photos
+            AdminPendingPhotosPaginationModel result = new AdminPendingPhotosPaginationModel()
+            {
+                PageNo = pageNo,
+                PageSize = pageSize
+            };
+
+            result.TotalRecords = this.data.Photos.Where(x => x.PhotoStatus.ClassColor == "table-warning").Count();
+            result.AllPendingPhotos = this.data.Photos
                 .Where(x => x.PhotoStatus.ClassColor == "table-warning")
                 .Select(x => new AdminAllPendingPhotosModel
                 {
@@ -40,8 +47,12 @@ namespace PublicTransport.Core.Services
                     IsAuthor = x.IsAuthor,
                     ImgUrlFormDatabase = "data:image/jpg;base64," + Convert.ToBase64String(x.PhotoFile),
                 })
-                .OrderBy(x => x.DateUploaded)
-                .ToList();
+                 .OrderBy(x => x.DateUploaded)
+                 .Skip(pageNo * pageSize - pageSize)
+                 .Take(pageSize)
+                 .ToList();
+
+            return result;
         }
 
         public AdminApproveDisapprovePhotoModel ApproveDisapproveViewData(Guid id)

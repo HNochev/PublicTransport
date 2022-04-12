@@ -21,9 +21,16 @@ namespace PublicTransport.Core.Services
             this.data = data;
         }
 
-        public List<NewsListingModel> All()
+        public NewsPaginationModel All(int pageNo, int pageSize)
         {
-            return this.data
+            NewsPaginationModel result = new NewsPaginationModel()
+            {
+                PageNo = pageNo,
+                PageSize = pageSize
+            };
+
+            result.TotalRecords = this.data.News.Count();
+            result.News = this.data
                  .News
                  .Where(x => !x.IsDeleted)
                  .Select(x => new NewsListingModel
@@ -38,7 +45,11 @@ namespace PublicTransport.Core.Services
                      Author = x.Author,
                  })
                  .OrderByDescending(x => x.Date)
+                 .Skip(pageNo * pageSize - pageSize)
+                 .Take(pageSize)
                  .ToList();
+
+            return result;
         }
 
         public Guid CreateNews(string title, string description, DateTime date, string authorId, string imgUrl, bool isDeleted)

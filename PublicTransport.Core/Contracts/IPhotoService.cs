@@ -20,7 +20,7 @@ namespace PublicTransport.Core.Contracts
 
         public Guid GetPendingStatusId();
 
-        public IEnumerable<UserMyPhotosModel> AllPhotosByUser(string id);
+        public UserMyPhotosPaginationModel AllPhotosByUser(string id, int pageNo, int pageSize);
 
         public bool IsByUser(Guid photoId, string userId);
 

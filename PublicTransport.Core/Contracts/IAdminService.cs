@@ -11,7 +11,7 @@ namespace PublicTransport.Core.Contracts
     {
         public int PendingPhotosCount();
 
-        public IEnumerable<AdminAllPendingPhotosModel> AllPendingPhotos();
+        public AdminPendingPhotosPaginationModel AllPendingPhotos(int pageNo, int pageSize);
 
         public AdminApproveDisapprovePhotoModel ApproveDisapproveViewData(Guid id);
 

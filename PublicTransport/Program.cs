@@ -23,6 +23,8 @@ builder.Services.AddControllersWithViews(options =>
 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
+builder.Services.AddMemoryCache();
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Default Password settings.

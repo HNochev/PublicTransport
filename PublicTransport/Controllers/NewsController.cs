@@ -8,6 +8,7 @@ using PublicTransport.Infrastructure.Data;
 using PublicTransport.Core.Models.News;
 using AutoMapper;
 using PublicTransport.Core.Models.NewsComments;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace PublicTransport.Controllers
 {
@@ -16,19 +17,33 @@ namespace PublicTransport.Controllers
         private readonly INewsService news;
         private readonly IUserService users;
         private readonly INewsCommentsService comments;
+        private readonly IMemoryCache cache;
 
-        public NewsController(INewsService news, IUserService users, INewsCommentsService comments)
+        public NewsController(INewsService news, IUserService users, INewsCommentsService comments, IMemoryCache cache)
         {
             this.news = news;
             this.users = users;
             this.comments = comments;
+            this.cache = cache;
         }
 
-        public IActionResult All()
+        public IActionResult All(int p = 1, int s = 10)
         {
-            var news = this.news.All();
+            const string latestNewsCacheKey = "latestNewsCacheKey";
 
-            return View(news);
+            var latestNews = this.cache.Get<NewsPaginationModel>(latestNewsCacheKey);
+
+            if (latestNews == null)
+            {
+                latestNews = this.news.All(p, s);
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(5));
+
+                this.cache.Set(latestNewsCacheKey, latestNews, cacheOptions);
+            }
+
+            return View(latestNews);
         }
 
         public IActionResult Details(Guid id)

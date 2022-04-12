@@ -16,7 +16,7 @@ namespace PublicTransport.Test
         [Fact]
         public void GetUserByIdShouldReturnUser()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("IdByUserShouldReturnUser").Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("IdByUserShouldReturnThUser").Options;
             var dbContext = new ApplicationDbContext(options);
 
             var user = new WebsiteUser { Id = "1" };
@@ -33,7 +33,7 @@ namespace PublicTransport.Test
         [Fact]
         public void GetTotalCountOfUsersShouldReturnCount()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("IdByUserShouldReturnUser").Options;
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("GetTotalCountOfUsersShouldReturnCount").Options;
             var dbContext = new ApplicationDbContext(options);
 
             var user1 = new WebsiteUser { Id = "1" };
