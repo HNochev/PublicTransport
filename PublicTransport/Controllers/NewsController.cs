@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using PublicTransport.Core.Constants;
 using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Extensions;
-using PublicTransport.Infrastructure.Data;
 using PublicTransport.Core.Models.News;
-using AutoMapper;
 using PublicTransport.Core.Models.NewsComments;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace PublicTransport.Controllers
 {

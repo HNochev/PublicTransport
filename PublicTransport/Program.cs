@@ -6,6 +6,7 @@ using PublicTransport.Core.Services;
 using PublicTransport.Infrastructure.Data;
 using PublicTransport.Infrastructure.Data.Models;
 using PublicTransport.Infrastructure.Extensions;
+using SignalRChat.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
 builder.Services.AddMemoryCache();
+builder.Services.AddSignalR();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -90,5 +92,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

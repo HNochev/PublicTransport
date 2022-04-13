@@ -51,14 +51,14 @@ else
                                         }
                                     </div>
                                 </div>
-                                @if(User.IsInRole(UserConstants.Administrator))
+                                @if (User.IsInRole(UserConstants.Administrator))
                                 {
-                                <div class="card-footer">
-                                    <div class="text-right">
-                                        <a asp-controller="Contacts" asp-action="Delete" asp-route-id="@contact.Id" class="btn btn-sm btn-danger float-right">Премахни</a>
-                                        <a asp-controller="Contacts" asp-action="Edit" asp-route-id="@contact.Id" class="btn btn-sm btn-warning float-right">Редактирай</a>
+                                    <div class="card-footer">
+                                        <div class="text-right">
+                                            <a asp-controller="Contacts" asp-action="Delete" asp-route-id="@contact.Id" class="btn btn-sm btn-danger float-right">Премахни</a>
+                                            <a asp-controller="Contacts" asp-action="Edit" asp-route-id="@contact.Id" class="btn btn-sm btn-warning float-right">Редактирай</a>
+                                        </div>
                                     </div>
-                                </div>
                                 }
                             </div>
                         </div>
@@ -67,4 +67,10 @@ else
             </div>
         </div>
     </section>
+    <h2 class="text-center">Местоположение на депото ни</h2>
+    <table class="col-12 text-center">
+        <th><h5>Телефон за аварии: 0875534232</h5></th>
+        <th><h5>Официален имейл: troleibusi.hs@abv.bg</h5></th>
+    </table>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.230985429759!2d25.593365515403477!3d41.930887679218074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ad571e945677ad%3A0xb4557bc2e5bff035!2sbul.%20%22Saedinenie%22%2084%2C%206304%20Eastern%20Industrial%20Zone%2C%20Haskovo!5e0!3m2!1sen!2sbg!4v1649879292774!5m2!1sen!2sbg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 }
