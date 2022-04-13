@@ -1,20 +1,23 @@
 ﻿@page
+
+@{
+    ViewBag.Title = "Чат";
+}
+
     <div class="container">
         <div class="row">&nbsp;</div>
         <div class="row">
-            <div class="col-2">User</div>
-            <div class="col-4"><input type="text" id="userInput" /></div>
+            <div class="col-2" hidden>User</div>
+            <div class="col-4"><input type="text" id="userInput" value="@User.Identity.Name" disabled hidden/></div>
         </div>
-        <div class="row">
-            <div class="col-2">Message</div>
-            <div class="col-4"><input type="text" id="messageInput" /></div>
-        </div>
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-6">
-                <input type="button" id="sendButton" value="Send Message" />
+        <div class="row col-md-6 offset-md-3">
+            <div class="col-md-2">Съобщение:</div>
+            <div class="col-md-7"><input type="text" id="messageInput" /></div>
+            <div class="col-md-3">
+                <input class="btn btn-primary float-right" type="button" id="sendButton" value="Изпрати" />
             </div>
         </div>
+        <div class="row">&nbsp;</div>
     </div>
     <div class="row">
         <div class="col-12">
@@ -22,8 +25,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
-            <ul id="messagesList"></ul>
+        <div class="col-12">
+            <ul id="messagesList" style="word-wrap: break-word; max-width: 100%;"></ul>
         </div>
     </div>
 <script src="~/js/signalr/dist/browser/signalr.js"></script>

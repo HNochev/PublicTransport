@@ -46,5 +46,11 @@ namespace PublicTransport.Controllers
 
             return View(allMyPhotosForm);
         }
+
+        [Authorize]
+        public IActionResult Chat()
+        {
+            return View();
+        }
     }
 }
