@@ -11,7 +11,7 @@ namespace PublicTransport.Core.Models.Photos
     public class BufferedSingleFileUploadDb
     {
         [Required(ErrorMessage = "{0} е задължително поле")]
-        [Display(Name = "Качете снимка")]
+        [Display(Name = "Качете снимка (.jpg/.jpeg до 2MB)")]
         public IFormFile PhotoFile { get; set; }
     }
 }

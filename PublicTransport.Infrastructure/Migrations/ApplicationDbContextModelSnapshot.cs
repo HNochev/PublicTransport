@@ -199,7 +199,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.Download", b =>
@@ -229,7 +229,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Downloads");
+                    b.ToTable("Downloads", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.Line", b =>
@@ -259,7 +259,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Lines");
+                    b.ToTable("Lines", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.LineStop", b =>
@@ -277,7 +277,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("StopId");
 
-                    b.ToTable("LineStops");
+                    b.ToTable("LineStops", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.News", b =>
@@ -313,7 +313,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("News");
+                    b.ToTable("News", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.NewsComment", b =>
@@ -346,7 +346,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("NewsComments");
+                    b.ToTable("NewsComments", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.Photo", b =>
@@ -405,7 +405,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.PhotoComment", b =>
@@ -438,7 +438,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PhotoComments");
+                    b.ToTable("PhotoComments", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.PhotoStatus", b =>
@@ -462,7 +462,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhotoStatuses");
+                    b.ToTable("PhotoStatuses", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.StartingHour", b =>
@@ -481,7 +481,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("LineId");
 
-                    b.ToTable("StartingHours");
+                    b.ToTable("StartingHours", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.Stop", b =>
@@ -500,7 +500,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stops");
+                    b.ToTable("Stops", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.Vehicle", b =>
@@ -558,7 +558,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasIndex("VehicleConditionId");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicles", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.VehicleCondition", b =>
@@ -582,7 +582,7 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleConditions");
+                    b.ToTable("VehicleConditions", (string)null);
                 });
 
             modelBuilder.Entity("PublicTransport.Infrastructure.Data.Models.WebsiteUser", b =>

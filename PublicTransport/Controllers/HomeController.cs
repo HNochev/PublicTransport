@@ -36,6 +36,11 @@ namespace PublicTransport.Controllers
             return View();
         }
 
+        public IActionResult CardsAndTickets()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
