@@ -38,6 +38,8 @@ namespace PublicTransport.Infrastructure.Data
 
         public DbSet<StartingHour> StartingHours { get; set; }
 
+        public DbSet<Card> Cards { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
