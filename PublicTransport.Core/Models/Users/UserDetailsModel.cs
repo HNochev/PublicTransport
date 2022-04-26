@@ -1,6 +1,7 @@
 ﻿using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -38,5 +39,11 @@ namespace PublicTransport.Core.Models.Users
 
         [ForeignKey(nameof(CardId))]
         public Card? Card { get; set; }
+
+        [StringLength(100)]
+        public string? CardOwnerFirstName { get; set; }
+
+        [StringLength(100)]
+        public string? CardOwnerLastName { get; set; }
     }
 }

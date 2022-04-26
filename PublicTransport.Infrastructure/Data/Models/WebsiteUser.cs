@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PublicTransport.Infrastructure.Data.Models
@@ -34,5 +35,11 @@ namespace PublicTransport.Infrastructure.Data.Models
 
         [ForeignKey(nameof(CardId))]
         public Card? Card { get; set; }
+
+        [StringLength(100)]
+        public string? CardOwnerFirstName { get; set; }
+
+        [StringLength(100)]
+        public string? CardOwnerLastName { get; set; }
     }
 }

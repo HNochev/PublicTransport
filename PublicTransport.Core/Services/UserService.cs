@@ -46,6 +46,8 @@ namespace PublicTransport.Core.Services
                     CardActiveTo = x.CardActiveTo,
                     CardIsRequested = x.CardIsRequested,
                     CardRequestedOn = x.CardRequestedOn,
+                    CardOwnerFirstName = x.CardOwnerFirstName,
+                    CardOwnerLastName = x.CardOwnerLastName,
                 })
                 .First();
         }

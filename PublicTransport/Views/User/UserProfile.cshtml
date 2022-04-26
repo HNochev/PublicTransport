@@ -91,17 +91,18 @@
                                     {
                                         <h3 class="text-center">Вие сте част от екипа на Тролейбусен транспорт - гр. Хасково, имате служебна абонаментна карта. </h3>
                                     }
-                                    else if(Model.CardIsRequested == true)
+                                    else if (Model.CardIsRequested == true)
                                     {
 
                                     }
-                                    else if(Model.CardIsActive == true)
+                                    else if (Model.CardIsActive == true)
                                     {
 
                                     }
                                     else
                                     {
-                                        <a class="nav-link text-dark" asp-controller="Cards" asp-action="All" asp-route-id="">Ако желаете абонамента карта можете лесно да изберете подходяща от тук.</a>
+                                        <h3 class="text-center">Вие нямате абонаментна карта!</h3>
+                                        <h5 class="text-center"><a asp-controller="Cards" asp-action="All" asp-route-id="">Ако желаете абонамента карта можете лесно да изберете подходяща от тук.</a></h5>
                                     }
                                 </div>
                             }
