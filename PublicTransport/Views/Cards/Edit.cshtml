@@ -1,5 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using PublicTransport.Core.Models.Cards
+@model CardEditFormModel
+
 @{
+    ViewData["Title"] = "Редактирай името на абонаментната карта";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Редакция името на абонаментната карта</h3>
+            </div>
+            <form enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <textarea asp-for="Name" class="form-control" rows="2" placeholder="Добавете име и кратко описание на картата която добавяте"></textarea>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Cards" asp-action="All" class="btn btn-secondary">Отказ</a>
+                    <input asp-page-handler="Upload" class="btn btn-primary float-right" type="submit" value="Добави">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
 }

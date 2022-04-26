@@ -1,6 +1,7 @@
 ﻿using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,5 +23,20 @@ namespace PublicTransport.Core.Models.Users
         public ICollection<Photo> Photos { get; set; }
 
         public ICollection<PhotoComment> PhotoComments { get; set; }
+
+        public bool? CardIsRequested { get; set; }
+
+        public DateTime? CardRequestedOn { get; set; }
+
+        public bool? CardIsActive { get; set; }
+
+        public DateTime? CardActiveFrom { get; set; }
+
+        public DateTime? CardActiveTo { get; set; }
+
+        public Guid? CardId { get; set; }
+
+        [ForeignKey(nameof(CardId))]
+        public Card? Card { get; set; }
     }
 }

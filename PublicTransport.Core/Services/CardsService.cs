@@ -49,5 +49,61 @@ namespace PublicTransport.Core.Services
 
             return newCard.Id;
         }
+
+        public CardEditFormModel EditViewData(Guid id)
+        {
+            return this.data.Cards
+                .Where(x => x.Id == id)
+                .Select(x => new CardEditFormModel
+                {
+                    Name = x.Name,
+                })
+                .First();
+        }
+
+        public bool Edit(Guid id, string name)
+        {
+            var cardData = this.data.Cards.Find(id);
+
+            if (cardData == null)
+            {
+                return false;
+            }
+
+            cardData.Name = name;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public CardDeleteModel DeleteViewData(Guid id)
+        {
+            return this.data.Cards
+                .Where(x => x.Id == id)
+                .Select(x => new CardDeleteModel
+                {
+                    Name = x.Name,
+                    DaysActive = x.DaysActive,
+                    Price = x.Price,
+                })
+                .First();
+        }
+
+        public bool Delete(Guid id, bool isDeleted)
+        {
+            var cardData = this.data.Cards.Find(id);
+
+            if (cardData == null)
+            {
+                return false;
+            }
+
+            cardData.IsDeleted = isDeleted;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
     }
 }

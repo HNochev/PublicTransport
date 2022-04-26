@@ -39,6 +39,13 @@ namespace PublicTransport.Core.Services
                     Photos = x.Photos,
                     PhotoComments = x.PhotoComments,
                     NewsComments = x.NewsComments,
+                    Card = x.Card,
+                    CardId = x.CardId,
+                    CardIsActive = x.CardIsActive,
+                    CardActiveFrom = x.CardActiveFrom,
+                    CardActiveTo = x.CardActiveTo,
+                    CardIsRequested = x.CardIsRequested,
+                    CardRequestedOn = x.CardRequestedOn,
                 })
                 .First();
         }

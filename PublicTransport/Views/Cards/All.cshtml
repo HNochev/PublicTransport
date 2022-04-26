@@ -52,21 +52,20 @@
                                     @foreach (var card in Model)
                                     {
                                         <tr>
-                                            <td class="col-3 align-middle"><i class="nav-icon fas fa-file-pdf"></i> @card.Name</td>
-                                            <td class="col-3 align-middle"><i class="nav-icon fas fa-file-pdf"></i> @card.DaysActive</td>
-                                            <td class="col-3 align-middle"><i class="nav-icon fas fa-file-pdf"></i> @card.Price</td>
+                                            <td class="col-md-5 align-middle">@card.Name</td>
+                                            <td class="col-md-2 align-middle">@card.DaysActive дни</td>
+                                            <td class="col-md-2 align-middle">@card.Price лв.</td>
                                             @if (this.User.IsInRole(UserConstants.Administrator))
                                             {
                                                 <td class="text-center align-middle col-4">
-                                                    <a asp-controller="Downloads" asp-action="Download" asp-route-id="@card.Id" class="btn btn-sm btn-success">Закупи</a>
-                                                    <a asp-controller="Downloads" asp-action="Edit" asp-route-id="@card.Id" class="btn btn-sm btn-warning">Редактирай инф.</a>
-                                                    <a asp-controller="Downloads" asp-action="Delete" asp-route-id="@card.Id" class="btn btn-sm btn-danger">Изтрий</a>
+                                                    <a asp-controller="Cards" asp-action="Edit" asp-route-id="@card.Id" class="btn btn-sm btn-warning">Редактирай описанието</a>
+                                                    <a asp-controller="Cards" asp-action="Delete" asp-route-id="@card.Id" class="btn btn-sm btn-danger">Изтрий</a>
                                                 </td>
                                             }
                                             else
                                             {
                                                 <td class="text-center align-middle col-1">
-                                                    <a asp-controller="Downloads" asp-action="Download" asp-route-id="@card.Id" class="btn btn-sm btn-success">Закупи</a>
+                                                    <a asp-controller="Cards" asp-action="Order" asp-route-id="@card.Id" class="btn btn-sm btn-success">Закупи</a>
                                                 </td>
                                             }
                                         </tr>

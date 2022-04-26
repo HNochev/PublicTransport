@@ -1,5 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using PublicTransport.Core.Models.Cards
+@model CardDeleteModel
+
 @{
+    ViewData["Title"] = "Премахване на абонаментна карта";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Сигурен ли сте, че искате да премахнете тази карта от списъка с абонаментни карти?</h3>
+            </div>
+            <form method="post">
+                <div class="card-body">
+                    <div class="form-group text-center">
+                        <h5 class="text-center" asp-for="Title">Име и кратко описание: <b>@Model.Name</b></h5><br>
+                        <h5 class="text-center" asp-for="Date">Продължителност: <b>@Model.DaysActive дни</b></h5>
+                        <h5 class="text-center" asp-for="Date">Цена: <b>@Model.Price лв.</b></h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Cards" asp-action="All" class="btn btn-danger">Не</a>
+                    <button type="submit" class="btn btn-success float-right">Да</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
