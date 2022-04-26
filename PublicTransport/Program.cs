@@ -49,6 +49,7 @@ builder.Services.AddTransient<IContactService, ContactService>();
 builder.Services.AddTransient<IUserRoleService, UserRoleService>();
 builder.Services.AddTransient<IDownloadService, DownloadService>();
 builder.Services.AddTransient<ILineService, LineService>();
+builder.Services.AddTransient<ICardsService, CardsService>();
 
 var app = builder.Build();
 

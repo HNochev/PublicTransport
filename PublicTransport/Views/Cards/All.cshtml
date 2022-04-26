@@ -1,0 +1,82 @@
+﻿@using PublicTransport.Core.Constants
+@using PublicTransport.Core.Models.Cards
+@model IEnumerable<CardsListingModel>
+
+@{
+    ViewBag.Title = "Карти и билети";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Цени на билетите</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5>Билет за еднократно пътуване - <span class="bg-success">1.00 лев</span></h5><br />
+                        <h5>Еднодневен билет за всички линии - <span class="bg-success">3.00 лева</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Абонаментни карти</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (!Model.Any())
+                        {
+                            <h2 class="text-center">Все още няма добавени карти!</h2>
+                        }
+                        else
+                        {
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>Описание</th>
+                                        <th>Продължителност</th>
+                                        <th>Цена</th>
+                                        <th>Закупи</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var card in Model)
+                                    {
+                                        <tr>
+                                            <td class="col-3 align-middle"><i class="nav-icon fas fa-file-pdf"></i> @card.Name</td>
+                                            <td class="col-3 align-middle"><i class="nav-icon fas fa-file-pdf"></i> @card.DaysActive</td>
+                                            <td class="col-3 align-middle"><i class="nav-icon fas fa-file-pdf"></i> @card.Price</td>
+                                            @if (this.User.IsInRole(UserConstants.Administrator))
+                                            {
+                                                <td class="text-center align-middle col-4">
+                                                    <a asp-controller="Downloads" asp-action="Download" asp-route-id="@card.Id" class="btn btn-sm btn-success">Закупи</a>
+                                                    <a asp-controller="Downloads" asp-action="Edit" asp-route-id="@card.Id" class="btn btn-sm btn-warning">Редактирай инф.</a>
+                                                    <a asp-controller="Downloads" asp-action="Delete" asp-route-id="@card.Id" class="btn btn-sm btn-danger">Изтрий</a>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center align-middle col-1">
+                                                    <a asp-controller="Downloads" asp-action="Download" asp-route-id="@card.Id" class="btn btn-sm btn-success">Закупи</a>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,47 @@
+﻿@using PublicTransport.Core.Models.Cards
+@model CardAddFormModel
+
+@{
+    ViewData["Title"] = "Добави абонаментна карта";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Добавяне на карта за абонамент</h3>
+            </div>
+            <form enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <textarea asp-for="Name" class="form-control" rows="2" placeholder="Добавете име и кратко описание на картата която добавяте"></textarea>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="DaysActive"></label>
+                            <input asp-for="DaysActive" class="form-control" placeholder="Добавете дните активност на картата">
+                            <span asp-validation-for="DaysActive" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Price"></label>
+                            <input asp-for="Price" class="form-control" placeholder="Цена">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Cards" asp-action="All" class="btn btn-secondary">Отказ</a>
+                    <input asp-page-handler="Upload" class="btn btn-primary float-right" type="submit" value="Добави">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
