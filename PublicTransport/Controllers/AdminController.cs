@@ -137,5 +137,19 @@ namespace PublicTransport.Controllers
 
             return View(allCardForm);
         }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult Reject(string id)
+        { 
+            var deleted = this.admins.RejectCard(id);
+
+            if (!deleted)
+            {
+                return BadRequest();
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно отказахте заявената абонаментна карта на потребителя.";
+            return Redirect("../../Admin/CardRequests");
+        }
     }
 }

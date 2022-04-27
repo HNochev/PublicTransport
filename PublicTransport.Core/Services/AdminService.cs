@@ -138,5 +138,26 @@ namespace PublicTransport.Core.Services
 
             return result;
         }
+
+        public bool RejectCard(string userId)
+        {
+            if (userId == null)
+            {
+                return false;
+            }
+
+            var userData = this.data.Users.Find(userId);
+
+            userData.CardId = null;
+            userData.Card = null;
+            userData.CardOwnerFirstName = null;
+            userData.CardOwnerLastName = null;
+            userData.CardIsRequested = false;
+            userData.CardRequestedOn = null;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
     }
 }

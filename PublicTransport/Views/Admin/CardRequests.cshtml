@@ -39,7 +39,7 @@ else
                                             </td>
                                             <td class="col-md-1 align-middle text-center">
                                                 <a asp-controller="Admin" asp-action="Approve" asp-route-id="" class="btn btn-success">Активирай</a><br /><br />
-                                                <a asp-controller="Admin" asp-action="DisApprove" asp-route-id="" class="btn btn-danger">Изтрий</a><br /><br />
+                                                <a asp-controller="Admin" asp-action="Reject" asp-route-id="@cardRequest.userId" class="btn btn-danger">Изтрий</a>
                                             </td>
                                         </tr>
                                     </tbody>
