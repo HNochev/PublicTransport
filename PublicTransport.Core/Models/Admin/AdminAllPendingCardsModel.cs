@@ -17,9 +17,9 @@ namespace PublicTransport.Core.Models.Admin
 
         public DateTime? CardRequestedOn { get; set; }
 
-        public Guid? CardId { get; set; }
+        public Guid? RequstedCardId { get; set; }
 
-        public Card? Card { get; set; }
+        public Card? RequstedCard { get; set; }
 
         public string? CardOwnerFirstName { get; set; }
 

@@ -128,8 +128,8 @@ namespace PublicTransport.Core.Services
                     CardOwnerLastName = x.CardOwnerLastName,
                     CardIsRequested = x.CardIsRequested,
                     CardRequestedOn = x.CardRequestedOn,
-                    CardId = x.CardId,
-                    Card = x.Card,
+                    RequstedCardId = x.RequestedCardId,
+                    RequstedCard = x.RequestedCard,
                 })
                  .OrderBy(x => x.CardRequestedOn.Value)
                  .Skip(pageNo * pageSize - pageSize)
@@ -148,8 +148,8 @@ namespace PublicTransport.Core.Services
 
             var userData = this.data.Users.Find(userId);
 
-            userData.CardId = null;
-            userData.Card = null;
+            userData.RequestedCardId = null;
+            userData.RequestedCard = null;
             userData.CardOwnerFirstName = null;
             userData.CardOwnerLastName = null;
             userData.CardIsRequested = false;
@@ -158,6 +158,24 @@ namespace PublicTransport.Core.Services
             this.data.SaveChanges();
 
             return true;
+        }
+
+        public AdminActivateCardModel CardActivateViewData(string id)
+        {
+            return this.data.WebsiteUsers
+                .Where(x => x.Id == id)
+                .Select(x => new AdminActivateCardModel
+                {
+                    userId = x.Id,
+                    User = x,
+                    CardIsRequested = x.CardIsRequested,
+                    CardRequestedOn = x.CardRequestedOn,
+                    RequestedCardId = x.RequestedCardId,
+                    RequestedCard = x.RequestedCard,
+                    CardOwnerFirstName = x.CardOwnerFirstName,
+                    CardOwnerLastName = x.CardOwnerLastName,
+                })
+                .First();
         }
     }
 }

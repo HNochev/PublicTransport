@@ -22,5 +22,7 @@ namespace PublicTransport.Core.Contracts
         public AdminPendingCardsPaginationModel AllPendingCards(int pageNo, int pageSize);
 
         public bool RejectCard(string userId);
+
+        public AdminActivateCardModel CardActivateViewData(string id);
     }
 }

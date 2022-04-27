@@ -33,12 +33,12 @@ else
                                             </td>
                                             <td class="col-md-8 align-middle">
                                                 <div class=""><b>Информация за заявената карта</b></div><br />
-                                                <div class=""><b>Наименование:</b> @cardRequest.Card.Name</div><br />
-                                                <div class=""><b>Продължителност:</b> @cardRequest.Card.DaysActive дни</div><br />
-                                                <div class=""><b>Цена:</b> @cardRequest.Card.Price лв.</div><br />
+                                                <div class=""><b>Наименование:</b> @cardRequest.RequstedCard.Name</div><br />
+                                                <div class=""><b>Продължителност:</b> @cardRequest.RequstedCard.DaysActive дни</div><br />
+                                                <div class=""><b>Цена:</b> @cardRequest.RequstedCard.Price лв.</div><br />
                                             </td>
                                             <td class="col-md-1 align-middle text-center">
-                                                <a asp-controller="Admin" asp-action="Approve" asp-route-id="" class="btn btn-success">Активирай</a><br /><br />
+                                                <a asp-controller="Admin" asp-action="CardActivate" asp-route-id="@cardRequest.userId" class="btn btn-success">Активирай</a><br /><br />
                                                 <a asp-controller="Admin" asp-action="Reject" asp-route-id="@cardRequest.userId" class="btn btn-danger">Изтрий</a>
                                             </td>
                                         </tr>

@@ -12,7 +12,6 @@ namespace PublicTransport.Infrastructure.Data.Models
         public Card()
         {
             this.Id = Guid.NewGuid();
-            this.Users = new HashSet<WebsiteUser>();
         }
 
         [Key]
@@ -33,7 +32,5 @@ namespace PublicTransport.Infrastructure.Data.Models
 
         [Required]
         public bool IsDeleted { get; set; }
-
-        public ICollection<WebsiteUser> Users { get; set; }
     }
 }

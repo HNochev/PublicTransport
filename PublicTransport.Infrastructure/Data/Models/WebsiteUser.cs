@@ -25,16 +25,21 @@ namespace PublicTransport.Infrastructure.Data.Models
 
         public DateTime? CardRequestedOn { get; set; }
 
+        public Guid? RequestedCardId { get; set; }
+
+        [ForeignKey(nameof(RequestedCardId))]
+        public Card? RequestedCard { get; set; }
+
         public bool? CardIsActive { get; set; }
 
         public DateTime? CardActiveFrom { get; set; }
 
         public DateTime? CardActiveTo { get; set; }
 
-        public Guid? CardId { get; set; }
+        public Guid? ActiveCardId { get; set; }
 
-        [ForeignKey(nameof(CardId))]
-        public Card? Card { get; set; }
+        [ForeignKey(nameof(ActiveCardId))]
+        public Card? ActiveCard { get; set; }
 
         [StringLength(100)]
         public string? CardOwnerFirstName { get; set; }

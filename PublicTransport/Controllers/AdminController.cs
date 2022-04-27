@@ -151,5 +151,37 @@ namespace PublicTransport.Controllers
             TempData[MessageConstants.SuccessMessage] = "Успешно отказахте заявената абонаментна карта на потребителя.";
             return Redirect("../../Admin/CardRequests");
         }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult CardActivate(string id)
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            if (userId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var approveForm = this.admins.CardActivateViewData(id);
+
+            return View(approveForm);
+        }
+
+        //[HttpPost]
+        //[Authorize(Roles = UserConstants.Administrator)]
+        //public IActionResult CardActivate(Guid id, AdminApproveDisapprovePhotoModel photo)
+        //{
+
+        //    var approved = this.admins.Approve(id, photo.AdminMessage);
+
+        //    if (!approved)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    TempData[MessageConstants.SuccessMessage] = "Успешно одобрихте тази снимка.";
+        //    return RedirectToAction("ApprovePhotos");
+        //}
     }
 }

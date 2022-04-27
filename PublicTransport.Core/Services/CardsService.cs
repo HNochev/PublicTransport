@@ -122,8 +122,8 @@ namespace PublicTransport.Core.Services
                 return false;
             }
 
-            userData.CardId = id;
-            userData.Card = card;
+            userData.RequestedCardId = id;
+            userData.RequestedCard = card;
             userData.CardOwnerFirstName = firstName;
             userData.CardOwnerLastName = lastName;
             userData.CardIsRequested = true;
@@ -143,8 +143,8 @@ namespace PublicTransport.Core.Services
 
             var userData = this.data.Users.Find(userId);
 
-            userData.CardId = null;
-            userData.Card = null;
+            userData.RequestedCardId = null;
+            userData.RequestedCard = null;
             userData.CardOwnerFirstName = null;
             userData.CardOwnerLastName = null;
             userData.CardIsRequested = false;

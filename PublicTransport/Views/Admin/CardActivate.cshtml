@@ -1,0 +1,44 @@
+﻿@using PublicTransport.Core.Models.Admin
+@model AdminActivateCardModel
+
+@{
+    ViewData["Title"] = "Активирай абонаментна карта";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Сигурен ли сте, че искате да активирате тази карта:</h3>
+            </div>
+            <form method="post">
+                <div class="card-body">
+                    <div class="form-group text-center">
+                        <h5 class="text-center">Информация за заявената карта</h5>
+                        <h5 class="text-center">Име и кратко описание на желаната карта: <b>@Model.RequestedCard.Name</b></h5>
+                        <h5 class="text-center">Продължителност: <b>@Model.RequestedCard.DaysActive дни</b></h5>
+                        <h5 class="text-center">Цена: <b>@Model.RequestedCard.Price лв.</b></h5>
+                        <br />
+                        <h5 class="text-center">Име и фамилия на получателя: <b>@Model.CardOwnerFirstName @Model.CardOwnerLastName</b></h5>
+                        <h5 class="text-center">Заявена на дата: <b>@Model.CardRequestedOn.Value.ToString("f")</b></h5>
+                        <br />
+                        <h5 class="timeline-header">Картата е заявена от потребител: <a asp-controller="User" asp-action="UserProfile" asp-route-id="@Model.userId"><b>@Model.User.UserName</b></a></h5>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <label asp-for="CardActiveFrom"></label>
+                    <input asp-for="CardActiveFrom" class="form-control col-md-6 offset-md-3" placeholder="Напишете тук препоръки към потребителя." value="">
+                    <span asp-validation-for="CardActiveFrom" class="text-danger"></span>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Admin" asp-action="CardRequests" class="btn btn-secondary">Назад</a>
+                    <button type="submit" class="btn btn-success float-right">Активирай</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
