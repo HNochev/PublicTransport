@@ -105,5 +105,54 @@ namespace PublicTransport.Core.Services
 
             return true;
         }
+
+        public Card GetCard(Guid id)
+        {
+            return this.data.Cards
+                .Where(x => x.Id == id)
+                .First();
+        }
+
+        public bool Order(Guid id, string userId, string firstName, string lastName, Card card)
+        {
+            var userData = this.data.Users.Find(userId);
+
+            if (userData == null || userData.CardIsRequested == true)
+            {
+                return false;
+            }
+
+            userData.CardId = id;
+            userData.Card = card;
+            userData.CardOwnerFirstName = firstName;
+            userData.CardOwnerLastName = lastName;
+            userData.CardIsRequested = true;
+            userData.CardRequestedOn = DateTime.Now;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public bool RejectCard(string userId)
+        {
+            if (userId == null)
+            {
+                return false;
+            }
+
+            var userData = this.data.Users.Find(userId);
+
+            userData.CardId = null;
+            userData.Card = null;
+            userData.CardOwnerFirstName = null;
+            userData.CardOwnerLastName = null;
+            userData.CardIsRequested = false;
+            userData.CardRequestedOn = null;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
     }
 }

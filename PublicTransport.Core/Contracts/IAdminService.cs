@@ -19,5 +19,7 @@ namespace PublicTransport.Core.Contracts
 
         public bool DisApprove(Guid id, string? adminMessage);
 
+        public AdminPendingCardsPaginationModel AllPendingCards(int pageNo, int pageSize);
+
     }
 }

@@ -93,7 +93,24 @@
                                     }
                                     else if (Model.CardIsRequested == true)
                                     {
-
+                                        <h3 class="text-center">Вие сте заявили абонаментна карта за получаване!</h3>
+                                        <br />
+                                        <h5 class="text-center">Информация за заявената карта</h5>
+                                        <h5 class="text-center">Име и кратко описание на желаната карта: <b>@Model.Card.Name</b></h5>
+                                        <h5 class="text-center">Продължителност: <b>@Model.Card.DaysActive дни</b></h5>
+                                        <h5 class="text-center">Цена: <b>@Model.Card.Price лв.</b></h5>
+                                        <br />
+                                        <h5 class="text-center">Име и фамилия на получателя: <b>@Model.CardOwnerFirstName @Model.CardOwnerLastName</b></h5>
+                                        <h5 class="text-center">Заявена на дата: <b>@Model.CardRequestedOn.Value.ToString("f")</b></h5>
+                                        <br />
+                                        <div class="text-center">
+                                            <a asp-controller="Cards" asp-action="Reject" asp-route-id="@Model.Id" class="btn-lg btn-danger">Откажи заявената абонаментна карта</a>
+                                        </div>
+                                        <br />
+                                        <h5 class="text-center text-green">За да удостовертите, че сте Вие при получаването моля да носите личен документ (например лична карта) със себе си!</h5>
+                                        <h5 class="text-center">За да я получите можете да посетите нашия офис на адрес гр.Хасково ул."Ивайло" 1 ет.3 /Тролейбусен транспорт – гр. Хасково/</h5>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.110904616708!2d25.555220315403563!3d41.933468179217755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ad50cfeb5a8911%3A0x597bbbaaf7781a07!2sul.%20%22Ivaylo%22%201%2C%206300%20Haskovo%20Center%2C%20Haskovo!5e0!3m2!1sen!2sbg!4v1651046366685!5m2!1sen!2sbg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        <h5 class="text-center">Работното време на офиса е от Понеделник до Събота включително - 10:00-19:00 часа</h5>
                                     }
                                     else if (Model.CardIsActive == true)
                                     {

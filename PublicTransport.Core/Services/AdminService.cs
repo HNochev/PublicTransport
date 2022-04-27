@@ -108,5 +108,35 @@ namespace PublicTransport.Core.Services
 
             return true;
         }
+
+        public AdminPendingCardsPaginationModel AllPendingCards(int pageNo, int pageSize)
+        {
+            AdminPendingCardsPaginationModel result = new AdminPendingCardsPaginationModel()
+            {
+                PageNo = pageNo,
+                PageSize = pageSize
+            };
+
+            result.TotalRecords = this.data.WebsiteUsers.Where(x => x.CardIsRequested == true).Count();
+            result.AllPendingCards = this.data.WebsiteUsers
+                .Where(x => x.CardIsRequested == true)
+                .Select(x => new AdminAllPendingCardsModel
+                {
+                    userId = x.Id,
+                    User = x,
+                    CardOwnerFirstName = x.CardOwnerFirstName,
+                    CardOwnerLastName = x.CardOwnerLastName,
+                    CardIsRequested = x.CardIsRequested,
+                    CardRequestedOn = x.CardRequestedOn,
+                    CardId = x.CardId,
+                    Card = x.Card,
+                })
+                 .OrderBy(x => x.CardRequestedOn.Value)
+                 .Skip(pageNo * pageSize - pageSize)
+                 .Take(pageSize)
+                 .ToList();
+
+            return result;
+        }
     }
 }

@@ -85,7 +85,7 @@ namespace PublicTransport.Controllers
                 return BadRequest();
             }
 
-            TempData[MessageConstants.SuccessMessage] =  "Името на абонаментната карта беше успешно редактирано";
+            TempData[MessageConstants.SuccessMessage] = "Името на абонаментната карта беше успешно редактирано";
             return RedirectToAction("All");
         }
 
@@ -119,6 +119,54 @@ namespace PublicTransport.Controllers
 
             TempData[MessageConstants.SuccessMessage] = "Картата беше успешно изтрита.";
             return RedirectToAction("All");
+        }
+
+        [Authorize]
+        public IActionResult Order(Guid id)
+        {
+            return View(new CardOrderFormModel
+            {
+                CardId = id,
+                Card = cards.GetCard(id),
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Order(Guid id, CardOrderFormModel card)
+        {
+            var ordered = this.cards.Order(
+                id,
+                this.User.Id(),
+                card.CardOwnerFirstName,
+                card.CardOwnerLastName,
+                card.Card
+                );
+
+            if (!ordered)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Вие вече сте заявили карта за получаване.";
+                return Redirect($"../../User/UserProfile/{this.User.Id()}");
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно заявихте своята абонаментна карта, за повече информация отворете Моята абонаментна карта";
+            return Redirect($"../../User/UserProfile/{this.User.Id()}");
+        }
+
+        [Authorize]
+        public IActionResult Reject()
+        {
+            var userId = this.users.IdByUser(this.User.Id());
+
+            var deleted = this.cards.RejectCard(userId);
+
+            if (!deleted)
+            {
+                return BadRequest();
+            }
+
+            TempData[MessageConstants.SuccessMessage] = "Успешно отказахте заявената абонаментна карта.";
+            return Redirect($"../../User/UserProfile/{this.User.Id()}");
         }
     }
 }

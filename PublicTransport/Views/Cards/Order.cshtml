@@ -1,0 +1,48 @@
+﻿@using PublicTransport.Core.Models.Cards
+@model CardOrderFormModel
+
+@{
+    ViewData["Title"] = "Заявяване на абонаментна карта";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Заявяване на абонаментна карта</h3>
+            </div>
+            <form enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group text-center">
+                        <h3 class="text-center">За да заявите посочената по-долу карта за получаване от наш офис моля попълнете полетата</h3><br>
+                        <h5 class="text-center">Име и кратко описание на желаната карта: <b>@Model.Card.Name</b></h5>
+                        <h5 class="text-center">Продължителност: <b>@Model.Card.DaysActive дни</b></h5>
+                        <h5 class="text-center">Цена: <b>@Model.Card.Price лв.</b></h5>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="CardOwnerFirstName"></label>
+                            <input asp-for="CardOwnerFirstName" class="form-control" placeholder="Добавете име">
+                            <span asp-validation-for="CardOwnerFirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="CardOwnerLastName"></label>
+                            <input asp-for="CardOwnerLastName" class="form-control" placeholder="Добавете фамилия">
+                            <span asp-validation-for="CardOwnerLastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <a asp-controller="Cards" asp-action="All" class="btn btn-secondary">Отказ</a>
+                    <input asp-page-handler="Upload" class="btn btn-primary float-right" type="submit" value="Заяви">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

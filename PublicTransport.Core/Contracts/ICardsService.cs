@@ -1,4 +1,5 @@
 ﻿using PublicTransport.Core.Models.Cards;
+using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,11 @@ namespace PublicTransport.Core.Contracts
         public CardDeleteModel DeleteViewData(Guid id);
 
         public bool Delete(Guid id, bool isDeleted);
+
+        public Card GetCard(Guid id);
+
+        public bool Order(Guid id, string userId, string firstName, string lastName, Card card);
+
+        public bool RejectCard(string userId);
     }
 }

@@ -121,5 +121,21 @@ namespace PublicTransport.Controllers
             TempData[MessageConstants.SuccessMessage] = "Успешно отхвърлихте публикуването на тази снимка.";
             return RedirectToAction("ApprovePhotos");
         }
+
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult CardRequests(int p = 1, int s = 10)
+        {
+            var loggedUserId = this.users.IdByUser(this.User.Id());
+
+            if (loggedUserId == null)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var allCardForm = this.admins.AllPendingCards(p, s);
+
+            return View(allCardForm);
+        }
     }
 }
