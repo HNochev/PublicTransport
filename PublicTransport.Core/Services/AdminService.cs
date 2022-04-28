@@ -151,8 +151,6 @@ namespace PublicTransport.Core.Services
 
             userData.RequestedCardId = null;
             userData.RequestedCard = null;
-            userData.CardOwnerFirstName = null;
-            userData.CardOwnerLastName = null;
             userData.CardIsRequested = false;
             userData.CardRequestedOn = null;
 
@@ -188,6 +186,10 @@ namespace PublicTransport.Core.Services
                 return false;
             }
 
+            userData.PreviousActiveCard = userData.ActiveCard;
+            userData.PreviousActiveCardId = userData.ActiveCardId;
+            userData.PreviousCardActiveFrom = userData.CardActiveFrom;
+            userData.PreviousCardActiveTo = userData.CardActiveTo;
             userData.CardActiveFrom = cardActiveFrom;
             userData.CardIsActive = true;
             userData.CardActiveTo = cardActiveFrom.AddDays(requestedCard.DaysActive);

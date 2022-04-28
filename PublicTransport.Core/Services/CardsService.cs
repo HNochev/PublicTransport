@@ -117,6 +117,13 @@ namespace PublicTransport.Core.Services
         {
             var userData = this.data.Users.Find(userId);
 
+            if (userData.CardActiveTo.HasValue)
+            {
+                if ((userData.CardActiveTo - DateTime.Today).Value.Days > 10)
+                {
+                    return false;
+                }
+            }
             if (userData == null || userData.CardIsRequested == true)
             {
                 return false;
@@ -145,8 +152,6 @@ namespace PublicTransport.Core.Services
 
             userData.RequestedCardId = null;
             userData.RequestedCard = null;
-            userData.CardOwnerFirstName = null;
-            userData.CardOwnerLastName = null;
             userData.CardIsRequested = false;
             userData.CardRequestedOn = null;
 

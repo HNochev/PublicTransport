@@ -180,6 +180,7 @@ namespace PublicTransport.Controllers
                 TempData[MessageConstants.ErrorMessage] = "Не може да задавате дата преди днешната.";
                 return Redirect($"../../Admin/CardActivate/{id}");
             }
+            if(card.CardActiveTo.HasValue)
 
             TempData[MessageConstants.SuccessMessage] = "Успешно активирахте тази карта.";
             return Redirect("../../Admin/CardRequests");

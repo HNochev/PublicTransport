@@ -145,7 +145,7 @@ namespace PublicTransport.Controllers
 
             if (!ordered)
             {
-                TempData[MessageConstants.ErrorMessage] = "Вие вече сте заявили карта за получаване.";
+                TempData[MessageConstants.ErrorMessage] = "Вие вече сте заявили карта за получаване или имате активна карта с повече от 10 оставащи дни активност. Проверете в Моят профил - Моята абонаментна карта";
                 return Redirect($"../../User/UserProfile/{this.User.Id()}");
             }
 

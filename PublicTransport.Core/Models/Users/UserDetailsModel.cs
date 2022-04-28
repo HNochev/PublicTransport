@@ -50,5 +50,14 @@ namespace PublicTransport.Core.Models.Users
 
         [StringLength(100)]
         public string? CardOwnerLastName { get; set; }
+
+        public DateTime? PreviousCardActiveFrom { get; set; }
+
+        public DateTime? PreviousCardActiveTo { get; set; }
+
+        public Guid? PreviousActiveCardId { get; set; }
+
+        [ForeignKey(nameof(PreviousActiveCardId))]
+        public Card? PreviousActiveCard { get; set; }
     }
 }

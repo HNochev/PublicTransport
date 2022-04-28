@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PublicTransport.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using PublicTransport.Infrastructure.Data;
 namespace PublicTransport.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428091648_AddPreviousCardToWebsiteUser")]
+    partial class AddPreviousCardToWebsiteUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -686,6 +688,14 @@ namespace PublicTransport.Infrastructure.Migrations
 
                     b.Property<DateTime?>("PreviousCardActiveTo")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("PreviousCardOwnerFirstName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PreviousCardOwnerLastName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("RegisteredOn")
                         .HasColumnType("datetime2");
