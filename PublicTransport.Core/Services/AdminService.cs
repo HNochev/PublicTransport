@@ -1,6 +1,7 @@
 ﻿using PublicTransport.Core.Contracts;
 using PublicTransport.Core.Models.Admin;
 using PublicTransport.Infrastructure.Data;
+using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -176,6 +177,30 @@ namespace PublicTransport.Core.Services
                     CardOwnerLastName = x.CardOwnerLastName,
                 })
                 .First();
+        }
+
+        public bool ActivateCard(string id, DateTime cardActiveFrom, Card requestedCard)
+        {
+            var userData = this.data.WebsiteUsers.Find(id);
+
+            if (userData == null || cardActiveFrom < DateTime.Now.AddDays(-1))
+            {
+                return false;
+            }
+
+            userData.CardActiveFrom = cardActiveFrom;
+            userData.CardIsActive = true;
+            userData.CardActiveTo = cardActiveFrom.AddDays(requestedCard.DaysActive);
+            userData.ActiveCardId = requestedCard.Id;
+            userData.ActiveCard = requestedCard;
+            userData.RequestedCardId = null;
+            userData.RequestedCard = null;
+            userData.CardIsRequested = false;
+            userData.CardRequestedOn = null;
+
+            this.data.SaveChanges();
+
+            return true;
         }
     }
 }

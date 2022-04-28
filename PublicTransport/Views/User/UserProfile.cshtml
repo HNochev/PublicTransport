@@ -114,7 +114,42 @@
                                     }
                                     else if (Model.CardIsActive == true)
                                     {
-
+                                        @if (Model.CardActiveTo < DateTime.Now)
+                                        {
+                                            <h3 class="text-center bg-success">Вашата карта е активна</h3>
+                                            <br />
+                                            <h5 class="text-center">Информация за вашата карта</h5>
+                                            <h5 class="text-center">Име и кратко описание на желаната карта: <b>@Model.ActiveCard.Name</b></h5>
+                                            <h5 class="text-center">Цена: <b>@Model.ActiveCard.Price</b></h5>
+                                            <br />
+                                            <h5 class="text-center">Оставащи дни активност: <b>@((Model.CardActiveTo - DateTime.Today).Value.Days) дни</b></h5>
+                                            <h5 class="text-center">Активна от: <b>@Model.CardActiveFrom.Value.ToString("D")</b></h5>
+                                            <h5 class="text-center">Активна до: <b>@Model.CardActiveTo.Value.ToString("D")</b></h5>
+                                            <br />
+                                            <h5 class="text-center">Име и фамилия на собственика: <b>@Model.CardOwnerFirstName @Model.CardOwnerLastName</b></h5>
+                                            <br />
+                                            <h5 class="text-center">Вие можете да заявите нова карта 5 дни преди стата Ви да изтече. Когато Ви останат 5 или по-малко дни тук ще се появи линк, от който можете да заявите карта.</h5>
+                                            @if ((Model.CardActiveTo - DateTime.Today).Value.Days <= 5)
+                                            {
+                                                <h5 class="text-center"><a asp-controller="Cards" asp-action="All" asp-route-id="">Ако желаете абонамента карта можете лесно да изберете подходяща от тук.</a></h5>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <h3 class="text-center bg-danger">Вашата карта е неактивна</h3>
+                                            <br />
+                                            <h5 class="text-center">Информация за последната Ви активна карта</h5>
+                                            <h5 class="text-center">Име и кратко описание на желаната карта: <b>@Model.ActiveCard.Name</b></h5>
+                                            <h5 class="text-center">Продължителност: <b>@Model.ActiveCard.DaysActive дни</b></h5>
+                                            <h5 class="text-center">Цена: <b>@Model.ActiveCard.Price</b></h5>
+                                            <br />
+                                            <h5 class="text-center">Активна от: <b>@Model.CardActiveFrom.Value.ToString("D")</b></h5>
+                                            <h5 class="text-center">Активна до: <b>@Model.CardActiveTo.Value.ToString("D")</b></h5>
+                                            <br />
+                                            <h5 class="text-center">Име и фамилия на собственика: <b>@Model.CardOwnerFirstName @Model.CardOwnerLastName</b></h5>
+                                            <br />
+                                            <h5 class="text-center"><a asp-controller="Cards" asp-action="All" asp-route-id="">Ако желаете абонамента карта можете лесно да изберете подходяща от тук.</a></h5>
+                                        }
                                     }
                                     else
                                     {

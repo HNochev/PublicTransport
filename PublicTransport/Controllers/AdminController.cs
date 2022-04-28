@@ -140,7 +140,7 @@ namespace PublicTransport.Controllers
 
         [Authorize(Roles = UserConstants.Administrator)]
         public IActionResult Reject(string id)
-        { 
+        {
             var deleted = this.admins.RejectCard(id);
 
             if (!deleted)
@@ -168,20 +168,21 @@ namespace PublicTransport.Controllers
             return View(approveForm);
         }
 
-        //[HttpPost]
-        //[Authorize(Roles = UserConstants.Administrator)]
-        //public IActionResult CardActivate(Guid id, AdminApproveDisapprovePhotoModel photo)
-        //{
+        [HttpPost]
+        [Authorize(Roles = UserConstants.Administrator)]
+        public IActionResult CardActivate(string id, AdminActivateCardModel card)
+        {
+            var activateCardData = this.admins.CardActivateViewData(id);
+            var approved = this.admins.ActivateCard(id, card.CardActiveFrom.Value, activateCardData.RequestedCard);
 
-        //    var approved = this.admins.Approve(id, photo.AdminMessage);
+            if (!approved)
+            {
+                TempData[MessageConstants.ErrorMessage] = "Не може да задавате дата преди днешната.";
+                return Redirect($"../../Admin/CardActivate/{id}");
+            }
 
-        //    if (!approved)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    TempData[MessageConstants.SuccessMessage] = "Успешно одобрихте тази снимка.";
-        //    return RedirectToAction("ApprovePhotos");
-        //}
+            TempData[MessageConstants.SuccessMessage] = "Успешно активирахте тази карта.";
+            return Redirect("../../Admin/CardRequests");
+        }
     }
 }

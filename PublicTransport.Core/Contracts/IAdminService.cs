@@ -1,4 +1,5 @@
 ﻿using PublicTransport.Core.Models.Admin;
+using PublicTransport.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,7 @@ namespace PublicTransport.Core.Contracts
         public bool RejectCard(string userId);
 
         public AdminActivateCardModel CardActivateViewData(string id);
+
+        public bool ActivateCard(string id, DateTime cardActiveFrom, Card requestedCard);
     }
 }
