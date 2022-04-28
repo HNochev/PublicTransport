@@ -51,7 +51,7 @@ else
                                         }
                                     </div>
                                 </div>
-                                @if (User.IsInRole(UserConstants.Administrator))
+                                @if (User.IsInRole(UserConstants.Administrator) || User.IsInRole(UserConstants.Moderator))
                                 {
                                     <div class="card-footer">
                                         <div class="text-right">

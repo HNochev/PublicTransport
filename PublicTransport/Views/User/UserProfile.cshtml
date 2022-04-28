@@ -153,7 +153,7 @@
                                             <h5 class="text-center">Вие можете да заявите нова карта 10 дни преди стaрата Ви да изтече. Когато Ви останат 10 или по-малко дни тук ще се появи линк, от който можете да заявите карта.</h5>
                                             @if ((Model.CardActiveTo - DateTime.Today).Value.Days <= 10)
                                             {
-                                                <h5 class="text-center"><a asp-controller="Cards" asp-action="All" asp-route-id="">Остават Ви по-малко от 10 дни на сегашната карта. Можете лесно да изберете с каква да я замените от тук.</a></h5>
+                                                <h5 class="text-center"><a asp-controller="Cards" asp-action="All" asp-route-id="">Остават Ви 10 или по-малко дни на сегашната карта. Можете лесно да изберете с каква да я замените от тук.</a></h5>
                                             }
                                         }
                                         else

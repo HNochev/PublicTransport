@@ -45,7 +45,7 @@
                                         <th>Описание</th>
                                         <th>Продължителност</th>
                                         <th>Цена</th>
-                                        <th>Закупи</th>
+                                        <th>Заяви</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,7 +55,7 @@
                                             <td class="col-md-5 align-middle">@card.Name</td>
                                             <td class="col-md-2 align-middle">@card.DaysActive дни</td>
                                             <td class="col-md-2 align-middle">@card.Price лв.</td>
-                                            @if (this.User.IsInRole(UserConstants.Administrator))
+                                            @if (this.User.IsInRole(UserConstants.Administrator) || this.User.IsInRole(UserConstants.CardsAndTikets))
                                             {
                                                 <td class="text-center align-middle col-4">
                                                     <a asp-controller="Cards" asp-action="Edit" asp-route-id="@card.Id" class="btn btn-sm btn-warning">Редактирай описанието</a>
@@ -65,7 +65,7 @@
                                             else
                                             {
                                                 <td class="text-center align-middle col-1">
-                                                    <a asp-controller="Cards" asp-action="Order" asp-route-id="@card.Id" class="btn btn-sm btn-success">Закупи</a>
+                                                    <a asp-controller="Cards" asp-action="Order" asp-route-id="@card.Id" class="btn btn-sm btn-success">Заяви</a>
                                                 </td>
                                             }
                                         </tr>

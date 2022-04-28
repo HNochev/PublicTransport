@@ -31,18 +31,18 @@ namespace PublicTransport.Controllers
             return View();
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
-        public async Task<IActionResult> CreateRole()
-        {
-            //await roleManager.CreateAsync(new IdentityRole()
-            //{
-            //    Name = "Модератор"
-            //});
+        //[Authorize(Roles = UserConstants.Administrator)]
+        //public async Task<IActionResult> CreateRole()
+        //{
+        //    await roleManager.CreateAsync(new IdentityRole()
+        //    {
+        //        Name = "Карти и билети"
+        //    });
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.PhotoModerator}")]
         public IActionResult ApprovePhotos(int p = 1, int s = 10)
         {
             var loggedUserId = this.users.IdByUser(this.User.Id());
@@ -58,7 +58,7 @@ namespace PublicTransport.Controllers
             return View(allMyPhotosForm);
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.PhotoModerator}")]
         public IActionResult Approve(Guid id)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -75,7 +75,7 @@ namespace PublicTransport.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.PhotoModerator}")]
         public IActionResult Approve(Guid id, AdminApproveDisapprovePhotoModel photo)
         {
 
@@ -90,7 +90,7 @@ namespace PublicTransport.Controllers
             return RedirectToAction("ApprovePhotos");
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.PhotoModerator}")]
         public IActionResult DisApprove(Guid id)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -107,7 +107,7 @@ namespace PublicTransport.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.PhotoModerator}")]
         public IActionResult DisApprove(Guid id, AdminApproveDisapprovePhotoModel photo)
         {
 
@@ -122,7 +122,7 @@ namespace PublicTransport.Controllers
             return RedirectToAction("ApprovePhotos");
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult CardRequests(int p = 1, int s = 10)
         {
             var loggedUserId = this.users.IdByUser(this.User.Id());
@@ -138,7 +138,7 @@ namespace PublicTransport.Controllers
             return View(allCardForm);
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult Reject(string id)
         {
             var deleted = this.admins.RejectCard(id);
@@ -152,7 +152,7 @@ namespace PublicTransport.Controllers
             return Redirect("../../Admin/CardRequests");
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult CardActivate(string id)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -169,7 +169,7 @@ namespace PublicTransport.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult CardActivate(string id, AdminActivateCardModel card)
         {
             var activateCardData = this.admins.CardActivateViewData(id);

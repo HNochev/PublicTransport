@@ -11,5 +11,9 @@ namespace PublicTransport.Core.Constants
         public const string Administrator = "Администратор";
 
         public const string Moderator = "Модератор";
+
+        public const string PhotoModerator = "Фото-модератор";
+
+        public const string CardsAndTikets = "Карти и билети";
     }
 }

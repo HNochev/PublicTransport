@@ -25,14 +25,14 @@ namespace PublicTransport.Controllers
             return View(news);
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.Moderator}")]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.Moderator}")]
         public IActionResult Add(ContactAddFormModel contact)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -57,7 +57,7 @@ namespace PublicTransport.Controllers
             return RedirectToAction("All");
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.Moderator}")]
         public IActionResult Edit(Guid id)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -74,7 +74,7 @@ namespace PublicTransport.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.Moderator}")]
         public IActionResult Edit(Guid id, ContactAddFormModel contact)
         {
 
@@ -96,7 +96,7 @@ namespace PublicTransport.Controllers
             return RedirectToAction("All");
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.Moderator}")]
         public IActionResult Delete(Guid id)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -113,7 +113,7 @@ namespace PublicTransport.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.Moderator}")]
         public IActionResult Delete(Guid id, ContactDeleteModel contact)
         {
 

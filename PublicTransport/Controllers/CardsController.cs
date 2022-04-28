@@ -25,14 +25,14 @@ namespace PublicTransport.Controllers
             return View(cards);
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult Add(CardAddFormModel card)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -54,7 +54,7 @@ namespace PublicTransport.Controllers
             return RedirectToAction("All");
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult Edit(Guid id)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -71,7 +71,7 @@ namespace PublicTransport.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult Edit(Guid id, CardEditFormModel card)
         {
 
@@ -89,7 +89,7 @@ namespace PublicTransport.Controllers
             return RedirectToAction("All");
         }
 
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult Delete(Guid id)
         {
             var userId = this.users.IdByUser(this.User.Id());
@@ -106,7 +106,7 @@ namespace PublicTransport.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserConstants.Administrator)]
+        [Authorize(Roles = $"{UserConstants.Administrator},{UserConstants.CardsAndTikets}")]
         public IActionResult Delete(Guid id, CardDeleteModel card)
         {
 
@@ -124,6 +124,12 @@ namespace PublicTransport.Controllers
         [Authorize]
         public IActionResult Order(Guid id)
         {
+            if (this.User.IsInRole(UserConstants.Administrator) || this.User.IsInRole(UserConstants.Moderator) || this.User.IsInRole(UserConstants.PhotoModerator) || this.User.IsInRole(UserConstants.CardsAndTikets))
+            {
+                TempData[MessageConstants.ErrorMessage] = "Вие сте част от екипа на Тролейбусен транспорт - гр. Хасково и имате служебен абонамент";
+                return RedirectToAction("All");
+            }
+
             return View(new CardOrderFormModel
             {
                 CardId = id,
@@ -135,6 +141,12 @@ namespace PublicTransport.Controllers
         [Authorize]
         public IActionResult Order(Guid id, CardOrderFormModel card)
         {
+            if (this.User.IsInRole(UserConstants.Administrator) || this.User.IsInRole(UserConstants.Moderator) || this.User.IsInRole(UserConstants.PhotoModerator) || this.User.IsInRole(UserConstants.CardsAndTikets))
+            {
+                TempData[MessageConstants.ErrorMessage] = "Вие сте част от екипа на Тролейбусен транспорт - гр. Хасково и имате служебен абонамент";
+                return RedirectToAction("All");
+            }
+
             var ordered = this.cards.Order(
                 id,
                 this.User.Id(),

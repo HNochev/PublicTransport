@@ -33,7 +33,7 @@
                         </p>
                         <h4> Автор: <a asp-controller="User" asp-action="UserProfile" asp-route-id="@UserManager.Users.Where(x => x.UserName == Model.Author.UserName).Select(x => x.Id).First()" >@Model.Author.UserName</a></h4>
                     </div>
-                    @if (this.User.IsInRole(UserConstants.Administrator))
+                    @if (this.User.IsInRole(UserConstants.Administrator) || this.User.IsInRole(UserConstants.Moderator))
                     {
                         <a asp-controller="News" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right">Изтрий</a>
                         <a asp-controller="News" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning float-right">Редактирай</a>
@@ -65,7 +65,7 @@
                             <small>Автор: <cite title="Source Title"><a asp-controller="User" asp-action="UserProfile" asp-route-id="@UserManager.Users.Where(x => x.UserName == comment.User.UserName).Select(x => x.Id).First()" >@comment.User.UserName</a></cite></small>
                             <p>@comment.Content</p>
                             <small>Публикуван на: <cite title="Source Title">@comment.Date.ToString("f")</cite></small>
-                            @if (this.User.IsInRole(UserConstants.Administrator) || this.UserManager.GetUserId(User) == comment.User.Id)
+                            @if (this.User.IsInRole(UserConstants.Administrator) || this.UserManager.GetUserId(User) == comment.User.Id || this.User.IsInRole(UserConstants.Moderator))
                             {
                                 <a asp-controller="NewsComments" asp-action="Delete" asp-route-id="@comment.Id" class="btn btn-danger float-right">Изтрий</a>
                                 <a asp-controller="NewsComments" asp-action="Edit" asp-route-id="@comment.Id" class="btn btn-warning float-right">Редактирай</a>

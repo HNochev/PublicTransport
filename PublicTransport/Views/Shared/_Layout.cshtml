@@ -43,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
-                        @if (this.User.IsInRole(UserConstants.Administrator))
+                        @if (this.User.IsInRole(UserConstants.Administrator) || this.User.IsInRole(UserConstants.Moderator) || User.IsInRole(UserConstants.PhotoModerator) || User.IsInRole(UserConstants.CardsAndTikets))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>

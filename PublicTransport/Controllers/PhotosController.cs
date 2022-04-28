@@ -34,7 +34,7 @@ namespace PublicTransport.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator))
+            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator) && !User.IsInRole(UserConstants.PhotoModerator))
             {
                 return BadRequest();
             }
@@ -56,7 +56,7 @@ namespace PublicTransport.Controllers
         {
             var userId = this.users.IdByUser(this.User.Id());
 
-            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator))
+            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator) && !User.IsInRole(UserConstants.PhotoModerator))
             {
                 return BadRequest();
             }
@@ -110,7 +110,7 @@ namespace PublicTransport.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
-            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator))
+            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator) && !User.IsInRole(UserConstants.PhotoModerator))
             {
                 return BadRequest();
             }
@@ -132,7 +132,7 @@ namespace PublicTransport.Controllers
         {
             var userId = this.users.IdByUser(this.User.Id());
 
-            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator))
+            if (!this.photos.IsByUser(id, userId) && !User.IsInRole(UserConstants.Administrator) && !User.IsInRole(UserConstants.PhotoModerator))
             {
                 return BadRequest();
             }
