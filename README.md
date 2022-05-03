@@ -1,7 +1,7 @@
 # PublicTransport
  Public transport website built with ASP.NET Core for course at Software University
 # Overview
- Application made for clients and fans of Trolleybus Transport Haskovo, with actual schedules that have real time marking of where exactly the trolleybus is at the moment(on which stop). There is option for the fans to see timeline of every trolleybus we have owned with photos and information for it. Every user can upload photos of the vehicles. Of course there are news with up to date information for the transport in the town. And also a lot of other options.
+ Application made for clients and fans of Trolleybus Transport Haskovo, with actual schedules that have real time marking of where exactly the trolleybus is at the moment(on which stop). There is option for the fans to see timeline of every trolleybus we have owned with photos and information for it. Every user can upload photos of the vehicles. Of course there are news with up to date information for the transport in the town. The web application has multiple roles like Administrator, Moderator, Photo-Moderator and more. It has system to order a subscription card, recieve it and then have info in your profile for the remaining period of days of it.
 # Technologies Used
   - .NET Core 6
   - ASP .NET Core 6
@@ -46,10 +46,20 @@
 ![localhost_7087_Contacts_All](https://user-images.githubusercontent.com/81227461/163701862-c2152750-3959-4964-b7d2-3a0a3379c4dc.png)
 ## All PDF files for download
 ![localhost_7087_Downloads_All](https://user-images.githubusercontent.com/81227461/163701809-1f2e36bc-fb48-4a1a-91cb-dbf2ecca1c84.png)
-## Chat
+## SignalR Chat
 ![localhost_7087_User_Chat](https://user-images.githubusercontent.com/81227461/163701876-97eb345c-964e-4f6d-ab9d-59dac52d2486.png)
+## Cards and Tickets page for Administrator
+![localhost_7087_Cards_All](https://user-images.githubusercontent.com/81227461/166418934-743d6a79-cfd4-41a1-b31d-c16b5a5bb73c.png)
+## Cards and Tickets page for User
+![localhost_7087_Cards_All (1)](https://user-images.githubusercontent.com/81227461/166419021-d5d8db9f-0288-4ffb-bded-da2e24257250.png)
+## Order a Card
+![localhost_7087_Cards_Order_9a63c6a7-e7a3-4c3f-a4c2-f3582fb67073](https://user-images.githubusercontent.com/81227461/166419369-87325a3d-5a43-4d00-b987-9e6000c0e92d.png)
 ## User Profile
-![localhost_7087_User_UserProfile_424031b3-0587-46ca-ae9b-7d4994ee0821](https://user-images.githubusercontent.com/81227461/163701881-32c2a96e-6bcc-407a-989f-3d92e5411f90.png)
+![localhost_7087_User_UserProfile_424031b3-0587-46ca-ae9b-7d4994ee0821 (1)](https://user-images.githubusercontent.com/81227461/166419151-f6ce9477-eb82-4e6c-ac93-b45ffd9dc77a.png)
+## Subscription of user part of Trolleybus Transport Crew
+![localhost_7087_User_UserProfile_424031b3-0587-46ca-ae9b-7d4994ee0821 (3)](https://user-images.githubusercontent.com/81227461/166419159-e655dad9-a238-4e33-b8cb-d7c636e07dd0.png)
+## Subscription of basic user
+![localhost_7087_User_UserProfile_0e5e60eb-73f7-4ff3-b262-e37179a77873](https://user-images.githubusercontent.com/81227461/166419301-02e303e8-d560-4366-a3cd-9ef3394bb146.png)
 # Azure link
 https://haskovotrolleybus.azurewebsites.net/
 # License
