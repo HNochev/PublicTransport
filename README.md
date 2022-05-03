@@ -19,7 +19,7 @@
 # Database Schema
 ![TrolleybusWebsiteSchema](https://user-images.githubusercontent.com/81227461/163695794-d7d1bc56-0a95-43f2-8ec3-58b60b780a75.png)
 # Application Screenshots
-(All screenshots are made from Administrator profile)
+(Almost all screenshots are made from Administrator profile)
 ## Home page
 ![localhost_7087_ (1)](https://user-images.githubusercontent.com/81227461/163695976-daa45d4e-e028-4279-9ac7-90a543cb2e39.png)
 ## All News page
@@ -60,6 +60,12 @@
 ![localhost_7087_User_UserProfile_424031b3-0587-46ca-ae9b-7d4994ee0821 (3)](https://user-images.githubusercontent.com/81227461/166419159-e655dad9-a238-4e33-b8cb-d7c636e07dd0.png)
 ## Subscription of basic user
 ![localhost_7087_User_UserProfile_0e5e60eb-73f7-4ff3-b262-e37179a77873](https://user-images.githubusercontent.com/81227461/166419301-02e303e8-d560-4366-a3cd-9ef3394bb146.png)
+## Administrator options
+![localhost_7087_ (1)](https://user-images.githubusercontent.com/81227461/166420289-cb1ca980-3ca0-45cd-95ec-0a23c14bd041.png)
+## Administrator panel
+![localhost_7087_RoleManage_UserRole_ManageUsers](https://user-images.githubusercontent.com/81227461/166420132-471433a3-2116-499b-a99c-5e23cd111e18.png)
+## Roles control
+![localhost_7087_RoleManage_UserRole_Roles_0526cd85-3333-4cae-92a9-6adf7c897811](https://user-images.githubusercontent.com/81227461/166420138-d6522df5-0135-4d72-9e1a-f98965adf0d3.png)
 # Azure link
 https://haskovotrolleybus.azurewebsites.net/
 # License
