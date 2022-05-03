@@ -17,7 +17,7 @@
   - HTML 5
   - CSS
 # Database Schema
-![TrolleybusWebsiteSchema](https://user-images.githubusercontent.com/81227461/163695794-d7d1bc56-0a95-43f2-8ec3-58b60b780a75.png)
+![TrolleybusWebsiteMSSQLDiagram](https://user-images.githubusercontent.com/81227461/166421619-5aaf1e1b-97cf-431a-9b6f-bf6334cac01f.png)
 # Application Screenshots
 (Almost all screenshots are made from Administrator profile)
 ## Home page
